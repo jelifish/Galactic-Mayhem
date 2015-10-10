@@ -165,7 +165,6 @@ public class RightPlayerController : MonoBehaviour
 
 			float moveHorizontal = Input.GetAxis ("HorizontalPlayer");
 			float moveVertical = Input.GetAxis ("VerticalPlayer");
-		Debug.Log (moveVertical);
 			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 			this.GetComponent<Rigidbody>().velocity = movement * speed;
 			
