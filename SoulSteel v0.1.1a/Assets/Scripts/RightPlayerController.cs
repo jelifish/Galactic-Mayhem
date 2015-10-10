@@ -27,8 +27,9 @@ public class Load
 
 public class RightPlayerController : MonoBehaviour
 {
-	public float ChargeShotDelay;
-	public float FireStormDelay;
+	public float chargeShotDelay;
+	public float fireStormDelay;
+	public int fireStormDuration;
 	public float rotationSpeed;
 	public Load load;
 	bool loaded = false;
@@ -37,7 +38,7 @@ public class RightPlayerController : MonoBehaviour
 	public Vector3 attack1DefaultSize = new Vector3(1F,1F,1F);
 	public float attack1DefaultDrag = .1f;
 	public int chargeShotNum;
-	public GameObject fireball2;
+	//public GameObject fireball2;
 
 	public List<Load> loader = new List<Load>();
 
@@ -47,14 +48,19 @@ public class RightPlayerController : MonoBehaviour
 	public float fireRate = 0.5F;
 	private float nextFire = 0.0F;
 
+	private Animator anim;
+
 	public void shoot(Load load) 
 	{
 		Instantiate (load.projectile, shotSpawn.position + load.offset, shotSpawn.rotation * load.rotation);
 		fireballSound.GetComponent<AudioSource> ().Play ();
+		//anim.SetBool (0, true);
 		//return load;
 	}
 
-
+	void Awake(){
+		anim = GetComponent<Animator> ();
+	}
 
 	void Start(){
 
@@ -62,9 +68,9 @@ public class RightPlayerController : MonoBehaviour
 	fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
 	ready = true;
 	freezeChara = false;
+
    
 	}
-	int StrongFireTime = 150;
 
 	IEnumerator fireStorm()
 	{
@@ -72,7 +78,7 @@ public class RightPlayerController : MonoBehaviour
 		freezeChara = true;
 		ready = false;
 		while (true) {
-			for(int i=0;i<StrongFireTime;i++){
+			for(int i=0;i<fireStormDuration;i++){
 				fireball1.GetComponent<Rigidbody>().drag = 1.0f;
 				shoot(new Load (fireball1, Quaternion.identity));
 				yield return new WaitForSeconds (.003f);
@@ -82,7 +88,7 @@ public class RightPlayerController : MonoBehaviour
 		fireball1.transform.localScale = attack1DefaultSize;
 		fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
 		freezeChara = false;
-		yield return new WaitForSeconds (FireStormDelay);//cooldown before cast again
+		yield return new WaitForSeconds (fireStormDelay);//cooldown before cast again
 		ready = true;
 
 
@@ -119,7 +125,7 @@ public class RightPlayerController : MonoBehaviour
 			loaded = false;//empty magazine
 			
 			nextFire = Time.time + fireRate;
-		} else if (Input.GetButton ("Fire1") && Time.time > nextFire + ChargeShotDelay && loaded == false) {
+		} else if (Input.GetButton ("Fire1") && Time.time > nextFire + chargeShotDelay && loaded == false) {
 			nextFire = Time.time;
 			loaded = true;  //locked and loaded
 			//				loader.Add (new Load (fireball1, Quaternion.identity * new Quaternion (0f, 0.01f, 0f, 0.1f))); angular change left

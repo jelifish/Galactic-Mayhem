@@ -2,11 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-//[System.Serializable]
-//public class Boundary
-//{
-//	public float xMin, xMax, zMin, zMax;
-//}
 
 //var pos = Camera.main.WorldToScreenPoint(transform.position);
 
@@ -15,9 +10,6 @@ using System.Collections.Generic;
 //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward); 
 
  
-
-// Account for the camera's y-position
-
 
 public class LeftPlayerController : MonoBehaviour
 {
@@ -30,7 +22,7 @@ public class LeftPlayerController : MonoBehaviour
 	public Load load;
 	public bool loaded = false;
 	
-	public GameObject shot1;
+	public GameObject strike1;
 	public GameObject fireball2;
 	
 	public List<Load> loader = new List<Load>();
@@ -46,6 +38,7 @@ public class LeftPlayerController : MonoBehaviour
 	{
 		Instantiate (load.projectile, shotSpawn.position, shotSpawn.rotation * load.rotation);
 		//return load;
+		//Time.timeScale = .5f;
 		
 	}
 	
@@ -73,7 +66,7 @@ public class LeftPlayerController : MonoBehaviour
 
 		if (Input.GetButton ("Fire2") && Time.time > nextFire) {
 			if (loaded == false) {
-				loader.Add (new Load (shot1, Quaternion.identity));
+				loader.Add (new Load (strike1, Quaternion.identity));
 			}
 			
 			foreach (Load load in loader) {
@@ -87,19 +80,15 @@ public class LeftPlayerController : MonoBehaviour
 		} else if (Time.time > nextFire + 2 && loaded == false) {
 			nextFire = Time.time + fireRate;
 			loaded = true;  //locked and loaded
-			//loader.Add (new Load (shot1, Quaternion.identity * new Quaternion (0f, 0.01f, 0f, 0.01f)));
-			//loader.Add (new Load (shot1, Quaternion.identity * new Quaternion (0f, -0.01f, 0f, 0.01f)));
+			//loader.Add (new Load (strike1, Quaternion.identity * new Quaternion (0f, 0.01f, 0f, 0.01f)));
+			//loader.Add (new Load (strike1, Quaternion.identity * new Quaternion (0f, -0.01f, 0f, 0.01f)));
 
-			loader.Add (new Load (shot1, Quaternion.identity));
-			//loader.Add (new Load (shot1, Quaternion.identity));
-			//loader.Add (new Load (shot1, Quaternion.identity));
+			loader.Add (new Load (strike1, Quaternion.identity));
+			//loader.Add (new Load (strike1, Quaternion.identity));
+			//loader.Add (new Load (strike1, Quaternion.identity));
 
 
 
-			//loader.Add (new Load (shot1, Quaternion.identity));
-			//loader.Add (new Load (shot1, Quaternion.identity));
-			//loader.Add (new Load (shot1, Quaternion.identity));
-			//loader.Add (new Load (shot1, Quaternion.identity));
 		} 
 
 
