@@ -169,12 +169,12 @@ public class RightPlayerController : MonoBehaviour
 			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
 			this.GetComponent<Rigidbody>().velocity = movement * speed;
 			
-//			this.GetComponent<Rigidbody>().position = new Vector3 
-//				(
-//					Mathf.Clamp (this.GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax), 
-//					0.0f, 
-//					Mathf.Clamp (this.GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
-//					);
+			this.GetComponent<Rigidbody>().position = new Vector3 
+				(
+					Mathf.Clamp (this.GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax), 
+					0.0f, 
+					Mathf.Clamp (this.GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
+					);
 		this.GetComponent<Rigidbody>().position = new Vector3 (this.GetComponent<Rigidbody>().position.x, 0.0f, this.GetComponent<Rigidbody>().position.z);
 
 			//GetComponent<Rigidbody> ().position = GetComponent<Rigidbody> ().rotation * Quaternion.Euler (0.0f, 0f, moveHorizontal * rotationSpeed);
