@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 public class LeftPlayerController : MonoBehaviour
 {
-	private Vector2 mousePos;
+	//private Vector2 mousePos;
 	private Vector3 screenPos;
 
 	public float speed;
@@ -49,7 +49,7 @@ public class LeftPlayerController : MonoBehaviour
 		//load = new Load ();
 		//loader.Add (new Load (fireball1, Quaternion.identity));
 		nextFire = Time.time + fireRate;
-		mousePos = Input.mousePosition;
+		//mousePos = Input.mousePosition;
 
 		
 	}

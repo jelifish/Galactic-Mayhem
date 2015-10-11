@@ -1,13 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\RightPlayerController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EnemyBehavior.cs">
     <Files>
-      <File FileName="Assets\Scripts\CamMouse.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="12" Column="9" />
-      <File FileName="Assets\Scripts\Materials\CameraController.cs" Line="42" Column="109" />
-      <File FileName="Assets\Scripts\RightPlayerController.cs" Line="76" Column="48" />
-      <File FileName="Assets\Scripts\BoxColSetSectorSize.cs" Line="16" Column="6" />
-      <File FileName="Assets\Scripts\Mover.cs" Line="16" Column="6" />
+      <File FileName="Assets\Scripts\DestroyByContact.cs" Line="14" Column="4" />
+      <File FileName="Assets\Scripts\BoxColSetSectorSize.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Mover.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CameraController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Reflect.cs" Line="56" Column="3" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="38" Column="45" />
+      <File FileName="Assets\Scripts\EnemyBehavior.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

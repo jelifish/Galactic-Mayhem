@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class GameController : MonoBehaviour {
-	public GameObject enemy1;
+	public GameObject blueSquare1;
 	public Vector3 spawnValues;
 	public int hazardCount;
 	public float spawnWait;
@@ -33,7 +33,7 @@ public class GameController : MonoBehaviour {
 		for(int i=0; i<hazardCount; i++){
 
 			Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x),spawnValues.y,spawnValues.z);
-			Instantiate(enemy1, spawnPosition, Quaternion.identity);
+			Instantiate(blueSquare1, spawnPosition, Quaternion.Euler(90,0,0));//GameCamera.transform.rotation);
 
 			yield return new WaitForSeconds(spawnWait);
 		}
@@ -45,14 +45,14 @@ public class GameController : MonoBehaviour {
 	//	}
 
 
-
-		for(int i=0; i<hazardCount; i++){
-			
-			Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x),spawnValues.y,spawnValues.z);
-			Instantiate(enemy1, spawnPosition, Quaternion.identity);
-			
-			yield return new WaitForSeconds(spawnWait);
-		}
+//
+//		for(int i=0; i<hazardCount; i++){
+//			
+//			Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x),spawnValues.y,spawnValues.z);
+//			Instantiate(blueSquare1, spawnPosition, GameCamera.transform.rotation);
+//			
+//			yield return new WaitForSeconds(spawnWait);
+//		}
 }
 
 }

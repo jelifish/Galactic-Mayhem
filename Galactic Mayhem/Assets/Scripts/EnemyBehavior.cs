@@ -8,7 +8,7 @@ public class EnemyBehavior : MonoBehaviour {
 	public float tumble;
 	void Start () 
 	{
-		GetComponent<Rigidbody> ().velocity = transform.forward * -speed;
+		GetComponent<Rigidbody> ().velocity = new Vector3(Random.Range(-1f,1f),0,Random.Range(-1f,1f)) * speed *(Random.Range(-5f,5f));
 		GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere * tumble; 
 	}
 	public void reduceHealth(float damage){

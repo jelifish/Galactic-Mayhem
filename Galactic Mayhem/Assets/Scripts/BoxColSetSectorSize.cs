@@ -19,6 +19,7 @@ public class BoxColSetSectorSize : MonoBehaviour {
 
 	}
 
+
 	public float getTotalSectorSize(){
 		return totalSectorSize;
 	}

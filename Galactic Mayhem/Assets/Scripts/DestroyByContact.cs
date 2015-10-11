@@ -13,6 +13,7 @@ public class DestroyByContact : MonoBehaviour {
 			currentObject.reduceHealth (other.GetComponent<Rigidbody> ().velocity.magnitude);
 			Destroy (other.gameObject);
 			if (currentObject.getHealth () <= 0.0f) {
+				currentObject.GetComponent<OnDeath>().onDeath();
 				Destroy (gameObject);
 			
 			}
