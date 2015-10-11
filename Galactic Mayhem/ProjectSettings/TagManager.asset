@@ -45,12 +45,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Bottom
-    uniqueID: 443389167
+  - name: Middle
+    uniqueID: 1298319365
     locked: 0
   - name: Top
     uniqueID: 2783894093
     locked: 0
-  - name: Middle
-    uniqueID: 1298319365
+  - name: Bottom
+    uniqueID: 443389167
     locked: 0

@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
 	IEnumerator Wave1(){
 		for(int i=0; i<hazardCount; i++){
 
-			Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x),spawnValues.y,spawnValues.z);
+			Vector3 spawnPosition = new Vector3(Random.Range(-sectorSize/2, sectorSize/2),spawnValues.y,Random.Range(-sectorSize/2, sectorSize/2));
 			Instantiate(blueSquare1, spawnPosition, Quaternion.Euler(90,0,0));//GameCamera.transform.rotation);
 
 			yield return new WaitForSeconds(spawnWait);
