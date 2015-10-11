@@ -120,6 +120,7 @@ MonoBehaviour:
   age: 7
   speed: 4
   mirrorRate: 0
+  totalSectorSize: 0
   bullet: {fileID: 0}
 --- !u!136 &13634892
 CapsuleCollider:

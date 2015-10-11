@@ -54,12 +54,16 @@
      <Compile Include="Assets\Game Jam Menu Template\Scripts\SetAudioLevels.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\ShowPanels.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\StartOptions.cs" />
+     <Compile Include="Assets\MainMenuGameController.cs" />
+     <Compile Include="Assets\Scripts\BoxColSetSectorSize.cs" />
+     <Compile Include="Assets\Scripts\CamMouse.cs" />
      <Compile Include="Assets\Scripts\DestroyByContact.cs" />
      <Compile Include="Assets\Scripts\EnemyBehavior.cs" />
      <Compile Include="Assets\Scripts\ExplosiveForce.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\LeftPlayerController.cs" />
      <Compile Include="Assets\Scripts\LookAtMouse.cs" />
+     <Compile Include="Assets\Scripts\Materials\CameraController.cs" />
      <Compile Include="Assets\Scripts\Mover.cs" />
      <Compile Include="Assets\Scripts\RightPlayerController.cs" />
      <None Include="Assets\Game Jam Menu Template\Fonts\OpenSans\License!.txt" />

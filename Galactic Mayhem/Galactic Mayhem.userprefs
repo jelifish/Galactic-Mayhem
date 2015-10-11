@@ -1,6 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\RightPlayerController.cs">
+    <Files>
+      <File FileName="Assets\Scripts\CamMouse.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="12" Column="9" />
+      <File FileName="Assets\Scripts\Materials\CameraController.cs" Line="42" Column="109" />
+      <File FileName="Assets\Scripts\RightPlayerController.cs" Line="76" Column="48" />
+      <File FileName="Assets\Scripts\BoxColSetSectorSize.cs" Line="16" Column="6" />
+      <File FileName="Assets\Scripts\Mover.cs" Line="16" Column="6" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

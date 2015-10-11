@@ -6,15 +6,20 @@ public class Mover : MonoBehaviour {
 	public float speed;
 	private Transform originalObject;
 	public int mirrorRate = 0;
+	public float totalSectorSize;
 	void Start()
 	{
 		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
 		originalObject = GetComponent<Rigidbody> ().transform;
 		Destroy (gameObject, age);
+
+		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize (); //expensive call
 	}
 	float velo;
 	public GameObject bullet;
-
+	public void BuildSector(){
+		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize (); //expensive call
+	}
 	//
 	void OnCollisionEnter(Collision other)
 	{
@@ -38,14 +43,14 @@ public class Mover : MonoBehaviour {
 		}
 
 		//port object into other side of screen (horizontal)
-		if (Mathf.Abs (GetComponent<Rigidbody> ().position.x) >= 10.5) 
+		if (Mathf.Abs (GetComponent<Rigidbody> ().position.x) >= totalSectorSize/1.2) 
 		{
 			mirrorRate+=1;
 			GetComponent<Rigidbody>().position =  Vector3.Reflect(originalObject.position, Vector3.right);
 			originalObject =GetComponent<Rigidbody>().transform;
 		}
 		//port object into other side of screen (vertical)
-		if (Mathf.Abs (GetComponent<Rigidbody> ().position.z) >= 10.5) 
+		if (Mathf.Abs (GetComponent<Rigidbody> ().position.z) >= totalSectorSize/1.2) 
 		{
 			mirrorRate+=1;
 			GetComponent<Rigidbody>().position =  Vector3.Reflect(originalObject.position, Vector3.forward);

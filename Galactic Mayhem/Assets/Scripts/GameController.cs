@@ -8,7 +8,23 @@ public class GameController : MonoBehaviour {
 	public float spawnWait;
 	public long gold;
 
+
+	public float sectorSize;
+	public Camera GameCamera;
 	// Use this for initialization
+	public float getSectorSize(){
+		return sectorSize;
+	}
+	void Awake(){
+		generateSectorSize();
+	
+	
+	}
+	private void generateSectorSize(){
+		sectorSize = Random.Range (20.0F, 50.0F); //randomize sector size
+		sectorSize = Mathf.Round(sectorSize * 100f) / 100f; // truncate decimal precision
+
+	}
 	void Start () {
 		StartCoroutine(Wave1());
 

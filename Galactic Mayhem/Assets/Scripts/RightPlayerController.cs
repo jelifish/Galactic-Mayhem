@@ -15,6 +15,7 @@ public class Load
 	//GameObject projectile = Instantiate (loader, shotSpawn.position, shotSpawn.rotation) as GameObject;
 	public GameObject projectile;
 
+
 	public Load(GameObject projectile,Quaternion rotation)
 	{
 		this.projectile = projectile;
@@ -31,6 +32,8 @@ public class Load
 
 public class RightPlayerController : MonoBehaviour
 {
+	private GameObject GameController;
+
 	public float chargeShotDelay;
 	public float fireStormDelay;
 	public int fireStormDuration;
@@ -52,7 +55,7 @@ public class RightPlayerController : MonoBehaviour
 	public float fireRate = 0.5F;
 	private float nextFire = 0.0F;
 
-	private Animator anim;
+	//private Animator anim;
 
 	public void shoot(Load load) 
 	{
@@ -63,17 +66,26 @@ public class RightPlayerController : MonoBehaviour
 	}
 
 	void Awake(){
-		anim = GetComponent<Animator> ();
+	//	anim = GetComponent<Animator> ();
 	}
 
 	void Start(){
+	GameController = GameObject.Find ("GameController");
 
+
+	float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
 	fireball1.transform.localScale = attack1DefaultSize;
 	fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
 	ready = true;
 	freezeChara = false;
 
-   
+
+		boundary.xMin = - (sectorSize / 2);
+		boundary.xMax = (sectorSize / 2);
+		boundary.zMin = - (sectorSize / 2);
+		boundary.zMax = (sectorSize / 2);
+		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
+
 	}
 
 	IEnumerator fireStorm()
@@ -174,11 +186,14 @@ public class RightPlayerController : MonoBehaviour
 					0.0f, 
 					Mathf.Clamp (this.GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
 					);
+
+
+
 		this.GetComponent<Rigidbody>().position = new Vector3 (this.GetComponent<Rigidbody>().position.x, 0.0f, this.GetComponent<Rigidbody>().position.z);
 
 			//GetComponent<Rigidbody> ().position = GetComponent<Rigidbody> ().rotation * Quaternion.Euler (0.0f, 0f, moveHorizontal * rotationSpeed);
-		//}
-	}
+		}
+	//}
 
 	void LateUpdate(){
 
