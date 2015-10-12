@@ -123,6 +123,7 @@ MonoBehaviour:
   health: 20
   speed: 3
   tumble: 20
+  deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
 --- !u!114 &11437588
 MonoBehaviour:
   m_ObjectHideFlags: 1

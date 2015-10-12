@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\CamMouse.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\DestroyByContact.cs" />
+     <Compile Include="Assets\Scripts\Enemy Generation\BlockCreation.cs" />
+     <Compile Include="Assets\Scripts\Enemy Generation\CoreScript.cs" />
      <Compile Include="Assets\Scripts\EnemyBehavior.cs" />
      <Compile Include="Assets\Scripts\ExplosiveForce.cs" />
      <Compile Include="Assets\Scripts\FollowUV.cs" />
@@ -71,7 +73,9 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Reflect.cs" />
      <Compile Include="Assets\Scripts\ScrollUV.cs" />
+     <Compile Include="Assets\Scripts\Spawn.cs" />
      <Compile Include="Assets\Scripts\WeaponSystem.cs" />
+     <Compile Include="Assets\hitDetection.cs" />
      <None Include="Assets\Game Jam Menu Template\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Game Jam Menu Template\GameJamTemplateReadMe.txt" />
  <Reference Include="UnityEngine.UI">

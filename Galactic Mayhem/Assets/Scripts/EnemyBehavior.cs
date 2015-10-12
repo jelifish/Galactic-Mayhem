@@ -13,12 +13,23 @@ public class EnemyBehavior : MonoBehaviour {
 	}
 	public void reduceHealth(float damage){
 		this.damage = 15.0f + (damage + speed * 2f);
-		Debug.Log ("damage taken: " + this.damage);
+//		Debug.Log ("damage taken: " + this.damage);
 		health -= damage;
 	}
 	public float getHealth(){
 		return health;
 	}
+
+	public GameObject deathParticles;
+	
+	public void onDeath(){
+		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
+		//		ParticleSystem ps = deathParticles.GetComponent<ParticleSystem>();
+		//		ps.enableEmission = true;
+		//		ps.Play();
+//		Debug.Log ("should explooode");
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{
