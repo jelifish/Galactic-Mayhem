@@ -10,6 +10,6 @@ public class OnDeath : MonoBehaviour {
 //		ParticleSystem ps = deathParticles.GetComponent<ParticleSystem>();
 //		ps.enableEmission = true;
 //		ps.Play();
-		Debug.Log ("should explooode");
+		//Debug.Log ("should explooode");
 	}
 }

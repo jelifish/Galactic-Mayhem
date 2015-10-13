@@ -7,7 +7,7 @@ public class BoxColSetSectorSize : MonoBehaviour {
 	private float totalSectorSize; //size + padding
 	// Use this for initialization
 	public void setBounds(float size){  //size is the width AND the height of the boundary box
-		Debug.Log (size);
+//		Debug.Log (size);
 //		if (size < 35) {//size is at least 10
 //			this.GetComponent<BoxCollider>().size = new Vector3 ( 35,50,35);
 //		}

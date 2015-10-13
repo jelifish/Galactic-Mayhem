@@ -43,7 +43,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 696e1429d7563fb47875698038b7cd94, type: 2}
+  - {fileID: 2100000, guid: a90bdc06ba76f6d45a2e0b3bb6f45ad3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -102,22 +102,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0590b29d6f8ca074cbcc5a8ec20303f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 0
+  passes: 0
+  minValue: 0
+  regressionRate: 0
   block: {fileID: 138522, guid: df90682d85811414baa00f28a6e0a74d, type: 2}
-  hp: 100
-  level: 0
-  chance: 0
-  chanceDec: 0
-  blockInfo:
-    thisCoord:
-      x: 0
-      y: 0
-    parentCoord:
-      x: 0
-      y: 0
-    level: 0
-    chance: 0
-    chanceDec: 0
-    parent: {fileID: 0}
 --- !u!114 &11497892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,7 +125,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a90bdc06ba76f6d45a2e0b3bb6f45ad3, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 154058}
