@@ -1,19 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BoxColSetSectorSize.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemy Generation\CoreScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\Enemy Generation\CoreScript.cs" Line="124" Column="1" />
-      <File FileName="Assets\Scripts\OnDeath.cs" Line="13" Column="5" />
-      <File FileName="Assets\Scripts\Blaster.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Mover.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\CameraController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Reflect.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemyBehavior.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Enemy Generation\BlockCreation.cs" Line="9" Column="17" />
-      <File FileName="Assets\Scripts\Spawn.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BoxColSetSectorSize.cs" Line="10" Column="3" />
+      <File FileName="Assets\Scripts\ExteriorBlockCollision.cs" Line="50" Column="23" />
+      <File FileName="Assets\Scripts\Enemy Generation\CoreScript.cs" Line="165" Column="74" />
+      <File FileName="Assets\Scripts\ShieldScript.cs" Line="40" Column="42" />
+      <File FileName="Assets\Scripts\Reflect.cs" Line="21" Column="34" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="29" Column="5" />
+      <File FileName="Assets\Scripts\CameraController.cs" Line="33" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

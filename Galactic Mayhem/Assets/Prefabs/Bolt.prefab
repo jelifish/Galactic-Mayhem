@@ -98,7 +98,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 110276}
   serializedVersion: 2
-  m_Mass: .00100000005
+  m_Mass: 1
   m_Drag: .100000001
   m_AngularDrag: .0500000007
   m_UseGravity: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   age: 7
-  speed: 4
+  speed: 10
   mirrorRate: 0
   totalSectorSize: 0
   bullet: {fileID: 0}
@@ -144,7 +144,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: speed
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Constraints
@@ -172,7 +172,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Mass
-      value: .00100000005
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Drag

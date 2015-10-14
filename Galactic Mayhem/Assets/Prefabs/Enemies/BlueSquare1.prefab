@@ -159,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4662453e065b59549afedcb35315cd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mirrorRate: 0
   totalSectorSize: 0
   age: 2000
 --- !u!136 &13688084
