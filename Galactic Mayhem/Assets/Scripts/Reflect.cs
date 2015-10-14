@@ -2,23 +2,28 @@
 using System.Collections;
 
 public class Reflect : MonoBehaviour {
-	public int mirrorRate = 0;
 	private Transform originalObject;
 	public float totalSectorSize;
 	public float age;
 
-
+	IEnumerator getSectorSize(){
+		yield return new WaitForSeconds (.5f);
+		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize (); //expensive call
+	
+	
+	}
 	void Start()
 	{
 		originalObject = GetComponent<Rigidbody> ().transform;
-		Destroy (gameObject, age);
+		//Destroy (gameObject, age);
 		
-		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize (); //expensive call
+		totalSectorSize = Mathf.Infinity;
+		StartCoroutine (getSectorSize());
 	}
 	void Update()
 	{
 		  
-
+//		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize (); //expensive call
 		//remove glitched objects
 //		if (mirrorRate >= 5) {
 //			Destroy (gameObject);
@@ -45,9 +50,10 @@ public class Reflect : MonoBehaviour {
 
 		
 		//code to reflect off sides
+		Debug.Log (totalSectorSize);
+
 		if (GetComponent<Rigidbody> ().position.x >= totalSectorSize/1.2 || -GetComponent<Rigidbody> ().position.x >= totalSectorSize/1.2)        
 				{
-					mirrorRate+=1;
 			if(GetComponent<Rigidbody> ().position.x >=totalSectorSize/1.2){
 						GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.right* .5f);
 					}
@@ -61,7 +67,6 @@ public class Reflect : MonoBehaviour {
 
 		if (GetComponent<Rigidbody> ().position.z >= totalSectorSize/1.2 || -GetComponent<Rigidbody> ().position.z >= totalSectorSize/1.2)        
 		{
-			mirrorRate+=1;
 			if(GetComponent<Rigidbody> ().position.z >=totalSectorSize/1.2){
 				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.forward* .5f);
 			}

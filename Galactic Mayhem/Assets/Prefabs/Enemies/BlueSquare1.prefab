@@ -123,6 +123,7 @@ MonoBehaviour:
   health: 20
   speed: 3
   tumble: 20
+  deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
 --- !u!114 &11437588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,7 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4662453e065b59549afedcb35315cd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mirrorRate: 0
   totalSectorSize: 0
   age: 2000
 --- !u!136 &13688084
