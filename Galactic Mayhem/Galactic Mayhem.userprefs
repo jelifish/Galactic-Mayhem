@@ -1,13 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemy Generation\CoreScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BoxColSetSectorSize.cs">
     <Files>
-      <File FileName="Assets\Scripts\ExteriorBlockCollision.cs" Line="50" Column="23" />
-      <File FileName="Assets\Scripts\Enemy Generation\CoreScript.cs" Line="165" Column="74" />
-      <File FileName="Assets\Scripts\ShieldScript.cs" Line="40" Column="42" />
-      <File FileName="Assets\Scripts\Reflect.cs" Line="21" Column="34" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="29" Column="5" />
-      <File FileName="Assets\Scripts\CameraController.cs" Line="33" Column="1" />
+      <File FileName="Assets\Scripts\BoxColSetSectorSize.cs" Line="30" Column="87" />
+      <File FileName="Assets\Scripts\Enemy Generation\CoreScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

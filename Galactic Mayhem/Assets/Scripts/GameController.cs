@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour {
 
 	}
 	void Start () {
-		//StartCoroutine(Wave1());
+		StartCoroutine(Wave1());
 
 	}
 	IEnumerator Wave1(){

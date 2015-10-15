@@ -95,9 +95,9 @@ public class PlayerController : MonoBehaviour
 		ready = false;
 		while (true) {
 			for(int i=0;i<fireStormDuration;i++){
-				fireball1.GetComponent<Rigidbody>().drag = 1.0f;
-				shoot(new Load (fireball1, Quaternion.identity));
-				yield return new WaitForSeconds (.003f);
+				fireball1.GetComponent<Rigidbody>().drag = 50.0f;
+				loader.Add (new Load (fireball1, Quaternion.identity * Quaternion.Euler(0.0f, Random.Range(-20.0f, 20.0f), 0.0f) ));
+				yield return new WaitForSeconds (.001f);
 			}
 			break;
 		}

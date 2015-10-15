@@ -90,7 +90,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .5, y: .5, z: .5}
+  m_Size: {x: .899999976, y: .899999976, z: .899999976}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11402632
 MonoBehaviour:
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onState: {fileID: 2100000, guid: af5f23b9d503eb9488eca7b4b1ddd67d, type: 2}
   offState: {fileID: 0}
-  shield: 30
-  hull: 100
+  shield: 10
+  hull: 5
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
 --- !u!114 &11407666
 MonoBehaviour:
@@ -283,15 +283,15 @@ Prefab:
       objectReference: {fileID: 138522}
     - target: {fileID: 0}
       propertyPath: m_Size.x
-      value: .5
+      value: .899999976
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Size.y
-      value: .5
+      value: .899999976
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Size.z
-      value: .5
+      value: .899999976
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
@@ -399,11 +399,11 @@ Prefab:
       objectReference: {fileID: 2100000, guid: af5f23b9d503eb9488eca7b4b1ddd67d, type: 2}
     - target: {fileID: 0}
       propertyPath: shield
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hull
-      value: 100
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: deathParticles

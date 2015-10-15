@@ -26,7 +26,7 @@ public class CoreScript : MonoBehaviour {
 		int finalPass = Random.Range (passes - passes / 2, passes + passes / 2);
 		for (int j=0; j<=finalPass; j++) {
 			makePass ();
-			//displayArray ();
+			displayArray ();
 
 			if(Random.value>=.7f && finalPass - j >3)
 			{
@@ -128,8 +128,8 @@ public class CoreScript : MonoBehaviour {
 //		Vector3 origrot = transform.rotation;
 
 		//GetComponent<Rigidbody>()
-
-
+		//yield return new WaitForSeconds (5f);
+		//Time.timeScale = 0.0f;
 		int count = 0;
 		int a =0, b = 0;
 		yield return new WaitForSeconds (.5f);
@@ -140,13 +140,15 @@ public class CoreScript : MonoBehaviour {
 
 					child.transform.localScale = transform.lossyScale;
 					child.transform.parent = transform;
-//					float blockWidth = block.transform.lossyScale.x;
-					int adjust;
-					if (size%4 == 0){adjust = 0;}
+					float blockWidth = block.transform.lossyScale.x;
+					int adjust = 0;
+					if (size%4 == 0)
+					{adjust = 0;}
 					else {adjust = 1;}
-					float hexa = 0.5f;
-					//child.transform.position = new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((.5f * hexa)* (adjust)),0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); /// HEXA ON
-					child.transform.position = new Vector3(((a-(size/2)))*transform.lossyScale.x + this.transform.position.x ,0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); ////HEXA OFF
+
+					float hexa = .5f;
+					child.transform.position = new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); /// HEXA ON
+					//child.transform.position = new Vector3(((a-(size/2)))*transform.lossyScale.x + this.transform.position.x ,0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); ////HEXA OFF
 					//+(a%2)*hexa // this code is in there TWICE^^ and makes shifts that creates the hexagon tile look vs the square tiles. 
 					//one shift to shift separate rows, the other to shift the core. imo better looking than tile.
 					child.GetComponent<ConfigurableJoint> ().connectedBody = this.GetComponent<Rigidbody>();

@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0590b29d6f8ca074cbcc5a8ec20303f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 22
-  passes: 7
+  size: 100
+  passes: 30
   minValue: 70
   regressionRate: 1.33000004
   block: {fileID: 138522, guid: df90682d85811414baa00f28a6e0a74d, type: 2}
@@ -153,7 +153,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: size
-      value: 22
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
@@ -178,6 +178,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: passes
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
