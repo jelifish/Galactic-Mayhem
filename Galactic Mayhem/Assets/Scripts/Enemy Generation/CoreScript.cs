@@ -26,7 +26,7 @@ public class CoreScript : MonoBehaviour {
 		int finalPass = Random.Range (passes - passes / 2, passes + passes / 2);
 		for (int j=0; j<=finalPass; j++) {
 			makePass ();
-			displayArray ();
+			//displayArray ();
 
 			if(Random.value>=.7f && finalPass - j >3)
 			{
@@ -136,22 +136,24 @@ public class CoreScript : MonoBehaviour {
 		foreach(int[] i in arr){
 			foreach(int j in i){
 				if(j>0&&!((a==size/2)&&(b==size/2))){
-				GameObject child = (GameObject)Instantiate(block, this.transform.position, this.transform.rotation);
+					float adjust = 0;
+					if (size%4 == 0)
+					{adjust = 0;}
+					else {adjust = .5f;}
+					float hexa = .5f;
+					GameObject child = (GameObject)Instantiate(block, new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),Random.Range(-.1f,.1f),((size/2 - b))*transform.lossyScale.x + this.transform.position.z), this.transform.rotation);
 
 					child.transform.localScale = transform.lossyScale;
 					child.transform.parent = transform;
 					float blockWidth = block.transform.lossyScale.x;
-					int adjust = 0;
-					if (size%4 == 0)
-					{adjust = 0;}
-					else {adjust = 1;}
 
-					float hexa = .5f;
-					child.transform.position = new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); /// HEXA ON
+
+
+					//child.transform.position = new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); /// HEXA ON
 					//child.transform.position = new Vector3(((a-(size/2)))*transform.lossyScale.x + this.transform.position.x ,0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); ////HEXA OFF
 					//+(a%2)*hexa // this code is in there TWICE^^ and makes shifts that creates the hexagon tile look vs the square tiles. 
 					//one shift to shift separate rows, the other to shift the core. imo better looking than tile.
-					child.GetComponent<ConfigurableJoint> ().connectedBody = this.GetComponent<Rigidbody>();
+					//child.GetComponent<ConfigurableJoint> ().connectedBody = this.GetComponent<Rigidbody>();
 					yield return new WaitForSeconds (.02f);
 				}
 
@@ -164,7 +166,8 @@ public class CoreScript : MonoBehaviour {
 			b=0;
 			a++;
 		}
-		GetComponent<Rigidbody> ().AddTorque (new Vector3 (0, Random.Range (-100, 100), 0), ForceMode.Impulse);
+		GetComponent<Rigidbody> ().AddForce (this.transform.right * 200);
+		GetComponent<Rigidbody> ().AddTorque (new Vector3 (0, Random.Range (-.5f, .5f), 0), ForceMode.Impulse);
 	}
 //
 //	IEnumerator fireStorm()

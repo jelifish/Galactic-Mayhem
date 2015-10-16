@@ -41,24 +41,31 @@ public class ExteriorBlockCollision : MonoBehaviour {
 
 	}
 	private int selfInflicted;
-	void OnCollisionEnter(Collision other)
+//	void OnCollisionEnter(Collision other)
+//	{
+//		if (other.gameObject.tag == "Enemy") {
+//			selfInflicted++;
+//				if(selfInflicted>5)
+//			{Destroy (this.gameObject);}
+//			return;
+//		
+//		}
+//			Destroy (other.gameObject);
+//			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
+//	}
+	void OnTriggerEnter(Collider other)
 	{
-//		Debug.Log ("hit");
-
 		if (other.gameObject.tag == "Enemy") {
-			selfInflicted++;
-				if(selfInflicted>5)
-			{Destroy (this.gameObject);}
+//			selfInflicted++;
+//			if(selfInflicted>5)
+//			{Destroy (this.gameObject);}
 			return;
-		
-		}
+			
+		} else {
 			Destroy (other.gameObject);
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-		
-
-
+		}
 	}
-	
 	public GameObject deathParticles;
 	
 	public void onDeath(){

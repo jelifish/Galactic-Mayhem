@@ -50,7 +50,7 @@ public class Reflect : MonoBehaviour {
 
 		
 		//code to reflect off sides
-		Debug.Log (totalSectorSize);
+//		Debug.Log (totalSectorSize);
 
 		if (GetComponent<Rigidbody> ().position.x >= totalSectorSize/1.2 || -GetComponent<Rigidbody> ().position.x >= totalSectorSize/1.2)        
 				{
