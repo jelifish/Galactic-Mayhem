@@ -14,6 +14,7 @@ GameObject:
   - 114: {fileID: 11403966}
   - 114: {fileID: 11464806}
   - 114: {fileID: 11497688}
+  - 114: {fileID: 11435080}
   m_Layer: 0
   m_Name: BlueSquare1
   m_TagString: Enemy
@@ -124,6 +125,22 @@ MonoBehaviour:
   speed: 3
   tumble: 20
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
+--- !u!114 &11435080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 805ebb87ed7a2d440843ca233d2278bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aim: {fileID: 0}
+  load:
+    offset: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    projectile: {fileID: 0}
 --- !u!114 &11437588
 MonoBehaviour:
   m_ObjectHideFlags: 1

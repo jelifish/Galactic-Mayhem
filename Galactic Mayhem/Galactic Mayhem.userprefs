@@ -1,9 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BoxColSetSectorSize.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemy Generation\CoreScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\BoxColSetSectorSize.cs" Line="30" Column="87" />
-      <File FileName="Assets\Scripts\Enemy Generation\CoreScript.cs" Line="1" Column="1" />
+      <File FileName="Galactic Mayhem.sln" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Enemy Generation\ExteriorBlockCollision.cs" Line="16" Column="3" />
+      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="66" Column="3" />
+      <File FileName="Assets\Scripts\Enemy Generation\CoreScript.cs" Line="181" Column="50" />
+      <File FileName="Assets\Scripts\Enemy Weapons\BlasterModule.cs" Line="10" Column="91" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
