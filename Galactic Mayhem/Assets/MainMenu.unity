@@ -1012,6 +1012,14 @@ Prefab:
       propertyPath: west
       value: 
       objectReference: {fileID: 1381615404}
+    - target: {fileID: 11423634, guid: bb49abc813281a447b0cb4b68b3d39e7, type: 2}
+      propertyPath: Margin.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11423634, guid: bb49abc813281a447b0cb4b68b3d39e7, type: 2}
+      propertyPath: Margin.z
+      value: -5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb49abc813281a447b0cb4b68b3d39e7, type: 2}
   m_IsPrefabParent: 0

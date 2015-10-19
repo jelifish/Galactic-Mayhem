@@ -9,7 +9,7 @@ public class Reflect : MonoBehaviour {
 	IEnumerator getSectorSize(){
 		yield return new WaitForSeconds (.5f);
 		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize (); //expensive call
-	
+		totalSectorSize = totalSectorSize / 1.95f;
 	
 	}
 	void Start()
@@ -52,12 +52,13 @@ public class Reflect : MonoBehaviour {
 		//code to reflect off sides
 //		Debug.Log (totalSectorSize);
 
-		if (GetComponent<Rigidbody> ().position.x >= totalSectorSize/1.2 || -GetComponent<Rigidbody> ().position.x >= totalSectorSize/1.2)        
+
+		if (GetComponent<Rigidbody> ().position.x >= totalSectorSize || -GetComponent<Rigidbody> ().position.x >= totalSectorSize)        
 				{
-			if(GetComponent<Rigidbody> ().position.x >=totalSectorSize/1.2){
+			if(GetComponent<Rigidbody> ().position.x >=totalSectorSize){
 						GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.right* .5f);
 					}
-			else if(GetComponent<Rigidbody> ().position.x <=totalSectorSize/1.2){
+			else if(GetComponent<Rigidbody> ().position.x <=totalSectorSize){
 						GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.left* .5f);
 					}
 					GetComponent<Rigidbody>().velocity =  Vector3.Reflect(originalObject.GetComponent<Rigidbody>().velocity, Vector3.right);
@@ -65,12 +66,12 @@ public class Reflect : MonoBehaviour {
 				}
 
 
-		if (GetComponent<Rigidbody> ().position.z >= totalSectorSize/1.2 || -GetComponent<Rigidbody> ().position.z >= totalSectorSize/1.2)        
+		if (GetComponent<Rigidbody> ().position.z >= totalSectorSize || -GetComponent<Rigidbody> ().position.z >= totalSectorSize)        
 		{
-			if(GetComponent<Rigidbody> ().position.z >=totalSectorSize/1.2){
+			if(GetComponent<Rigidbody> ().position.z >=totalSectorSize){
 				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.forward* .5f);
 			}
-			else if(GetComponent<Rigidbody> ().position.z <=totalSectorSize/1.2){
+			else if(GetComponent<Rigidbody> ().position.z <=totalSectorSize){
 				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.back* .5f);
 			}
 			GetComponent<Rigidbody>().velocity =  Vector3.Reflect(originalObject.GetComponent<Rigidbody>().velocity, Vector3.forward);

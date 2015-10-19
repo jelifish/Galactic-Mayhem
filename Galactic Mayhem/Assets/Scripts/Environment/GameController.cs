@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour {
 	
 	}
 	private void generateSectorSize(){
-		sectorSize = Random.Range (20.0F, 50.0F); //randomize sector size
+		sectorSize = Random.Range (30.0F, 40.0F); //randomize sector size
 		sectorSize = Mathf.Round(sectorSize * 100f) / 100f; // truncate decimal precision
 
 	}
@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour {
 		}
 	
 	//bool respawns;
-	//IEnumerator CheckForEnemies(){
+	//IEnumerator CheckForEnemies(){ // should be double check
 		//if (respawns == null)
 		//	respawns = GameObject.FindGameObjectsWithTag ("Enemy");
 	//	}

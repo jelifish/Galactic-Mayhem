@@ -55,7 +55,7 @@ Transform:
   m_GameObject: {fileID: 110276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 427018}
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ Rigidbody:
   m_GameObject: {fileID: 110276}
   serializedVersion: 2
   m_Mass: .100000001
-  m_Drag: .100000001
+  m_Drag: 50
   m_AngularDrag: .0500000007
   m_UseGravity: 0
   m_IsKinematic: 0

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BoxColSetSectorSize : MonoBehaviour {
 	public BoxCollider SectorSize;
-	public float padding;
+	public float padding =0;
 	public LineRenderer north;
 	public LineRenderer south;
 	public LineRenderer east;
