@@ -27,15 +27,15 @@ public class CameraController : MonoBehaviour {
 		//_min = Bounds.bounds.min; //////////// DEBUG CODE REMOVE IN FINAL VERSION
 		//_max = Bounds.bounds.max; ////////////DEBUG CODE REMOVE IN FINAL VERSION
 		float x = transform.position.x;
-		float z = transform.position.z;
+		float y = transform.position.y;
 
 		if (IsFollowing()&& Player != null) {
 		if (Mathf.Abs(x-Player.position.x) > Margin.x)
 			{x = Mathf.Lerp(x,Player.position.x, Smoothing.x * Time.deltaTime);
 			}
 
-			if (Mathf.Abs(z-Player.position.z) > Margin.z)
-			{z = Mathf.Lerp(z,Player.position.z, Smoothing.z * Time.deltaTime);
+			if (Mathf.Abs(y-Player.position.y) > Margin.y)
+			{y = Mathf.Lerp(y,Player.position.y, Smoothing.y * Time.deltaTime);
 			}
 		}
 
@@ -43,7 +43,7 @@ public class CameraController : MonoBehaviour {
 		//x = Mathf.Clamp (x, _min.x + cameraHalfWidth, _max.x - cameraHalfWidth);
 		//z = Mathf.Clamp (z, _min.z + GetComponent<Camera>().orthographicSize, _max.z - GetComponent<Camera>().orthographicSize);
 
-		transform.position = new Vector3 (x, transform.position.y, z);
+		transform.position = new Vector3 (x, y, transform.position.z );
 
 
 	}

@@ -145,7 +145,7 @@ public class CoreScript : MonoBehaviour {
 					{adjust = 0;}
 					else {adjust = .5f;}
 					float hexa = .5f;
-					GameObject child = (GameObject)Instantiate(block, new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),Random.Range(-.1f,.1f),((size/2 - b))*transform.lossyScale.x + this.transform.position.z), this.transform.rotation);
+					GameObject child = (GameObject)Instantiate(block, new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),((size/2 - b))*transform.lossyScale.y + this.transform.position.y ,Random.Range(-.1f,.1f)), this.transform.rotation);
 
 					child.transform.localScale = transform.lossyScale;
 					child.transform.parent = transform;
@@ -174,14 +174,14 @@ public class CoreScript : MonoBehaviour {
 			a++;
 		}
 		GetComponent<Rigidbody> ().AddForce (Random.insideUnitSphere* 200);
-		GetComponent<Rigidbody> ().AddTorque (new Vector3 (0, Random.Range (-.5f, .5f), 0), ForceMode.Impulse);
+		GetComponent<Rigidbody> ().AddTorque (new Vector3 (0, 0, Random.Range (-.5f, .5f)), ForceMode.Impulse);
 	}
 	IEnumerator move(){
 		while (true) {
 			yield return new WaitForSeconds( Random.Range (1F,5F));
 
 			GetComponent<Rigidbody> ().AddForce (Random.insideUnitSphere* Random.Range (50,300));
-			GetComponent<Rigidbody>().velocity.Set(5,0,5);
+			GetComponent<Rigidbody>().velocity.Set(5,5,0);
 			
 		}
 	}

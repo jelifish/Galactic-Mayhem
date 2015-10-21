@@ -18,12 +18,15 @@ public class WeaponSystem : MonoBehaviour {
 		//public bool semiAuto;
 		//public float semiAutoTime; //pause time between attacks
 		
-		public int specialAtkType; //0.fire fast and strong, 1.spray short ranged
+		public int specialAtkType; //0.fire fast and strong, 1.spray short ranged, 2.piercing snipe, 3.Strike
 	}
 
 	public BlasterAttributes generateBlaster(){
 		return null;
 	}
+
+
+
 
 
 }

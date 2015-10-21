@@ -15,7 +15,7 @@ public class RotateTowardsPlayer : MonoBehaviour {
 			//Vector3 rotationTarget = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			//var _lookRotation = Quaternion.LookRotation ( Vector3.forward, rotationTarget-transform.position);
 
-			var targetRotation = Quaternion.LookRotation (player.transform.position - transform.position, Vector3.down);
+			var targetRotation = Quaternion.LookRotation (player.transform.position - transform.position, Vector3.up);
 			transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 2.0f);
 
 			//transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed);

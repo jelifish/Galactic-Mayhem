@@ -46,34 +46,21 @@ public class CoreBlockCollision : MonoBehaviour {
 		
 	}
 	private int selfInflicted;
-	//	void OnCollisionEnter(Collision other)
-	//	{
-	//		if (other.gameObject.tag == "Enemy") {
-	//			selfInflicted++;
-	//				if(selfInflicted>5)
-	//			{Destroy (this.gameObject);}
-	//			return;
-	//		
-	//		}
-	//			Destroy (other.gameObject);
-	//			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-	//	}
+
+
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Enemy") {
-			//			selfInflicted++;
-			//			if(selfInflicted>5)
-			//			{Destroy (this.gameObject);}
 			return;
 			
 		} else if(other.gameObject.tag == "EnemyBullet"){
 			
 		}else if(other.gameObject.tag == "Player"){
 			other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
-			takeDamage (9999999f);
+			takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
 		}else if(other.gameObject.tag == "Bullet"){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-			
+			Destroy(other.gameObject);
 		}
 	}
 	public GameObject deathParticles;

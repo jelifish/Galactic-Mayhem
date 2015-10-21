@@ -66,15 +66,15 @@ public class Reflect : MonoBehaviour {
 				}
 
 
-		if (GetComponent<Rigidbody> ().position.z >= totalSectorSize || -GetComponent<Rigidbody> ().position.z >= totalSectorSize)        
+		if (GetComponent<Rigidbody> ().position.y >= totalSectorSize || -GetComponent<Rigidbody> ().position.y >= totalSectorSize)        
 		{
-			if(GetComponent<Rigidbody> ().position.z >=totalSectorSize){
-				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.forward* .5f);
+			if(GetComponent<Rigidbody> ().position.y >=totalSectorSize){
+				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.up* .5f);
 			}
-			else if(GetComponent<Rigidbody> ().position.z <=totalSectorSize){
-				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.back* .5f);
+			else if(GetComponent<Rigidbody> ().position.y <=totalSectorSize){
+				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.down* .5f);
 			}
-			GetComponent<Rigidbody>().velocity =  Vector3.Reflect(originalObject.GetComponent<Rigidbody>().velocity, Vector3.forward);
+			GetComponent<Rigidbody>().velocity =  Vector3.Reflect(originalObject.GetComponent<Rigidbody>().velocity, Vector3.up);
 			originalObject =GetComponent<Rigidbody>().transform;
 		}
 		

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Boundary
 {
-	public float xMin, xMax, zMin, zMax;
+	public float xMin, xMax, yMin, yMax;
 }
 
 [System.Serializable]
@@ -32,6 +32,15 @@ public class Load
 
 public class PlayerController : MonoBehaviour
 {
+	public GameObject weaponSlot;
+	private List<GameObject> weaponSlots = new List<GameObject>();
+	public int numOfWeaponSlots;
+
+	
+
+
+
+
 	private GameObject GameController;
 
 	public float playerHull;
@@ -71,9 +80,6 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-
-
-
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Enemy") {
@@ -85,7 +91,6 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-
 	public GameObject deathParticles;
 	public void onDeath(){
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation); //do death particles
@@ -95,10 +100,6 @@ public class PlayerController : MonoBehaviour
 	{
 		Destroy(this.gameObject); ////start game over screen
 	}
-
-
-
-
 
 	public float chargeShotDelay;
 	public float fireStormDelay;
@@ -120,6 +121,7 @@ public class PlayerController : MonoBehaviour
 	
 	public float fireRate = 0.5F;
 	private float nextFire = 0.0F;
+	private bool channeling;
 
 	//private Animator anim;
 
@@ -136,42 +138,60 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void Start(){
+
+
+
 	GameController = GameObject.Find ("GameController");
 		playerMaxHull = playerHull;
 		playerMaxShield = playerShield;
+
 
 
 	float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
 	fireball1.transform.localScale = attack1DefaultSize;
 	fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
 	ready = true;
-	//freezeChara = false;
+	channeling = false;
 
 
 		boundary.xMin = - (sectorSize / 2);
 		boundary.xMax = (sectorSize / 2);
-		boundary.zMin = - (sectorSize / 2);
-		boundary.zMax = (sectorSize / 2);
+		boundary.yMin = - (sectorSize / 2);
+		boundary.yMax = (sectorSize / 2);
 		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
+
+		for (int i=0; i<numOfWeaponSlots; i++) {
+			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, transform.position, transform.rotation);
+			tempSlot.transform.parent = this.transform;
+			weaponSlots.Add(tempSlot);
+		}
+		shotSpawn = weaponSlots [0].transform;  
+
 
 	}
 
 	IEnumerator fireStorm()
 	{
 		fireball1.transform.localScale = new Vector3(0.5F,0.5F,0.5F);
-		//freezeChara = true;
+		channeling = true;
 		ready = false;
 		while (true) {
 			for(int i=0;i<fireStormDuration;i++){
-				fireball1.GetComponent<Rigidbody>().drag = 50.0f;
-				loader.Add (new Load (fireball1, Quaternion.identity * Quaternion.Euler(0.0f, Random.Range(-20.0f, 20.0f), 0.0f) ));
-				yield return new WaitForSeconds (.001f);
+				fireball1.GetComponent<Rigidbody>().drag = 3.0f;
+				
+				loader.Add (new Load (fireball1, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(-20.0f, 20.0f)) ));
+				foreach (Load load in loader) {
+					shoot (load); //shoots and removes the loaded object
+					
+				}
+				yield return new WaitForSeconds (.01f);
 			}
 			break;
 		}
 		fireball1.transform.localScale = attack1DefaultSize;
 		fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
-		//freezeChara = false;
+		channeling = false;
+		fireball1.transform.localScale = new Vector3(1F,1F,1F);
 		yield return new WaitForSeconds (fireStormDelay);//cooldown before cast again
 		ready = true;
 
@@ -197,7 +217,7 @@ public class PlayerController : MonoBehaviour
 				
 				fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
 				
-				loader.Add (new Load (fireball1, Quaternion.identity * Quaternion.Euler(0.0f, Random.Range(-20.0f, 20.0f), 0.0f) ));
+				loader.Add (new Load (fireball1, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(-20.0f, 20.0f)) ));
 				
 			}
 			
@@ -209,7 +229,7 @@ public class PlayerController : MonoBehaviour
 			loaded = false;//empty magazine
 			
 			nextFire = Time.time + fireRate;
-		} else if (Input.GetButton ("Fire1") && Time.time > nextFire + chargeShotDelay && loaded == false) {
+		} else if (Input.GetButton ("Fire1") && Time.time > nextFire + chargeShotDelay && !loaded) {
 			nextFire = Time.time;
 			loaded = true;  //locked and loaded
 			//				loader.Add (new Load (fireball1, Quaternion.identity * new Quaternion (0f, 0.01f, 0f, 0.1f))); angular change left
@@ -218,7 +238,7 @@ public class PlayerController : MonoBehaviour
 				loader.Add (new Load (fireball1, Quaternion.identity));
 			}
 			
-		} else if (Input.GetButton ("Fire1") && Time.time > nextFire && loaded == true) {
+		} else if (Input.GetButton ("Fire1") && Time.time > nextFire && loaded) {
 			nextFire = Time.time + fireRate;
 			shoot (new Load (fireball1, Quaternion.identity));
 		}
@@ -245,19 +265,19 @@ public class PlayerController : MonoBehaviour
 
 			float moveHorizontal = Input.GetAxis ("HorizontalPlayer");
 			float moveVertical = Input.GetAxis ("VerticalPlayer");
-			Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+		Vector3 movement = new Vector3 (moveHorizontal,moveVertical, 0.0f);
 			this.GetComponent<Rigidbody>().velocity = movement * speed;
 			
 			this.GetComponent<Rigidbody>().position = new Vector3 
 				(
 					Mathf.Clamp (this.GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax), 
-					0.0f, 
-					Mathf.Clamp (this.GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
+				    Mathf.Clamp (this.GetComponent<Rigidbody>().position.y, boundary.yMin, boundary.yMax), 
+					0.0f//Mathf.Clamp (this.GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
 					);
 
 
 
-		this.GetComponent<Rigidbody>().position = new Vector3 (this.GetComponent<Rigidbody>().position.x, 0.0f, this.GetComponent<Rigidbody>().position.z);
+		this.GetComponent<Rigidbody>().position = new Vector3 (this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y,0.0f);
 
 			//GetComponent<Rigidbody> ().position = GetComponent<Rigidbody> ().rotation * Quaternion.Euler (0.0f, 0f, moveHorizontal * rotationSpeed);
 		}
