@@ -7,9 +7,11 @@ public class CoreBlockCollision : MonoBehaviour {
 	float maxShield;
 	public float shield;
 	public float hull;
+	public float maxHull;
 	
 	void Start(){
 		maxShield = shield;
+		maxHull = hull;
 		
 	}
 	
@@ -21,6 +23,9 @@ public class CoreBlockCollision : MonoBehaviour {
 	
 	public float getShield(){
 		return shield;
+	}
+	public float getHull(){
+		return hull;
 	}
 	public void takeDamage(float damage){
 		shield -= damage;
@@ -61,9 +66,14 @@ public class CoreBlockCollision : MonoBehaviour {
 			//			{Destroy (this.gameObject);}
 			return;
 			
-		} else {
-			Destroy (other.gameObject);
+		} else if(other.gameObject.tag == "EnemyBullet"){
+			
+		}else if(other.gameObject.tag == "Player"){
+			other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
+			takeDamage (9999999f);
+		}else if(other.gameObject.tag == "Bullet"){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
+			
 		}
 	}
 	public GameObject deathParticles;
@@ -72,7 +82,9 @@ public class CoreBlockCollision : MonoBehaviour {
 
 		foreach (Transform child in this.transform)
 		{
-			child.GetComponent<ExteriorBlockCollision>().onDeath();
+			if(child.GetComponent<ExteriorBlockCollision>()!= null)
+			{child.GetComponent<ExteriorBlockCollision>().onDeath();
+			}
 		}
 
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);

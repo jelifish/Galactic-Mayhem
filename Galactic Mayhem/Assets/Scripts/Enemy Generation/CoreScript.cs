@@ -125,7 +125,7 @@ public class CoreScript : MonoBehaviour {
 	}
 
 
-
+	public GameObject blaster;
 	private IEnumerator build()
 	{
 //		Vector3 origpos = transform.position;
@@ -149,8 +149,11 @@ public class CoreScript : MonoBehaviour {
 
 					child.transform.localScale = transform.lossyScale;
 					child.transform.parent = transform;
-//					float blockWidth = block.transform.lossyScale.x;
-
+					if(Random.Range(0,100)>=90){
+						GameObject thisBlaster = (GameObject)Instantiate(blaster, child.transform.position, this.transform.rotation);
+						thisBlaster.transform.localScale = child.transform.lossyScale;
+						thisBlaster.transform.parent = child.transform;//child;
+					}
 
 
 					//child.transform.position = new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); /// HEXA ON

@@ -414,11 +414,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22412784, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 22491550, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11490476, guid: 45616935e4fe10f48b62da1347801a16, type: 2}
       propertyPath: m_Color.a
@@ -1019,6 +1019,10 @@ Prefab:
     - target: {fileID: 11423634, guid: bb49abc813281a447b0cb4b68b3d39e7, type: 2}
       propertyPath: Margin.z
       value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462584, guid: bb49abc813281a447b0cb4b68b3d39e7, type: 2}
+      propertyPath: hazardCount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb49abc813281a447b0cb4b68b3d39e7, type: 2}

@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Enemy Generation\EnemyBehavior.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\ExteriorBlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\OnDeath.cs" />
+     <Compile Include="Assets\Scripts\Enemy Generation\RotateTowardsPlayer.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\ShieldScript.cs" />
      <Compile Include="Assets\Scripts\Enemy Weapons\BlasterModule.cs" />
      <Compile Include="Assets\Scripts\Environment\BoxColSetSectorSize.cs" />

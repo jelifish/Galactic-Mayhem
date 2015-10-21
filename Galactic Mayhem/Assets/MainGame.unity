@@ -364,7 +364,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 317988304}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: WeaponSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -779,7 +779,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 485780642}
   - 82: {fileID: 485780641}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Fireball Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1127,7 +1127,7 @@ GameObject:
   - 198: {fileID: 1056089770}
   - 199: {fileID: 1056089769}
   - 96: {fileID: 1056089768}
-  m_Layer: 13
+  m_Layer: 11
   m_Name: PlayerTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2424,7 +2424,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1346428017}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Shot Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2558,7 +2558,19 @@ Prefab:
       objectReference: {fileID: 175990, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
     - target: {fileID: 406822, guid: d9938cb4044209a4c8004bed5738ff10, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11401952, guid: d9938cb4044209a4c8004bed5738ff10, type: 2}
+      propertyPath: shield
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11401952, guid: d9938cb4044209a4c8004bed5738ff10, type: 2}
+      propertyPath: hull
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 406822, guid: d9938cb4044209a4c8004bed5738ff10, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 9.73999977
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9938cb4044209a4c8004bed5738ff10, type: 2}
@@ -2996,9 +3008,9 @@ GameObject:
   - 114: {fileID: 1869457698}
   - 114: {fileID: 1869457697}
   - 65: {fileID: 1869457696}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3010,7 +3022,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1869457693}
   m_LocalRotation: {x: .653281569, y: .270598084, z: -.270598114, w: .65328145}
-  m_LocalPosition: {x: .300000012, y: 0, z: 2.43000007}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 1346428017}
@@ -3027,7 +3039,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1869457693}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .5, y: .5, z: .5}
@@ -3059,6 +3071,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c09c55579322c49a832f940b81ea17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHull: 300
+  playerShield: 100
+  deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
   chargeShotDelay: 2
   fireStormDelay: 5
   fireStormDuration: 150

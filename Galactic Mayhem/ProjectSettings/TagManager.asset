@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Strike
   - TriggeredBullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -20,12 +21,12 @@ TagManager:
   - Ignore
   - Ethereal
   - Physical
-  - 
+  - Player
   - 
   - Background
   - 
   - Enemy
-  - 
+  - EnemyEthereal
   - 
   - 
   - 

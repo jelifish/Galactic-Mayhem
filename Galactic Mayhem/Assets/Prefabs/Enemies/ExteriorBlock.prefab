@@ -1,19 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &168522
+--- !u!1 &101974
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 420022}
-  - 33: {fileID: 3303508}
-  - 23: {fileID: 2301020}
-  - 54: {fileID: 5433822}
-  - 65: {fileID: 6541050}
-  - 114: {fileID: 11466926}
-  - 114: {fileID: 11491582}
+  - 4: {fileID: 458638}
+  - 33: {fileID: 3358714}
+  - 23: {fileID: 2346292}
+  - 54: {fileID: 5488972}
+  - 65: {fileID: 6510586}
+  - 114: {fileID: 11489974}
+  - 114: {fileID: 11486884}
   m_Layer: 15
   m_Name: ExteriorBlock
   m_TagString: Enemy
@@ -21,53 +21,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &185806
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 408960}
-  - 114: {fileID: 11463154}
-  m_Layer: 0
-  m_Name: BlasterModule
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &408960
+--- !u!4 &458638
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185806}
-  m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 420022}
-  m_RootOrder: 0
---- !u!4 &420022
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 168522}
+  m_GameObject: {fileID: 101974}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 408960}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2301020
+--- !u!23 &2346292
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 168522}
+  m_GameObject: {fileID: 101974}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 0
@@ -86,19 +57,19 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3303508
+--- !u!33 &3358714
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 168522}
+  m_GameObject: {fileID: 101974}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &5433822
+--- !u!54 &5488972
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 168522}
+  m_GameObject: {fileID: 101974}
   serializedVersion: 2
   m_Mass: .100000001
   m_Drag: 0
@@ -108,67 +79,46 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 52
   m_CollisionDetection: 2
---- !u!65 &6541050
+--- !u!65 &6510586
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 168522}
+  m_GameObject: {fileID: 101974}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .899999976, y: .899999976, z: .899999976}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11463154
+--- !u!114 &11486884
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 185806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 805ebb87ed7a2d440843ca233d2278bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aim: {fileID: 0}
-  load:
-    offset: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    projectile: {fileID: 186802, guid: 5236c76f62aed2e4bb0cb906ad61611b, type: 2}
---- !u!114 &11466926
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 168522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 372419253fbf20f48bb77941f8f4a885, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  load:
-    offset: {x: 0, y: 0, z: 0}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    projectile: {fileID: 0}
-  aim: {fileID: 0}
-  onState: {fileID: 2100000, guid: af5f23b9d503eb9488eca7b4b1ddd67d, type: 2}
-  offState: {fileID: 0}
-  shield: 10
-  hull: 20
-  deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
---- !u!114 &11491582
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 168522}
+  m_GameObject: {fileID: 101974}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab9b477be1227394db520fd9772083fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxCooldown: 3
+--- !u!114 &11489974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372419253fbf20f48bb77941f8f4a885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onState: {fileID: 2100000, guid: af5f23b9d503eb9488eca7b4b1ddd67d, type: 2}
+  offState: {fileID: 0}
+  shield: 10
+  hull: 20
+  deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -177,22 +127,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: load.projectile
+      propertyPath: deathParticles
       value: 
-      objectReference: {fileID: 186802, guid: 5236c76f62aed2e4bb0cb906ad61611b, type: 2}
+      objectReference: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 168522}
+  m_RootGameObject: {fileID: 101974}
   m_IsPrefabParent: 1

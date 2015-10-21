@@ -8,23 +8,37 @@ public class ExteriorBlockCollision : MonoBehaviour {
 
 	public Material onState, offState;
 	float maxShield;
+	float maxHull;
 	public float shield;
 	public float hull;
 
 	void Start(){
 		maxShield = shield;
+		maxHull = hull;
 
 	}
-
-
-
-
-
 
 
 	public float getShield(){
 		return shield;
 	}
+	public float getHull(){
+		return hull;
+	}
+	public void addHull(float heal)
+	{
+		hull += heal;
+		if (hull > maxHull) {
+			hull = maxHull;}
+	}
+
+	public void addShield(float heal){
+		shield += heal;
+		if (shield > maxShield) {
+			shield = maxShield;}
+		
+	}
+
 	public void takeDamage(float damage){
 		shield -= damage;
 		if (shield < 0) {
@@ -33,17 +47,12 @@ public class ExteriorBlockCollision : MonoBehaviour {
 			shield = 0f;
 		}
 		if (hull <= 0.0f) {
-			onDeath ();
+		onDeath ();
 			Destroy (gameObject);
 		}
 	}
-	public void addShield(float heal){
-		shield += heal;
-		if (shield > maxShield) {
-			shield = maxShield;}
 
-	}
-	private int selfInflicted;
+//	private int selfInflicted;
 //	void OnCollisionEnter(Collision other)
 //	{
 //		if (other.gameObject.tag == "Enemy") {
@@ -64,10 +73,16 @@ public class ExteriorBlockCollision : MonoBehaviour {
 //			{Destroy (this.gameObject);}
 			return;
 			
-		} else {
-			Destroy (other.gameObject);
+		} else if(other.gameObject.tag == "EnemyBullet"){
 
+		}
+		else if(other.gameObject.tag == "Player"){
+				other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
+				takeDamage (9999999f);
+			}
+		else if(other.gameObject.tag == "Bullet"){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
+
 		}
 	}
 	public GameObject deathParticles;
@@ -77,6 +92,7 @@ public class ExteriorBlockCollision : MonoBehaviour {
 	}
 	public void destroyObject()
 	{
+
 		Destroy(this.gameObject);
 	}
 

@@ -34,12 +34,78 @@ public class PlayerController : MonoBehaviour
 {
 	private GameObject GameController;
 
+	public float playerHull;
+	private float playerMaxHull;
+	public float playerShield;
+	private float playerMaxShield;
+
+	public float getShield(){
+		return playerShield;
+	}
+	public void addShield(float heal){
+		playerShield += heal;
+		if (playerShield > playerMaxShield) {
+			playerShield = playerMaxShield;}
+		
+	}
+	public float getHull(){
+		return playerHull;
+	}
+	public void addHull(float heal)
+	{
+		playerHull += heal;
+		if (playerHull > playerMaxHull) {
+			playerHull = playerMaxShield;}
+	}
+	public void takeDamage(float damage){
+		playerShield -= damage;
+		if (playerShield < 0) {
+			
+			playerHull += playerShield;
+			playerShield = 0f;
+		}
+		if (playerHull <= 0.0f) {
+			this.onDeath ();
+			this.destroyObject();
+
+		}
+	}
+
+
+
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Enemy") {
+			return;
+			
+		} else if(other.gameObject.tag == "EnemyBullet"){
+			Destroy (other.gameObject);
+			this.takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
+		}
+	}
+
+
+	public GameObject deathParticles;
+	public void onDeath(){
+		Instantiate( deathParticles, this.transform.position, this.transform.rotation); //do death particles
+	}
+
+	public void destroyObject()
+	{
+		Destroy(this.gameObject); ////start game over screen
+	}
+
+
+
+
+
 	public float chargeShotDelay;
 	public float fireStormDelay;
 	public int fireStormDuration;
 	public float rotationSpeed;
 	public Load load;
-	bool loaded = false;
+	private bool loaded = false;
 
 	public GameObject fireball1;
 	public Vector3 attack1DefaultSize = new Vector3(1F,1F,1F);
@@ -71,6 +137,8 @@ public class PlayerController : MonoBehaviour
 
 	void Start(){
 	GameController = GameObject.Find ("GameController");
+		playerMaxHull = playerHull;
+		playerMaxShield = playerShield;
 
 
 	float sectorSize = GameController.GetComponent<GameController> ().sectorSize;

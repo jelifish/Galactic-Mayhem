@@ -105,8 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onState: {fileID: 0}
   offState: {fileID: 0}
-  shield: 100
-  hull: 100
+  shield: 10
+  hull: 30
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
 --- !u!114 &11408536
 MonoBehaviour:
@@ -136,7 +136,8 @@ MonoBehaviour:
   passes: 8
   minValue: 10
   regressionRate: 1.20000005
-  block: {fileID: 168522, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
+  block: {fileID: 101974, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
+  blaster: {fileID: 129876, guid: 3de62137f4f5fe940a4b475d845da4a6, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -147,7 +148,19 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: block
       value: 
-      objectReference: {fileID: 168522, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
+      objectReference: {fileID: 101974, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
+    - target: {fileID: 0}
+      propertyPath: shield
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hull
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: blaster
+      value: 
+      objectReference: {fileID: 129876, guid: 3de62137f4f5fe940a4b475d845da4a6, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 134758}

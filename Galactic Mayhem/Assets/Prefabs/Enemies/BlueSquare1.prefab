@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 498992}
   - 54: {fileID: 5476286}
   - 136: {fileID: 13688084}
-  - 114: {fileID: 11437588}
   - 114: {fileID: 11403966}
   - 114: {fileID: 11464806}
   - 114: {fileID: 11497688}
@@ -141,18 +140,11 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     projectile: {fileID: 0}
---- !u!114 &11437588
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 108980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf64050d2e8bc7a4291e107ca478b0af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentObject: {fileID: 11403966}
+  loader: []
+  enemyBolt: {fileID: 0}
+  attack1DefaultSize: {x: 1, y: 1, z: 1}
+  attack1DefaultDrag: .100000001
+  fireRate: .5
 --- !u!114 &11464806
 MonoBehaviour:
   m_ObjectHideFlags: 1
