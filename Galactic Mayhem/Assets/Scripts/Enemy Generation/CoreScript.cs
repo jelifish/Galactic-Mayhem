@@ -12,6 +12,8 @@ public class CoreScript : MonoBehaviour {
 
 	public GameObject block;
 
+
+
 	void Start(){
 		//GetComponent<Rigidbody> ().rotation = Quaternion.Euler (0, Random.Range (0, 360), 0);
 		//GetComponent<Rigidbody>().rotation= Quaternion.Euler(GetComponent<Rigidbody>().rotation.eulerAngles.x,Random.Range (0, 360),GetComponent<Rigidbody>().rotation.eulerAngles.z);
@@ -26,7 +28,7 @@ public class CoreScript : MonoBehaviour {
 		int finalPass = Random.Range (passes - passes / 2, passes + passes / 2);
 		for (int j=0; j<=finalPass; j++) {
 			makePass ();
-			displayArray ();
+			//displayArray ();
 
 			if(Random.value>=.7f && finalPass - j >3)
 			{
@@ -36,6 +38,8 @@ public class CoreScript : MonoBehaviour {
 
 		}
 		StartCoroutine (build ());
+		
+		StartCoroutine (move ());
 	}
 	private void makePass(){
 		for (int i = 0; i<size; i++) {
@@ -121,7 +125,7 @@ public class CoreScript : MonoBehaviour {
 	}
 
 
-
+	public GameObject blaster;
 	private IEnumerator build()
 	{
 //		Vector3 origpos = transform.position;
@@ -136,22 +140,27 @@ public class CoreScript : MonoBehaviour {
 		foreach(int[] i in arr){
 			foreach(int j in i){
 				if(j>0&&!((a==size/2)&&(b==size/2))){
-				GameObject child = (GameObject)Instantiate(block, this.transform.position, this.transform.rotation);
+					float adjust = 0;
+					if (size%4 == 0)
+					{adjust = 0;}
+					else {adjust = .5f;}
+					float hexa = .5f;
+					GameObject child = (GameObject)Instantiate(block, new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),Random.Range(-.1f,.1f),((size/2 - b))*transform.lossyScale.x + this.transform.position.z), this.transform.rotation);
 
 					child.transform.localScale = transform.lossyScale;
 					child.transform.parent = transform;
-					float blockWidth = block.transform.lossyScale.x;
-					int adjust = 0;
-					if (size%4 == 0)
-					{adjust = 0;}
-					else {adjust = 1;}
+					if(Random.Range(0,100)>=90){
+						GameObject thisBlaster = (GameObject)Instantiate(blaster, child.transform.position, this.transform.rotation);
+						thisBlaster.transform.localScale = child.transform.lossyScale;
+						thisBlaster.transform.parent = child.transform;//child;
+					}
 
-					float hexa = .5f;
-					child.transform.position = new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); /// HEXA ON
+
+					//child.transform.position = new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); /// HEXA ON
 					//child.transform.position = new Vector3(((a-(size/2)))*transform.lossyScale.x + this.transform.position.x ,0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); ////HEXA OFF
 					//+(a%2)*hexa // this code is in there TWICE^^ and makes shifts that creates the hexagon tile look vs the square tiles. 
 					//one shift to shift separate rows, the other to shift the core. imo better looking than tile.
-					child.GetComponent<ConfigurableJoint> ().connectedBody = this.GetComponent<Rigidbody>();
+					//child.GetComponent<ConfigurableJoint> ().connectedBody = this.GetComponent<Rigidbody>();
 					yield return new WaitForSeconds (.02f);
 				}
 
@@ -164,184 +173,17 @@ public class CoreScript : MonoBehaviour {
 			b=0;
 			a++;
 		}
-		GetComponent<Rigidbody> ().AddTorque (new Vector3 (0, Random.Range (-100, 100), 0), ForceMode.Impulse);
+		GetComponent<Rigidbody> ().AddForce (Random.insideUnitSphere* 200);
+		GetComponent<Rigidbody> ().AddTorque (new Vector3 (0, Random.Range (-.5f, .5f), 0), ForceMode.Impulse);
 	}
-//
-//	IEnumerator fireStorm()
-//	{
-//		fireball1.transform.localScale = new Vector3(0.5F,0.5F,0.5F);
-//		//freezeChara = true;
-//		ready = false;
-//		while (true) {
-//			for(int i=0;i<fireStormDuration;i++){
-//				fireball1.GetComponent<Rigidbody>().drag = 1.0f;
-//				shoot(new Load (fireball1, Quaternion.identity));
-//				yield return new WaitForSeconds (.003f);
-//			}
-//			break;
-//		}
-//		fireball1.transform.localScale = attack1DefaultSize;
-//		fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
-//		//freezeChara = false;
-//		yield return new WaitForSeconds (fireStormDelay);//cooldown before cast again
-//		ready = true;
-//		
-//		
-//	}
+	IEnumerator move(){
+		while (true) {
+			yield return new WaitForSeconds( Random.Range (1F,5F));
 
-
-
-
-
-	//old algorithm as a reminder to never use recursion.
-
-	//[System.Serializable]
-	//public class CoordStruct
-	//{
-	//	public int hashableInt()
-	//	{
-	//		int ex = Mathf.RoundToInt(x);
-	//		int why = Mathf.RoundToInt(y);
-	//		Debug.Log("HASH NUMBER: "+ (1000000+ (ex * 10000) + why) );
-	//		return 1000000+(ex * 10000) + why ;
-	//	}
-	//	public int x;
-	//	public int y;
-	//	public CoordStruct(int a, int b){
-	//		x = a;
-	//		y = b;
-	//	}
-	//	public string toString()
-	//	{
-	//		return(x.ToString() + y.ToString());
-	//	}
-	//}
-	//[System.Serializable]
-	//public class BlockVariables
-	//{
-	//	public Dictionary<int,int> coordMap;
-	//	public CoordStruct thisCoord;
-	//	public CoordStruct parentCoord;
-	//	public int level;
-	//	public float chance;
-	//	public float chanceDec;
-	//
-	//	public GameObject parent; 
-	//	public BlockVariables(Dictionary<int,int> map, CoordStruct coord,CoordStruct parentCoord,int level, float chance, float chanceDec,GameObject parent)
-	//	{
-	//		this.coordMap = map;
-	//		this.thisCoord = coord;
-	//		this.parentCoord = parentCoord;
-	//		this.level = level;
-	//		this.chance = chance;
-	//		this.chanceDec = chanceDec;
-	//		this.parent = parent;
-	//	}
-	//}
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//	public int hp = 100; 
-//	public int level;
-//	public float chance;
-//	public float chanceDec;
-//	Dictionary<int,int> coordMap = new Dictionary<int,int>();
-//	public BlockVariables blockInfo;
-//
-//	// Use this for initialization
-//	void Start () {
-//		blockInfo = new BlockVariables(coordMap,new CoordStruct(0,0),new CoordStruct(0,0),0,90,1,this.gameObject);
-//
-//		init ();
-//	}
-//	void OnCollisionEnter(Collision collision) {
-//		//ContactPoint contact = collision.contacts[0];
-//		hp = hp - 1;
-//		if(hp <= 0)
-//		{
-//		List<GameObject> children = new List<GameObject>();
-//		foreach (Transform child in transform) children.Add(child.gameObject);
-//		children.ForEach(child => Destroy(child));
-//		Destroy(gameObject);
-//		}
-//	}
-//	private void init(){
-//
-//		createBlockNorth (blockInfo);
-//		createBlockSouth (blockInfo);
-//		createBlockEast (blockInfo);
-//		createBlockWest (blockInfo);
-//	}
-//
-//
-//
-//
-//
-//	private GameObject child;
-//	public void createCore(){
-//		coordMap.Add(new CoordStruct(0,0).hashableInt(),0);
-//	}
-//	private BlockVariables tempInfo;
-//	public void createBlockEast(BlockVariables blockInfo){
-//		tempInfo = blockInfo;
-//		//Debug.Log ("hashed already:  " + new CoordStruct(-1, 0).hashableInt());
-//		coordMap.Add(new CoordStruct(1, 0).hashableInt(),0);
-//		child = (GameObject)Instantiate(block, new Vector3(this.transform.position.x + this.transform.lossyScale.x,0, this.transform.position.z), this.transform.rotation);
-//		child.GetComponent<FixedJoint> ().connectedBody = this.GetComponent<Rigidbody>();
-//		child.transform.localScale = transform.lossyScale;
-//		child.transform.parent = transform;
-//		tempInfo.thisCoord = new CoordStruct (1, 0);
-//		tempInfo.parentCoord = new CoordStruct (0, 0);
-//		tempInfo.chance = this.chance;
-//		tempInfo.chanceDec = this.chanceDec;
-//		tempInfo.level = this.level;
-//		child.GetComponent<BlockCreation> ().spawn (tempInfo);
-//	}
-//	public void createBlockWest(BlockVariables blockInfo){
-//		tempInfo = blockInfo;
-//		//Debug.Log ("hashed already:  " + new CoordStruct(1, 0).hashableInt());
-//		coordMap.Add(new CoordStruct(-1, 0).hashableInt(),0);
-//		child = (GameObject)Instantiate(block, new Vector3(this.transform.position.x - this.transform.lossyScale.x,0, this.transform.position.z), this.transform.rotation);
-//		child.GetComponent<FixedJoint> ().connectedBody = this.GetComponent<Rigidbody>();
-//		child.transform.localScale = transform.lossyScale;
-//		child.transform.parent = transform;
-//		tempInfo.thisCoord = new CoordStruct (-1, 0);
-//		tempInfo.parentCoord = new CoordStruct (0, 0);
-//		tempInfo.chance = this.chance;
-//		tempInfo.chanceDec = this.chanceDec;
-//		tempInfo.level = this.level;
-//
-//		child.GetComponent<BlockCreation> ().spawn (tempInfo);
-//	}
-//	public void createBlockNorth(BlockVariables blockInfo){
-//		tempInfo = blockInfo;
-//		//Debug.Log ("hashed already:  " + new CoordStruct(0,1).hashableInt());
-//		coordMap.Add(new CoordStruct(0,1).hashableInt(),0);
-//		child = (GameObject)Instantiate(block, new Vector3(this.transform.position.x,0, this.transform.position.z+ this.transform.lossyScale.z), this.transform.rotation);
-//		child.GetComponent<FixedJoint> ().connectedBody = this.GetComponent<Rigidbody>();
-//		child.transform.localScale = transform.lossyScale;
-//		child.transform.parent = transform;
-//		tempInfo.thisCoord = new CoordStruct (0, 1);
-//		tempInfo.parentCoord = new CoordStruct (0, 0);
-//		tempInfo.chance = this.chance;
-//		tempInfo.chanceDec = this.chanceDec;
-//		tempInfo.level = this.level;
-//		child.GetComponent<BlockCreation> ().spawn (tempInfo);
-//
-//	}
-//	public void createBlockSouth(BlockVariables blockInfo){
-//		tempInfo = blockInfo;
-//		//Debug.Log ("hashed already:  " + new CoordStruct(0, -1).hashableInt());
-//		coordMap.Add(new CoordStruct(0, -1).hashableInt(),0);
-//		child = (GameObject)Instantiate(block, new Vector3(this.transform.position.x,0, this.transform.position.z- this.transform.lossyScale.z), this.transform.rotation);
-//		child.GetComponent<FixedJoint> ().connectedBody = this.GetComponent<Rigidbody>();
-//		child.transform.localScale = transform.lossyScale;
-//		child.transform.parent = transform;
-//		tempInfo.thisCoord = new CoordStruct (0, -1);
-//		tempInfo.parentCoord = new CoordStruct (0, 0);
-//		tempInfo.chance = this.chance;
-//		tempInfo.chanceDec = this.chanceDec;
-//		tempInfo.level = this.level;
-//		child.GetComponent<BlockCreation> ().spawn (tempInfo);
-//	}
-
+			GetComponent<Rigidbody> ().AddForce (Random.insideUnitSphere* Random.Range (50,300));
+			GetComponent<Rigidbody>().velocity.Set(5,0,5);
+			
+		}
+	}
 
 }

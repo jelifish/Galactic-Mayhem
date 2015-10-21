@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BoxColSetSectorSize : MonoBehaviour {
 	public BoxCollider SectorSize;
-	public float padding;
+	public float padding =0;
 	public LineRenderer north;
 	public LineRenderer south;
 	public LineRenderer east;
@@ -22,18 +22,20 @@ public class BoxColSetSectorSize : MonoBehaviour {
 //		else{
 			this.GetComponent<BoxCollider>().size = new Vector3 ( size+padding,5,size+padding);  
 //		}
+		float cornerOffset = .25f;
 		//north.GetComponent<LineRenderer>().SetVertexCount (2);
-		north.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (-SectorSize.size.x/2-1, 0f, SectorSize.size.z/2+1));
-		north.GetComponent<LineRenderer>().SetPosition(1, new Vector3(SectorSize.size.x/2+1,0f,SectorSize.size.z/2+1));
-
-		south.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (-SectorSize.size.x/2-1f, 0f, -SectorSize.size.z/2-1f));
-		south.GetComponent<LineRenderer>().SetPosition(1, new Vector3(SectorSize.size.x/2 +1,0f,-SectorSize.size.z/2-1f));
-
+		north.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (-SectorSize.size.x/2-1-cornerOffset, 0f, SectorSize.size.z/2+1));
+		north.GetComponent<LineRenderer>().SetPosition(1, new Vector3(SectorSize.size.x/2+1+cornerOffset,0f,SectorSize.size.z/2+1));
+		
+		south.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (-SectorSize.size.x/2-1f-cornerOffset, 0f, -SectorSize.size.z/2-1f));
+		south.GetComponent<LineRenderer>().SetPosition(1, new Vector3(SectorSize.size.x/2 +1+cornerOffset,0f,-SectorSize.size.z/2-1f));
+		
 		west.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (-SectorSize.size.x/2-1, 0f, SectorSize.size.z/2+1));
 		west.GetComponent<LineRenderer>().SetPosition(1, new Vector3(-SectorSize.size.x/2-1,0f,-SectorSize.size.z/2-1));
-
+		
 		east.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (SectorSize.size.x/2+1, 0f, SectorSize.size.z/2+1));
 		east.GetComponent<LineRenderer>().SetPosition(1, new Vector3(SectorSize.size.x/2+1,0f,-SectorSize.size.z/2-1));
+
 
 
 

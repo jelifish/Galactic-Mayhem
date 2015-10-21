@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour {
 		float x = transform.position.x;
 		float z = transform.position.z;
 
-		if (IsFollowing()) {
+		if (IsFollowing()&& Player != null) {
 		if (Mathf.Abs(x-Player.position.x) > Margin.x)
 			{x = Mathf.Lerp(x,Player.position.x, Smoothing.x * Time.deltaTime);
 			}
