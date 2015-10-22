@@ -8,11 +8,20 @@ public class CoreBlockCollision : MonoBehaviour {
 	public float shield;
 	public float hull;
 	public float maxHull;
+
+	//HUD Variables
+	public int score_value;
+	private GameController gc;
 	
 	void Start(){
 		maxShield = shield;
 		maxHull = hull;
-		
+
+		GameObject gc_object = GameObject.FindWithTag ("GameController");
+		if (gc_object != null)
+			gc = gc_object.GetComponent<GameController> ();
+		else
+			Debug.Log ("Cannot find 'Gamecontroller' script.\n");
 	}
 	
 	
@@ -36,7 +45,7 @@ public class CoreBlockCollision : MonoBehaviour {
 		}
 		if (hull <= 0.0f) {
 			onDeath ();
-			Destroy (gameObject);
+			Destroy(gameObject);
 		}
 	}
 	public void addShield(float heal){
@@ -79,7 +88,7 @@ public class CoreBlockCollision : MonoBehaviour {
 	public GameObject deathParticles;
 	
 	public void onDeath(){
-
+		gc.AddScore (score_value);
 		foreach (Transform child in this.transform)
 		{
 			if(child.GetComponent<ExteriorBlockCollision>()!= null)
@@ -88,9 +97,5 @@ public class CoreBlockCollision : MonoBehaviour {
 		}
 
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
-	}
-	public void destroyObject()
-	{
-		Destroy(this.gameObject);
 	}
 }

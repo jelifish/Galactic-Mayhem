@@ -3,19 +3,27 @@ using System.Collections;
 
 public class ExteriorBlockCollision : MonoBehaviour {
 
-
-
-
 	public Material onState, offState;
 	float maxShield;
 	float maxHull;
 	public float shield;
 	public float hull;
 
+	//HUD Variables
+	public int score_value;
+	private GameController gc;
+
+
 	void Start(){
 		maxShield = shield;
 		maxHull = hull;
 
+		//HUD
+		GameObject gc_object = GameObject.FindWithTag ("GameController");
+		if (gc_object != null)
+			gc = gc_object.GetComponent<GameController> ();
+		else
+			Debug.Log ("Cannot find 'Gamecontroller' script.\n");
 	}
 
 
@@ -47,7 +55,7 @@ public class ExteriorBlockCollision : MonoBehaviour {
 			shield = 0f;
 		}
 		if (hull <= 0.0f) {
-		onDeath ();
+			onDeath ();
 			Destroy (gameObject);
 		}
 	}
@@ -89,34 +97,7 @@ public class ExteriorBlockCollision : MonoBehaviour {
 	
 	public void onDeath(){
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
+		gc.AddScore (score_value);
 	}
-	public void destroyObject()
-	{
-
-		Destroy(this.gameObject);
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

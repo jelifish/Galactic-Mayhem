@@ -107,6 +107,8 @@ MonoBehaviour:
   offState: {fileID: 0}
   shield: 10
   hull: 30
+  maxHull: 0
+  score_value: 100
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
 --- !u!114 &11408536
 MonoBehaviour:
@@ -161,6 +163,10 @@ Prefab:
       propertyPath: blaster
       value: 
       objectReference: {fileID: 129876, guid: 3de62137f4f5fe940a4b475d845da4a6, type: 2}
+    - target: {fileID: 0}
+      propertyPath: score_value
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 134758}

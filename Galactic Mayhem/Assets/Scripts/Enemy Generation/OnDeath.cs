@@ -7,9 +7,11 @@ public class OnDeath : MonoBehaviour {
 
 	public void onDeath(){
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
+		Destroy(deathParticles);
 //		ParticleSystem ps = deathParticles.GetComponent<ParticleSystem>();
 //		ps.enableEmission = true;
 //		ps.Play();
 		//Debug.Log ("should explooode");
 	}
+
 }
