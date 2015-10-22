@@ -9,7 +9,10 @@ public class Mover : MonoBehaviour {
 	public float totalSectorSize;
 	void Start()
 	{
-		GetComponent<Rigidbody> ().velocity = speed * Vector3.forward;
+		//float alpha = -Mathf.Tan(this.transform.rotation.z * Mathf.Deg2Rad);
+		//Debug.Log (transform.up);
+		//GetComponent<Rigidbody> ().velocity = speed * Vector3.up;
+		GetComponent<Rigidbody>().AddForce(transform.right* speed);
 		originalObject = GetComponent<Rigidbody> ().transform;
 		Destroy (gameObject, age);
 
@@ -62,9 +65,7 @@ public class Mover : MonoBehaviour {
 			}
 		}
 
-//		if (this.GetComponent<Rigidbody>().velocity.magnitude <= .2f) {
-//			Destroy(gameObject);
-//		}
+
 	}
 	void fixedUpdate(){
 

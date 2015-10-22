@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
 	public List<Load> loader = new List<Load>();
 
 	public Transform shotSpawn;
-	public GameObject fireballSound;
+	//public GameObject fireballSound;
 	
 	public float fireRate = 0.5F;
 	private float nextFire = 0.0F;
@@ -128,7 +128,10 @@ public class PlayerController : MonoBehaviour
 	public void shoot(Load load) 
 	{
 		Instantiate (load.projectile, shotSpawn.position + load.offset, shotSpawn.rotation * load.rotation);
-		fireballSound.GetComponent<AudioSource> ().Play ();
+		//Instantiate (load.projectile, shotSpawn.position, shotSpawn.rotation);
+		//Debug.Log (shotSpawn.rotation);
+		//Instantiate(load.projectile, new Vector3(3,4,0), shotSpawn.rotation);
+		//fireballSound.GetComponent<AudioSource> ().Play ();
 		//anim.SetBool (0, true);
 		//return load;
 	}
@@ -161,7 +164,7 @@ public class PlayerController : MonoBehaviour
 		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
 
 		for (int i=0; i<numOfWeaponSlots; i++) {
-			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, transform.position, transform.rotation);
+			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, this.GetComponent<Rigidbody>().position, GetComponent<Rigidbody>().rotation);
 			tempSlot.transform.parent = this.transform;
 			weaponSlots.Add(tempSlot);
 		}
@@ -180,10 +183,10 @@ public class PlayerController : MonoBehaviour
 				fireball1.GetComponent<Rigidbody>().drag = 3.0f;
 				
 				loader.Add (new Load (fireball1, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(-20.0f, 20.0f)) ));
-				foreach (Load load in loader) {
-					shoot (load); //shoots and removes the loaded object
+				//foreach (Load load in loader) {
+					//shoot (load); //shoots and removes the loaded object
 					
-				}
+				//}
 				yield return new WaitForSeconds (.01f);
 			}
 			break;
@@ -221,10 +224,10 @@ public class PlayerController : MonoBehaviour
 				
 			}
 			
-			foreach (Load load in loader) {
-				shoot (load); //shoots and removes the loaded object
-				
-			}
+//			foreach (Load load in loader) {
+//				shoot (load); //shoots and removes the loaded object
+//				
+//			}
 			loader.Clear ();
 			loaded = false;//empty magazine
 			

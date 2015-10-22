@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 449368}
-  - 114: {fileID: 11409244}
   - 114: {fileID: 11497084}
   m_Layer: 11
   m_Name: WeaponSlot
@@ -29,19 +28,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11409244
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 164200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aad96ab8cb8db2e4988ce6a2a31929d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  rotationSpeed: 5
 --- !u!114 &11497084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,6 +39,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b61471e7b89e94fa687d8961f777d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireballSound: {fileID: 0}
+  loaded: 0
+  loader: []
+  bolt1: {fileID: 110276, guid: 6dcdd9def94cec345976ba90774b0c3b, type: 2}
+  reloadSpeed: .5
+  fireRate: .5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -84,6 +76,10 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bolt1
+      value: 
+      objectReference: {fileID: 110276, guid: 6dcdd9def94cec345976ba90774b0c3b, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 164200}
