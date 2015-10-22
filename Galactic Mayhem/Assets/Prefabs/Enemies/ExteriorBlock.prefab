@@ -118,6 +118,7 @@ MonoBehaviour:
   offState: {fileID: 0}
   shield: 50
   hull: 30
+  score_value: 5
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
 --- !u!1001 &100100000
 Prefab:
@@ -137,6 +138,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: hull
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: score_value
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

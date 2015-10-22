@@ -7,6 +7,7 @@ public class Boundary
 	public float xMin, xMax, yMin, yMax;
 }
 
+
 [System.Serializable]
 public class Load
 {

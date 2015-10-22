@@ -108,6 +108,7 @@ MonoBehaviour:
   shield: 50
   hull: 100
   maxHull: 0
+  score_value: 100
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
 --- !u!114 &11408536
 MonoBehaviour:
@@ -165,6 +166,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Constraints
       value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: score_value
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

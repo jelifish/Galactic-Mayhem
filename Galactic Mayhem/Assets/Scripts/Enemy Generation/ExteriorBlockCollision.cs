@@ -9,9 +9,22 @@ public class ExteriorBlockCollision : MonoBehaviour {
 	public float shield;
 	public float hull;
 
+	//hud vars
+	public int score_value;
+	private GameController gc;
+
+
+
+
 	void Start(){
 		maxShield = shield;
 		maxHull = hull;
+		if (GameObject.FindWithTag ("GameController") != null) {
+			gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
+		}else{ Debug.LogWarning("Cannot Find GameController");}
+
+
+
 	}
 
 
@@ -68,6 +81,8 @@ public class ExteriorBlockCollision : MonoBehaviour {
 	
 	public void onDeath(){
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
+		gc.addScore (score_value);
+
 	}
 	public void destroyObject()
 	{

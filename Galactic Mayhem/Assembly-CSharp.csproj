@@ -76,8 +76,10 @@
      <Compile Include="Assets\Scripts\Environment\audioDetection.cs" />
      <Compile Include="Assets\Scripts\Environment\drawline.cs" />
      <Compile Include="Assets\Scripts\Player\BlasterWeapon.cs" />
+     <Compile Include="Assets\Scripts\Player\Bolt1.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerShieldScript.cs" />
+     <Compile Include="Assets\Scripts\Player\SpecialStrike.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponSystem.cs" />
      <None Include="Assets\Game Jam Menu Template\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Game Jam Menu Template\GameJamTemplateReadMe.txt" />

@@ -3,27 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class WeaponSystem : MonoBehaviour {
-
-	[System.Serializable]
-	public class BlasterAttributes
-	{
-		public float projectileSize; //between .5 and 2 or 3
-		public float initialSpeed; //
-		public float rateOfFire; // between 1 and .001 left tilt random
-		public float fireAngleVariance; //between 0 and 45 normalized random (22.5 for v shape)
-		public float directionOfFire; // should be converted into quaternion
-		public float projectileAge; //between 2 and 10 normalized random
-
-		//public bool projectileTrajectory1; //0straight, 1sin wave, 2triangle wave, 3curved
-		//public bool projectileTrajectory2l //0normal, 1alternating speed, random
-		//public bool semiAuto;
-		//public float semiAutoTime; //pause time between attacks
-		
-		public int specialAtkType; //0.fire fast and strong, 1.spray short ranged, 2.piercing snipe, 3.Strike
-	}
-
+	
 	public BlasterAttributes generateBlaster(){
-		return null;
+		BlasterAttributes temp = new BlasterAttributes ();
+		return temp;
 	}
 	public GameObject fireballSound;
 	public void shoot(Load load) 
@@ -36,10 +19,29 @@ public class WeaponSystem : MonoBehaviour {
 		//anim.SetBool (0, true);
 		//return load;
 	}
-	public bool loaded = false;
+	private bool loaded = false;
 	public List<Load> loader = new List<Load>();
-	public GameObject bolt1;
+	public GameObject weapon;
 	public float reloadSpeed = Time.time + .5f;
+
+	void Start(){
+		initWeapon ();
+	
+	}
+
+	public void initWeapon(){
+
+		Destroy (transform.GetChild ());
+		Instantiate (weapon, this.transform.position, this.transform.rotation);
+
+
+
+	
+	}
+	public void initWeapon(BlasterAttributes blaster){
+		
+	}
+
 //	void Update(){
 //		if (!Input.GetButton ("Fire1") && Time.time > reloadSpeed) {
 //			if (loaded == false) {
@@ -76,4 +78,50 @@ public class WeaponSystem : MonoBehaviour {
 
 
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[System.Serializable]
+public class BlasterAttributes
+{
+	public float projectileSize; //between .5 and 2 or 3
+	public float initialSpeed; //
+	public float rateOfFire; // between 1 and .001 left tilt random
+	public float fireAngleVariance; //between 0 and 45 normalized random (22.5 for v shape)
+	public Quaternion directionOfFire; // should be converted into quaternion
+	public float projectileAge; //between 2 and 10 normalized random
+	
+	//public bool projectileTrajectory1; //0straight, 1sin wave, 2triangle wave, 3curved
+	//public bool projectileTrajectory2l //0normal, 1alternating speed, random
+	//public bool semiAuto;
+	//public float semiAutoTime; //pause time between attacks
+	
+	public int specialAtkType; //0.fire fast and strong, 1.spray short ranged, 2.piercing snipe, 3.Strike
+	
+	
+	public BlasterAttributes(){
+		projectileSize = 2f;
+		initialSpeed = 10f;
+		rateOfFire = 1;
+		fireAngleVariance = 10f;
+		//directionOfFire = Quaternio * Random.insideUnitCircle.x;
+		projectileAge = 100f;
+		
+	}
 }

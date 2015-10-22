@@ -9,10 +9,18 @@ public class CoreBlockCollision : MonoBehaviour {
 	public float hull;
 	public float maxHull;
 	
+	//hud vars
+	public int score_value;
+	private GameController gc;
+	
 	void Start(){
 		maxShield = shield;
 		maxHull = hull;
+		if (GameObject.FindWithTag ("GameController") != null) {
+			gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
+		}else{ Debug.LogWarning("Cannot Find GameController");}
 		
+
 	}
 	
 	
@@ -66,7 +74,7 @@ public class CoreBlockCollision : MonoBehaviour {
 	public GameObject deathParticles;
 	
 	public void onDeath(){
-
+		gc.addScore(score_value);
 		foreach (Transform child in this.transform)
 		{
 			if(child.GetComponent<ExteriorBlockCollision>()!= null)
