@@ -8,27 +8,44 @@ public class GameController : MonoBehaviour {
 	public float spawnWait;
 	public long gold;
 
-
 	public float sectorSize;
 	public Camera GameCamera;
+
+	//HUD Variables
+	public GUIText score_txt = null;
+	public int score;
+	public GUIText health_txt;
+	public int health;
+	public GUIText shield_txt;
+	public int shield;
+	public GUIText weapon_txt;
+	public string[] weapons;
+
+	private PlayerController pc;
+
+	void Start () {
+		score = 0;
+		UpdateHUD ();
+		StartCoroutine(Wave1());
+	}
+
 	// Use this for initialization
 	public float getSectorSize(){
 		return sectorSize;
 	}
+
 	void Awake(){
 		generateSectorSize();
 	
 	
 	}
+
 	private void generateSectorSize(){
 		sectorSize = Random.Range (30.0F, 40.0F); //randomize sector size
 		sectorSize = Mathf.Round(sectorSize * 100f) / 100f; // truncate decimal precision
 
 	}
-	void Start () {
-		StartCoroutine(Wave1());
 
-	}
 	IEnumerator Wave1(){
 		for(int i=0; i<hazardCount; i++){
 
@@ -54,5 +71,17 @@ public class GameController : MonoBehaviour {
 //			yield return new WaitForSeconds(spawnWait);
 //		}
 }
+
+	//HUD Functions
+	void UpdateHUD(){
+		if (score_txt != null) {
+			score_txt.text = "Score: " + score;
+		}
+	}
+
+	public void addScore(int new_score){
+		score += new_score;
+		UpdateHUD ();
+	}
 
 }

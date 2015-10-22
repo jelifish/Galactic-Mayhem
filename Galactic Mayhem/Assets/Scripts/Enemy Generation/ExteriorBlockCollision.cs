@@ -3,18 +3,27 @@ using System.Collections;
 
 public class ExteriorBlockCollision : MonoBehaviour {
 
-
-
-
 	public Material onState, offState;
 	float maxShield;
 	float maxHull;
 	public float shield;
 	public float hull;
 
+	//hud vars
+	public int score_value;
+	private GameController gc;
+
+
+
+
 	void Start(){
 		maxShield = shield;
 		maxHull = hull;
+		if (GameObject.FindWithTag ("GameController") != null) {
+			gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
+		}else{ Debug.LogWarning("Cannot Find GameController");}
+
+
 
 	}
 
@@ -36,10 +45,10 @@ public class ExteriorBlockCollision : MonoBehaviour {
 		shield += heal;
 		if (shield > maxShield) {
 			shield = maxShield;}
-		
 	}
 
 	public void takeDamage(float damage){
+		Debug.Log (damage);
 		shield -= damage;
 		if (shield < 0) {
 		
@@ -52,25 +61,10 @@ public class ExteriorBlockCollision : MonoBehaviour {
 		}
 	}
 
-//	private int selfInflicted;
-//	void OnCollisionEnter(Collision other)
-//	{
-//		if (other.gameObject.tag == "Enemy") {
-//			selfInflicted++;
-//				if(selfInflicted>5)
-//			{Destroy (this.gameObject);}
-//			return;
-//		
-//		}
-//			Destroy (other.gameObject);
-//			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-//	}
 	void OnTriggerEnter(Collider other)
 	{
+
 		if (other.gameObject.tag == "Enemy") {
-//			selfInflicted++;
-//			if(selfInflicted>5)
-//			{Destroy (this.gameObject);}
 			return;
 			
 		} else if(other.gameObject.tag == "EnemyBullet"){
@@ -78,17 +72,19 @@ public class ExteriorBlockCollision : MonoBehaviour {
 		}
 		else if(other.gameObject.tag == "Player"){
 				other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
-				takeDamage (9999999f);
+				takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
 			}
-		else if(other.gameObject.tag == "Bullet"){
+		else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet" ){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-
+			Destroy(other.gameObject);
 		}
 	}
 	public GameObject deathParticles;
 	
 	public void onDeath(){
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
+		gc.addScore (score_value);
+
 	}
 	public void destroyObject()
 	{

@@ -116,8 +116,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onState: {fileID: 2100000, guid: af5f23b9d503eb9488eca7b4b1ddd67d, type: 2}
   offState: {fileID: 0}
-  shield: 10
-  hull: 20
+  shield: 50
+  hull: 30
+  score_value: 5
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
 --- !u!1001 &100100000
 Prefab:
@@ -130,6 +131,18 @@ Prefab:
       propertyPath: deathParticles
       value: 
       objectReference: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: shield
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hull
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: score_value
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 101974}

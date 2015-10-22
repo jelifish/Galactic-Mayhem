@@ -9,7 +9,10 @@ public class Mover : MonoBehaviour {
 	public float totalSectorSize;
 	void Start()
 	{
-		GetComponent<Rigidbody> ().velocity = transform.forward * speed;
+		//float alpha = -Mathf.Tan(this.transform.rotation.z * Mathf.Deg2Rad);
+		//Debug.Log (transform.up);
+		//GetComponent<Rigidbody> ().velocity = speed * Vector3.up;
+		GetComponent<Rigidbody>().AddForce(transform.right* speed);
 		originalObject = GetComponent<Rigidbody> ().transform;
 		Destroy (gameObject, age);
 
@@ -26,9 +29,10 @@ public class Mover : MonoBehaviour {
 
 		if (other.gameObject.tag == "Bullet" && this.gameObject.tag=="Strike") {
 			bullet.tag ="TriggeredBullet";
-			//Instantiate(bullet, transform.localPosition,Quaternion.identity);
+			if(Random.Range(1,3)==1)Instantiate(bullet, transform.localPosition,Quaternion.identity);
 			bullet.tag ="Bullet";
 			other.gameObject.tag = "TriggeredBullet";
+			other.gameObject.GetComponent<Rigidbody>().drag = (other.gameObject.GetComponent<Rigidbody>().drag /Random.Range(2f, 3f));
 		}
 	
 
@@ -55,16 +59,14 @@ public class Mover : MonoBehaviour {
 				originalObject = GetComponent<Rigidbody> ().transform;
 			}
 			//port object into other side of screen (vertical)
-			if (Mathf.Abs (GetComponent<Rigidbody> ().position.z) >= totalSectorSize) {
+			if (Mathf.Abs (GetComponent<Rigidbody> ().position.y) >= totalSectorSize) {
 				mirrorRate += 1;
-				GetComponent<Rigidbody> ().position = Vector3.Reflect (originalObject.position, Vector3.forward);
+				GetComponent<Rigidbody> ().position = Vector3.Reflect (originalObject.position, Vector3.up);
 				originalObject = GetComponent<Rigidbody> ().transform;
 			}
 		}
 
-//		if (this.GetComponent<Rigidbody>().velocity.magnitude <= .2f) {
-//			Destroy(gameObject);
-//		}
+
 	}
 	void fixedUpdate(){
 

@@ -9,10 +9,18 @@ public class CoreBlockCollision : MonoBehaviour {
 	public float hull;
 	public float maxHull;
 	
+	//hud vars
+	public int score_value;
+	private GameController gc;
+	
 	void Start(){
 		maxShield = shield;
 		maxHull = hull;
+		if (GameObject.FindWithTag ("GameController") != null) {
+			gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
+		}else{ Debug.LogWarning("Cannot Find GameController");}
 		
+
 	}
 	
 	
@@ -46,40 +54,27 @@ public class CoreBlockCollision : MonoBehaviour {
 		
 	}
 	private int selfInflicted;
-	//	void OnCollisionEnter(Collision other)
-	//	{
-	//		if (other.gameObject.tag == "Enemy") {
-	//			selfInflicted++;
-	//				if(selfInflicted>5)
-	//			{Destroy (this.gameObject);}
-	//			return;
-	//		
-	//		}
-	//			Destroy (other.gameObject);
-	//			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-	//	}
+
+
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Enemy") {
-			//			selfInflicted++;
-			//			if(selfInflicted>5)
-			//			{Destroy (this.gameObject);}
 			return;
 			
 		} else if(other.gameObject.tag == "EnemyBullet"){
 			
 		}else if(other.gameObject.tag == "Player"){
 			other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
-			takeDamage (9999999f);
-		}else if(other.gameObject.tag == "Bullet"){
+			takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
+		}else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet"){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-			
+			Destroy(other.gameObject);
 		}
 	}
 	public GameObject deathParticles;
 	
 	public void onDeath(){
-
+		gc.addScore(score_value);
 		foreach (Transform child in this.transform)
 		{
 			if(child.GetComponent<ExteriorBlockCollision>()!= null)
