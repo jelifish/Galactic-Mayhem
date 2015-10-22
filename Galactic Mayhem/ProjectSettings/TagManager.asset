@@ -9,6 +9,8 @@ TagManager:
   - Strike
   - TriggeredBullet
   - EnemyBullet
+  - Audio
+  - Special
   layers:
   - Default
   - TransparentFX

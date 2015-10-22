@@ -35,7 +35,7 @@ public class LookAtMouse : MonoBehaviour
 		var offset = new Vector2(mouse.x - screenPoint.x, mouse.y - screenPoint.y);
 		var angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
 		//transform.rotation = Quaternion.Euler(0, 0, angle);
-		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * 2.0f);
+		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * rotationSpeed);
 
 
 

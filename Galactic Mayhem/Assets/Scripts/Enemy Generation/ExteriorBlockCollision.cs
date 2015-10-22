@@ -48,6 +48,7 @@ public class ExteriorBlockCollision : MonoBehaviour {
 	}
 
 	public void takeDamage(float damage){
+		Debug.Log (damage);
 		shield -= damage;
 		if (shield < 0) {
 		
@@ -62,6 +63,7 @@ public class ExteriorBlockCollision : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
+
 		if (other.gameObject.tag == "Enemy") {
 			return;
 			
@@ -72,7 +74,7 @@ public class ExteriorBlockCollision : MonoBehaviour {
 				other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
 				takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
 			}
-		else if(other.gameObject.tag == "Bullet"){
+		else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet" ){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
 			Destroy(other.gameObject);
 		}

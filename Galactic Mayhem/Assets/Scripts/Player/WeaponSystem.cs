@@ -4,39 +4,57 @@ using System.Collections.Generic;
 
 public class WeaponSystem : MonoBehaviour {
 	
-	public BlasterAttributes generateBlaster(){
-		BlasterAttributes temp = new BlasterAttributes ();
-		return temp;
-	}
-	public GameObject fireballSound;
-	public void shoot(Load load) 
-	{
-		Instantiate (load.projectile, this.transform.position + load.offset, this.transform.rotation * load.rotation);
+
+
+	public void shoot() 
+	{if (!channeling) {
+			foreach (Load load in loader) {
+				Instantiate (load.projectile, this.transform.position + load.offset, this.transform.rotation * load.rotation);
+				load.sound.GetComponent<AudioSource> ().Play ();
+			}
+			loader.Clear ();
+		}
 		//Instantiate (load.projectile, this.transform.position, this.transform.rotation);
 		//Debug.Log (shotSpawn.rotation);
 		//Instantiate(load.projectile, new Vector3(3,4,0), shotSpawn.rotation);
-//		fireballSound.GetComponent<AudioSource> ().Play ();
+
 		//anim.SetBool (0, true);
 		//return load;
 	}
-	private bool loaded = false;
+//	private bool loaded = false;
 	public List<Load> loader = new List<Load>();
 	public GameObject weapon;
 	public float reloadSpeed = Time.time + .5f;
+	public bool channeling; //if channeling do not shoot anything
 
-	void Start(){
-		initWeapon ();
-	
+	private int slotPosition;
+	public void setSlotPosition(int x){
+		slotPosition = x;
+	}
+	public int getSlotPosition(){
+		return slotPosition;
 	}
 
+	void Start(){
+		//initWeapon ();
+	}
+
+
+	public GameObject bolt;
 	public void initWeapon(){
+		if (transform.FindChild("Weapon") != null) {
+			Destroy (transform.GetChild (0));//should only ever be one weapon
+		} 
+		GameObject child = (GameObject)Instantiate (weapon, this.transform.position, this.transform.rotation);
+		child.GetComponent<WeaponScript> ().weaponSlot = this.gameObject;
+		child.AddComponent<BlasterWeapon>();
+		child.GetComponent<BlasterWeapon> ().bolt = bolt;
+		BlasterAttributes startWep = new BlasterAttributes ();
+		startWep.rateOfFire = .5f;
+		child.GetComponent<BlasterWeapon>().init(startWep);
+		child.GetComponent<BlasterWeapon> ().weaponSlot = this.gameObject;
+		child.transform.parent = this.transform;
 
-		Destroy (transform.GetChild ());
-		Instantiate (weapon, this.transform.position, this.transform.rotation);
-
-
-
-	
 	}
 	public void initWeapon(BlasterAttributes blaster){
 		
@@ -62,17 +80,7 @@ public class WeaponSystem : MonoBehaviour {
 //			reloadSpeed = Time.time + .5f;
 //		}
 //	}
-	public float fireRate = .5f;
-	
-	private float nextFire = .5f;
-	void Update ()
-	{
-		if (Time.time > nextFire)
-		{
-			nextFire = Time.time + fireRate;
-			Instantiate(bolt1, this.transform.position, this.transform.rotation);
-		}
-	}
+
 
 
 
@@ -103,6 +111,7 @@ public class BlasterAttributes
 	public float projectileSize; //between .5 and 2 or 3
 	public float initialSpeed; //
 	public float rateOfFire; // between 1 and .001 left tilt random
+	public float projectileDrag;
 	public float fireAngleVariance; //between 0 and 45 normalized random (22.5 for v shape)
 	public Quaternion directionOfFire; // should be converted into quaternion
 	public float projectileAge; //between 2 and 10 normalized random
@@ -118,10 +127,20 @@ public class BlasterAttributes
 	public BlasterAttributes(){
 		projectileSize = 2f;
 		initialSpeed = 10f;
-		rateOfFire = 1;
-		fireAngleVariance = 10f;
+		rateOfFire = Random.Range(.2f, 1f);
+		projectileDrag = Random.Range(.1f, 1.5f);
+		fireAngleVariance = 5f;
 		//directionOfFire = Quaternio * Random.insideUnitCircle.x;
 		projectileAge = 100f;
-		
+		generateSpecial ();
 	}
+	public GameObject generateSpecial(){
+		//int length = GameObject.FindGameObjectsWithTag ("Special").Length;
+		//Debug.Log("there are "+ length+" num of specials" );
+		return GameObject.FindGameObjectsWithTag("Special")[0];  
+
+	}
+
+
+
 }

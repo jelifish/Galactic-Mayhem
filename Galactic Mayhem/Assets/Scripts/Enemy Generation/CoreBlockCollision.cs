@@ -66,7 +66,7 @@ public class CoreBlockCollision : MonoBehaviour {
 		}else if(other.gameObject.tag == "Player"){
 			other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
 			takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
-		}else if(other.gameObject.tag == "Bullet"){
+		}else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet"){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
 			Destroy(other.gameObject);
 		}

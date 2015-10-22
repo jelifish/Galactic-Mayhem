@@ -29,9 +29,10 @@ public class Mover : MonoBehaviour {
 
 		if (other.gameObject.tag == "Bullet" && this.gameObject.tag=="Strike") {
 			bullet.tag ="TriggeredBullet";
-			//Instantiate(bullet, transform.localPosition,Quaternion.identity);
+			if(Random.Range(1,3)==1)Instantiate(bullet, transform.localPosition,Quaternion.identity);
 			bullet.tag ="Bullet";
 			other.gameObject.tag = "TriggeredBullet";
+			other.gameObject.GetComponent<Rigidbody>().drag = (other.gameObject.GetComponent<Rigidbody>().drag /Random.Range(2f, 3f));
 		}
 	
 

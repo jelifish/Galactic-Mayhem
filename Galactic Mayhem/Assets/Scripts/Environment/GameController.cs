@@ -74,7 +74,9 @@ public class GameController : MonoBehaviour {
 
 	//HUD Functions
 	void UpdateHUD(){
-		score_txt.text = "Score: " + score;
+		if (score_txt != null) {
+			score_txt.text = "Score: " + score;
+		}
 	}
 
 	public void addScore(int new_score){
