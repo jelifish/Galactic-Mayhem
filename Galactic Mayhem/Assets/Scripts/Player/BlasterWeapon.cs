@@ -16,6 +16,7 @@ public class BlasterWeapon : MonoBehaviour {
 		bolt.GetComponent<Mover> ().age = blaster.projectileAge;
 
 		GameObject special = (GameObject) Instantiate (blaster.generateSpecial(), this.transform.position, this.transform.rotation);
+		special.tag = "ActiveSpecial";
 		special.transform.parent = this.transform;
 
 	}

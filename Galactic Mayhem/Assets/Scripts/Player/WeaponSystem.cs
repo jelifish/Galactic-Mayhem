@@ -135,9 +135,10 @@ public class BlasterAttributes
 		generateSpecial ();
 	}
 	public GameObject generateSpecial(){
-		//int length = GameObject.FindGameObjectsWithTag ("Special").Length;
-		//Debug.Log("there are "+ length+" num of specials" );
-		return GameObject.FindGameObjectsWithTag("Special")[0];  
+		int length = GameObject.FindGameObjectsWithTag ("Special").Length;
+		//Random.Range (0, length);
+		Debug.Log("there are "+ length+" num of specials" );
+		return GameObject.FindGameObjectsWithTag("Special")[Random.Range (0, length)];  
 
 	}
 

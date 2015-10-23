@@ -12,7 +12,7 @@ public class Mover : MonoBehaviour {
 		//float alpha = -Mathf.Tan(this.transform.rotation.z * Mathf.Deg2Rad);
 		//Debug.Log (transform.up);
 		//GetComponent<Rigidbody> ().velocity = speed * Vector3.up;
-		GetComponent<Rigidbody>().AddForce(transform.right* speed);
+		GetComponent<Rigidbody>().velocity =transform.right* speed;
 		originalObject = GetComponent<Rigidbody> ().transform;
 		Destroy (gameObject, age);
 

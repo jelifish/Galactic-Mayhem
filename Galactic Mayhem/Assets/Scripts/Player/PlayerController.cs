@@ -138,7 +138,14 @@ public class PlayerController : MonoBehaviour
 	void Awake(){
 	//	anim = GetComponent<Animator> ();
 	}
-
+	public void setBoundary(){
+		float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
+		boundary.xMin = - (sectorSize / 2);
+		boundary.xMax = (sectorSize / 2);
+		boundary.yMin = - (sectorSize / 2);
+		boundary.yMax = (sectorSize / 2);
+		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
+	}
 	void Start(){
 
 
@@ -149,18 +156,15 @@ public class PlayerController : MonoBehaviour
 
 
 
-	float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
+	
 //	fireball1.transform.localScale = attack1DefaultSize;
 //	fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
 //	ready = true;
 	//channeling = false;
 
 
-		boundary.xMin = - (sectorSize / 2);
-		boundary.xMax = (sectorSize / 2);
-		boundary.yMin = - (sectorSize / 2);
-		boundary.yMax = (sectorSize / 2);
-		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
+		setBoundary (); /////////////////sets bounds for player movement.
+		sectorClear = false;
 
 		for (int i=0; i<numOfWeaponSlots; i++) {
 			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, this.GetComponent<Rigidbody>().position, GetComponent<Rigidbody>().rotation);
@@ -270,7 +274,7 @@ public class PlayerController : MonoBehaviour
 	public float speed;
 	
 	public Boundary boundary;
-
+	public bool sectorClear = false;
 	void FixedUpdate ()
 	{
 		//if (!freezeChara) {
@@ -280,13 +284,14 @@ public class PlayerController : MonoBehaviour
 			Vector3 movement = new Vector3 (moveHorizontal,moveVertical, 0.0f);
 			this.GetComponent<Rigidbody>().velocity = movement * speed;
 			
-			this.GetComponent<Rigidbody>().position = new Vector3 
+		if (!sectorClear) {
+			this.GetComponent<Rigidbody> ().position = new Vector3 
 				(
-					Mathf.Clamp (this.GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax), 
-				    Mathf.Clamp (this.GetComponent<Rigidbody>().position.y, boundary.yMin, boundary.yMax), 
+					Mathf.Clamp (this.GetComponent<Rigidbody> ().position.x, boundary.xMin, boundary.xMax), 
+				    Mathf.Clamp (this.GetComponent<Rigidbody> ().position.y, boundary.yMin, boundary.yMax), 
 					0.0f//Mathf.Clamp (this.GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
-					);
-
+			);
+		}
 
 
 		this.GetComponent<Rigidbody>().position = new Vector3 (this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y,0.0f);
