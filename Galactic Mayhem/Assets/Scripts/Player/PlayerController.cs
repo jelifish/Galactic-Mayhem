@@ -7,7 +7,6 @@ public class Boundary
 	public float xMin, xMax, yMin, yMax;
 }
 
-
 [System.Serializable]
 public class Load
 {
@@ -34,7 +33,7 @@ public class Load
 //	}
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CollisionObject
 {
 	public GameObject weaponSlot;
 	private List<GameObject> weaponSlots = new List<GameObject>();
@@ -42,64 +41,6 @@ public class PlayerController : MonoBehaviour
 
 
 	private GameObject GameController;
-
-	public float playerHull;
-	private float playerMaxHull;
-	public float playerShield;
-	private float playerMaxShield;
-
-	public float getShield(){
-		return playerShield;
-	}
-	public void addShield(float heal){
-		playerShield += heal;
-		if (playerShield > playerMaxShield) {
-			playerShield = playerMaxShield;}
-		
-	}
-	public float getHull(){
-		return playerHull;
-	}
-	public void addHull(float heal)
-	{
-		playerHull += heal;
-		if (playerHull > playerMaxHull) {
-			playerHull = playerMaxShield;}
-	}
-	public void takeDamage(float damage){
-		playerShield -= damage;
-		if (playerShield < 0) {
-			
-			playerHull += playerShield;
-			playerShield = 0f;
-		}
-		if (playerHull <= 0.0f) {
-			this.onDeath ();
-			this.destroyObject();
-
-		}
-	}
-
-	void OnTriggerEnter(Collider other)
-	{
-		if (other.gameObject.tag == "Enemy") {
-			return;
-			
-		} else if(other.gameObject.tag == "EnemyBullet"){
-			Destroy (other.gameObject);
-			this.takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-		}
-	}
-
-	public GameObject deathParticles;
-	public void onDeath(){
-		Instantiate( deathParticles, this.transform.position, this.transform.rotation); //do death particles
-	}
-
-	public void destroyObject()
-	{
-		Destroy(this.gameObject); ////start game over screen
-	}
 
 	public float chargeShotDelay;
 	public float fireStormDelay;
@@ -138,29 +79,33 @@ public class PlayerController : MonoBehaviour
 	void Awake(){
 	//	anim = GetComponent<Animator> ();
 	}
-
+	public void setBoundary(){
+		float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
+		boundary.xMin = - (sectorSize / 2);
+		boundary.xMax = (sectorSize / 2);
+		boundary.yMin = - (sectorSize / 2);
+		boundary.yMax = (sectorSize / 2);
+		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
+	}
 	void Start(){
 
 
 
 	GameController = GameObject.Find ("GameController");
-		playerMaxHull = playerHull;
-		playerMaxShield = playerShield;
+		maxHull = hull;
+		maxShield = shield;
 
 
 
-	float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
+	
 //	fireball1.transform.localScale = attack1DefaultSize;
 //	fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
 //	ready = true;
 	//channeling = false;
 
 
-		boundary.xMin = - (sectorSize / 2);
-		boundary.xMax = (sectorSize / 2);
-		boundary.yMin = - (sectorSize / 2);
-		boundary.yMax = (sectorSize / 2);
-		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
+		setBoundary (); /////////////////sets bounds for player movement.
+		sectorClear = false;
 
 		for (int i=0; i<numOfWeaponSlots; i++) {
 			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, this.GetComponent<Rigidbody>().position, GetComponent<Rigidbody>().rotation);
@@ -270,7 +215,7 @@ public class PlayerController : MonoBehaviour
 	public float speed;
 	
 	public Boundary boundary;
-
+	public bool sectorClear = false;
 	void FixedUpdate ()
 	{
 		//if (!freezeChara) {
@@ -280,13 +225,14 @@ public class PlayerController : MonoBehaviour
 			Vector3 movement = new Vector3 (moveHorizontal,moveVertical, 0.0f);
 			this.GetComponent<Rigidbody>().velocity = movement * speed;
 			
-			this.GetComponent<Rigidbody>().position = new Vector3 
+		if (!sectorClear) {
+			this.GetComponent<Rigidbody> ().position = new Vector3 
 				(
-					Mathf.Clamp (this.GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax), 
-				    Mathf.Clamp (this.GetComponent<Rigidbody>().position.y, boundary.yMin, boundary.yMax), 
+					Mathf.Clamp (this.GetComponent<Rigidbody> ().position.x, boundary.xMin, boundary.xMax), 
+				    Mathf.Clamp (this.GetComponent<Rigidbody> ().position.y, boundary.yMin, boundary.yMax), 
 					0.0f//Mathf.Clamp (this.GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
-					);
-
+			);
+		}
 
 
 		this.GetComponent<Rigidbody>().position = new Vector3 (this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y,0.0f);

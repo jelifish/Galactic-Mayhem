@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShieldScript : MonoBehaviour {
 	private float maxShield;
-	public float maxCooldown;
+	public float maxCooldown = 3;
 
 
 	IEnumerator shieldRegen(){
@@ -12,12 +12,10 @@ public class ShieldScript : MonoBehaviour {
 
 		yield return new WaitForSeconds (.2f);
 
-		float tempValue = GetComponent<ExteriorBlockCollision> ().getShield ();
+		float tempValue = GetComponent<BlockCollision> ().getShield ();
 
 		while (true){
-			currentShield = GetComponent<ExteriorBlockCollision> ().getShield ();   //get current shield value
-
-
+			currentShield = GetComponent<BlockCollision> ().getShield ();   //get current shield value
 
 			if (currentShield < maxShield) {         //if the unit has taken damage
 
@@ -27,7 +25,7 @@ public class ShieldScript : MonoBehaviour {
 				}
 				if (cooldown< 0 && tempValue == currentShield) // if the cooldown has reached negative and the tempvalue is the same as the currentShield
 				{
-					GetComponent<ExteriorBlockCollision> ().addShield(maxShield * .01f); //then we increase health
+					GetComponent<BlockCollision> ().addShield(maxShield * .01f); //then we increase health
 					tempValue +=maxShield * .01f;                                        //and increase tempvalue the same 
 				}
 				else if(tempValue != currentShield){ //other wise
@@ -38,7 +36,6 @@ public class ShieldScript : MonoBehaviour {
 				
 
 			yield return new WaitForSeconds (.2f);
-			//Debug.Log(GetComponent<ExteriorBlockCollision> ().getShield ());
 			}
 
 			
@@ -53,13 +50,8 @@ public class ShieldScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		maxShield = GetComponent<ExteriorBlockCollision> ().getShield ();
+		maxShield = GetComponent<BlockCollision> ().getShield ();
 		StartCoroutine (shieldRegen ());
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }

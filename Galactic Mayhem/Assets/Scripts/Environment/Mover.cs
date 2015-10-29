@@ -12,7 +12,7 @@ public class Mover : MonoBehaviour {
 		//float alpha = -Mathf.Tan(this.transform.rotation.z * Mathf.Deg2Rad);
 		//Debug.Log (transform.up);
 		//GetComponent<Rigidbody> ().velocity = speed * Vector3.up;
-		GetComponent<Rigidbody>().AddForce(transform.right* speed);
+		GetComponent<Rigidbody>().velocity =transform.right* speed;
 		originalObject = GetComponent<Rigidbody> ().transform;
 		Destroy (gameObject, age);
 
@@ -29,7 +29,7 @@ public class Mover : MonoBehaviour {
 
 		if (other.gameObject.tag == "Bullet" && this.gameObject.tag=="Strike") {
 			bullet.tag ="TriggeredBullet";
-			if(Random.Range(1,3)==1)Instantiate(bullet, transform.localPosition,Quaternion.identity);
+			//if(Random.Range(1,3)==1)Instantiate(bullet, transform.localPosition,Quaternion.identity);
 			bullet.tag ="Bullet";
 			other.gameObject.tag = "TriggeredBullet";
 			other.gameObject.GetComponent<Rigidbody>().drag = (other.gameObject.GetComponent<Rigidbody>().drag /Random.Range(2f, 3f));

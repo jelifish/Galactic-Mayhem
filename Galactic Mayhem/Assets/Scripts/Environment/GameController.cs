@@ -11,9 +11,22 @@ public class GameController : MonoBehaviour {
 	public float sectorSize;
 	public Camera GameCamera;
 
+
+
+	public float getDifficulty(){
+		return Vector2.Distance (new Vector2 (0, 0), new Vector2(xSector, ySector));
+	}
+	public int xSector = 5;
+	public int ySector = 10;
+
+
+
+
 	//HUD Variables
 	public GUIText score_txt = null;
 	public int score;
+	public GUIText sector_txt;
+
 	public GUIText health_txt;
 	public int health;
 	public GUIText shield_txt;
@@ -36,7 +49,7 @@ public class GameController : MonoBehaviour {
 
 	void Awake(){
 		generateSectorSize();
-	
+		//Debug.Log (getDifficulty());
 	
 	}
 
@@ -76,6 +89,11 @@ public class GameController : MonoBehaviour {
 	void UpdateHUD(){
 		if (score_txt != null) {
 			score_txt.text = "Score: " + score;
+		}
+
+		if (sector_txt != null) {
+			sector_txt.text = "Sector ("+xSector+","+ySector+")";
+		
 		}
 	}
 

@@ -50,9 +50,9 @@ public class WeaponSystem : MonoBehaviour {
 		child.AddComponent<BlasterWeapon>();
 		child.GetComponent<BlasterWeapon> ().bolt = bolt;
 		BlasterAttributes startWep = new BlasterAttributes ();
-		startWep.rateOfFire = .5f;
+		//startWep.rateOfFire = .5f;
 		child.GetComponent<BlasterWeapon>().init(startWep);
-		child.GetComponent<BlasterWeapon> ().weaponSlot = this.gameObject;
+		//child.GetComponent<BlasterWeapon> ().weaponSlot = this.gameObject;
 		child.transform.parent = this.transform;
 
 	}
@@ -132,13 +132,15 @@ public class BlasterAttributes
 		fireAngleVariance = 5f;
 		//directionOfFire = Quaternio * Random.insideUnitCircle.x;
 		projectileAge = 100f;
-		generateSpecial ();
+		//generateSpecial ();
 	}
 	public GameObject generateSpecial(){
-		//int length = GameObject.FindGameObjectsWithTag ("Special").Length;
+		int length = GameObject.FindGameObjectsWithTag ("Special").Length;
+		//Random.Range (0, length);
 		//Debug.Log("there are "+ length+" num of specials" );
-		return GameObject.FindGameObjectsWithTag("Special")[0];  
-
+		GameObject spec = GameObject.FindGameObjectsWithTag("Special")[Random.Range (0, length)];  
+		//spec.tag = "ActiveSpecial";
+		return spec;
 	}
 
 

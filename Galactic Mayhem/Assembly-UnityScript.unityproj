@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{FCC5A93A-E462-6664-130A-2841A509966C}</ProjectGuid>
+	<ProjectGuid>{ABF98875-E36A-BD6D-6850-BA6B40EA108C}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-UnityScript</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
 	<BaseDirectory>Assets</BaseDirectory>
@@ -46,47 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Game Jam Menu Template\Scripts\DontDestroy.cs" />
-     <Compile Include="Assets\Game Jam Menu Template\Scripts\EventSystemChecker.cs" />
-     <Compile Include="Assets\Game Jam Menu Template\Scripts\Pause.cs" />
-     <Compile Include="Assets\Game Jam Menu Template\Scripts\PlayMusic.cs" />
-     <Compile Include="Assets\Game Jam Menu Template\Scripts\QuitApplication.cs" />
-     <Compile Include="Assets\Game Jam Menu Template\Scripts\SetAudioLevels.cs" />
-     <Compile Include="Assets\Game Jam Menu Template\Scripts\ShowPanels.cs" />
-     <Compile Include="Assets\Game Jam Menu Template\Scripts\StartOptions.cs" />
-     <Compile Include="Assets\Scripts\Abstracts\CollisionObject.cs" />
-     <Compile Include="Assets\Scripts\Abstracts\RotateTowards.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\BlockCollision.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\BlockCreation.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\CoreBlockCollision.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\CoreScript.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\EnemyBehavior.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\OnDeath.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\OuterBlockCollision.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\RotateTowardsPlayer.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\ShieldScript.cs" />
-     <Compile Include="Assets\Scripts\Enemy Weapons\BlasterModule.cs" />
-     <Compile Include="Assets\Scripts\Environment\BoxColSetSectorSize.cs" />
-     <Compile Include="Assets\Scripts\Environment\CamMouse.cs" />
-     <Compile Include="Assets\Scripts\Environment\CameraController.cs" />
-     <Compile Include="Assets\Scripts\Environment\FollowUV.cs" />
-     <Compile Include="Assets\Scripts\Environment\GameController.cs" />
-     <Compile Include="Assets\Scripts\Environment\KillParticle.cs" />
-     <Compile Include="Assets\Scripts\Environment\LookAtMouse.cs" />
-     <Compile Include="Assets\Scripts\Environment\Mover.cs" />
-     <Compile Include="Assets\Scripts\Environment\Reflect.cs" />
-     <Compile Include="Assets\Scripts\Environment\ScrollUV.cs" />
-     <Compile Include="Assets\Scripts\Environment\audioDetection.cs" />
-     <Compile Include="Assets\Scripts\Environment\drawline.cs" />
-     <Compile Include="Assets\Scripts\Player\BlasterWeapon.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerShieldScript.cs" />
-     <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialBlasterMineField.cs" />
-     <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialStrike.cs" />
-     <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialWeapon.cs" />
-     <Compile Include="Assets\Scripts\Player\Weapon.cs" />
-     <Compile Include="Assets\Scripts\Player\WeaponScript.cs" />
-     <Compile Include="Assets\Scripts\Player\WeaponSystem.cs" />
+     <Compile Include="Assets\Scripts\Player\NewBehaviourScript.js" />
      <None Include="Assets\Game Jam Menu Template\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Game Jam Menu Template\GameJamTemplateReadMe.txt" />
  <Reference Include="UnityEngine.UI">
