@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BlasterWeapon : MonoBehaviour {
+public class BlasterWeapon : Weapon {
 
 	public BlasterAttributes blaster;
-	public GameObject weaponSlot;
 	public GameObject bolt;
-	public void Start(){
+
+	public void Start(){ //this overwrites parent
 		bolt.GetComponent<Rigidbody> ().drag = blaster.projectileDrag;
+		weaponSlot = this.transform.parent.gameObject; 
 	}
 	
 	public void init(BlasterAttributes blaster)
@@ -16,7 +17,7 @@ public class BlasterWeapon : MonoBehaviour {
 		bolt.GetComponent<Mover> ().age = blaster.projectileAge;
 
 		GameObject special = (GameObject) Instantiate (blaster.generateSpecial(), this.transform.position, this.transform.rotation);
-		special.tag = "ActiveSpecial";
+
 		special.transform.parent = this.transform;
 
 	}

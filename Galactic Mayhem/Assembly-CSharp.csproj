@@ -54,12 +54,15 @@
      <Compile Include="Assets\Game Jam Menu Template\Scripts\SetAudioLevels.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\ShowPanels.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\StartOptions.cs" />
+     <Compile Include="Assets\Scripts\Abstracts\CollisionObject.cs" />
+     <Compile Include="Assets\Scripts\Abstracts\RotateTowards.cs" />
+     <Compile Include="Assets\Scripts\Enemy Generation\BlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\BlockCreation.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\CoreBlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\CoreScript.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\EnemyBehavior.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\ExteriorBlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\OnDeath.cs" />
+     <Compile Include="Assets\Scripts\Enemy Generation\OuterBlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\RotateTowardsPlayer.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\ShieldScript.cs" />
      <Compile Include="Assets\Scripts\Enemy Weapons\BlasterModule.cs" />
@@ -80,6 +83,8 @@
      <Compile Include="Assets\Scripts\Player\PlayerShieldScript.cs" />
      <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialBlasterMineField.cs" />
      <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialStrike.cs" />
+     <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialWeapon.cs" />
+     <Compile Include="Assets\Scripts\Player\Weapon.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponScript.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponSystem.cs" />
      <None Include="Assets\Game Jam Menu Template\Fonts\OpenSans\License!.txt" />

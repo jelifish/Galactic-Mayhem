@@ -1,20 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Environment\Mover.cs">
     <Files>
-      <File FileName="Assets\Scripts\Environment\GameController.cs" Line="52" Column="5" />
-      <File FileName="Assets\Scripts\Player\WeaponSystem.cs" Line="141" Column="70" />
-      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="215" Column="5" />
-      <File FileName="Assets\Scripts\Enemy Generation\CoreBlockCollision.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\BlasterWeapon.cs" Line="36" Column="1" />
-      <File FileName="Assets\Scripts\Environment\LookAtMouse.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Enemy Generation\RotateTowardsPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Environment\BoxColSetSectorSize.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\SpecialWeapons\SpecialBlasterMineField.cs" Line="41" Column="1" />
-      <File FileName="Assets\Scripts\Player\SpecialWeapons\SpecialStrike.cs" Line="41" Column="6" />
-      <File FileName="Assets\Game Jam Menu Template\Scripts\EventSystemChecker.cs" Line="1" Column="1" />
-      <File FileName="Assets\Game Jam Menu Template\Scripts\StartOptions.cs" Line="80" Column="2" />
-      <File FileName="Assets\Scripts\Environment\Mover.cs" Line="15" Column="61" />
+      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="96" Column="16" />
+      <File FileName="Assets\Scripts\Abstracts\CollisionObject.cs" Line="4" Column="29" />
+      <File FileName="Assets\Scripts\Environment\Mover.cs" Line="32" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
