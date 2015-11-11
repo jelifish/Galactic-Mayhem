@@ -35,6 +35,26 @@ public class Load
 
 public class PlayerController : CollisionObject
 {
+	public override void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Enemy") {
+
+			
+		} else if(other.gameObject.tag == "EnemyBullet"){
+			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
+			Destroy(other.gameObject);
+		}else if(other.gameObject.tag == "Player"){
+//			other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
+//			takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
+		}else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet"){
+
+		}
+	}
+
+
+
+
+
 	public GameObject weaponSlot;
 	private List<GameObject> weaponSlots = new List<GameObject>();
 	public int numOfWeaponSlots;
@@ -88,7 +108,6 @@ public class PlayerController : CollisionObject
 		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
 	}
 	void Start(){
-
 
 
 	GameController = GameObject.Find ("GameController");

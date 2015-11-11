@@ -54,7 +54,7 @@ public class CollisionObject : MonoBehaviour {
 		
 	}
 	
-	void OnTriggerEnter(Collider other)
+	public virtual void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Enemy") {
 			return;
@@ -66,7 +66,8 @@ public class CollisionObject : MonoBehaviour {
 			takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
 		}else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet"){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-			Destroy(other.gameObject);
+			other.gameObject.GetComponent<ProjectileCollision>().takeDamage(1);
+			//Destroy(other.gameObject);
 		}
 	}
 	

@@ -12,10 +12,10 @@ public class ShieldScript : MonoBehaviour {
 
 		yield return new WaitForSeconds (.2f);
 
-		float tempValue = GetComponent<BlockCollision> ().getShield ();
+		float tempValue = GetComponent<CollisionObject> ().getShield ();
 
 		while (true){
-			currentShield = GetComponent<BlockCollision> ().getShield ();   //get current shield value
+			currentShield = GetComponent<CollisionObject> ().getShield ();   //get current shield value
 
 			if (currentShield < maxShield) {         //if the unit has taken damage
 
@@ -25,7 +25,7 @@ public class ShieldScript : MonoBehaviour {
 				}
 				if (cooldown< 0 && tempValue == currentShield) // if the cooldown has reached negative and the tempvalue is the same as the currentShield
 				{
-					GetComponent<BlockCollision> ().addShield(maxShield * .01f); //then we increase health
+					GetComponent<CollisionObject> ().addShield(maxShield * .01f); //then we increase health
 					tempValue +=maxShield * .01f;                                        //and increase tempvalue the same 
 				}
 				else if(tempValue != currentShield){ //other wise
