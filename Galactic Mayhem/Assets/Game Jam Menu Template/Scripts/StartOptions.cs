@@ -77,6 +77,8 @@ public class StartOptions : MonoBehaviour {
 		Application.LoadLevel (sceneToStart);
 	}
 
+	public GameObject gc;
+
 
 	public void StartGameInScene()
 	{
@@ -97,8 +99,8 @@ public class StartOptions : MonoBehaviour {
 		Invoke("HideDelayed", fadeAlphaAnimationClip.length);
 
 		Debug.Log ("Game started in same scene! Put your game starting stuff here.");
-
-
+		showPanels.ShowHUDPanel ();
+		gc.GetComponent<GameController> ().init ();
 	}
 
 

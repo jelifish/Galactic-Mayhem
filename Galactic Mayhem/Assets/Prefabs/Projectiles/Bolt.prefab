@@ -100,7 +100,7 @@ Rigidbody:
   m_GameObject: {fileID: 110276}
   serializedVersion: 2
   m_Mass: .100000001
-  m_Drag: 1.15342498
+  m_Drag: 1.27492774
   m_AngularDrag: .0500000007
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -120,10 +120,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxShield: 0
   shield: 0
-  hull: 10
+  hull: 3
   maxHull: 0
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
   gc: {fileID: 0}
+  killed: 0
 --- !u!114 &11489928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -246,7 +247,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hull
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: maxHull

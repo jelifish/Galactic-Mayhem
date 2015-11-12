@@ -66,8 +66,12 @@ public class CoreBlockCollision : BlockCollision{
 //	}
 //	public GameObject deathParticles;
 //	
-	public new void onDeath(){
+
+	public override void onDeath(){
+
+		Debug.Log("enemydeath");
 		gc.addScore(scoreValue);
+		gc.addWave ();
 		foreach (Transform child in this.transform)
 		{
 			if(child.GetComponent<OuterBlockCollision>()!= null)

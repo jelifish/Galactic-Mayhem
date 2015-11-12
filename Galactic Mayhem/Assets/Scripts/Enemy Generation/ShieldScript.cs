@@ -50,7 +50,7 @@ public class ShieldScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		maxShield = GetComponent<BlockCollision> ().getShield ();
+		maxShield = GetComponent<CollisionObject> ().getShield ();
 		StartCoroutine (shieldRegen ());
 
 	}

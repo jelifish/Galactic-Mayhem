@@ -43,8 +43,11 @@ public class CollisionObject : MonoBehaviour {
 			shield = 0f;
 		}
 		if (hull <= 0.0f) {
+			if(!killed){
 			onDeath ();
 			destroyObject();
+			killed = true;
+			}
 		}
 	}
 	public void addShield(float heal){
@@ -70,8 +73,9 @@ public class CollisionObject : MonoBehaviour {
 			//Destroy(other.gameObject);
 		}
 	}
-	
-	public void onDeath(){	
+	public bool killed;
+	public virtual void onDeath(){
+
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
 	}
 	public void destroyObject()

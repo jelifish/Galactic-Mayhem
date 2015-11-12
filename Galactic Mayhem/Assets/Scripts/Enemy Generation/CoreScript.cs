@@ -161,7 +161,7 @@ public class CoreScript : MonoBehaviour {
 					//+(a%2)*hexa // this code is in there TWICE^^ and makes shifts that creates the hexagon tile look vs the square tiles. 
 					//one shift to shift separate rows, the other to shift the core. imo better looking than tile.
 					//child.GetComponent<ConfigurableJoint> ().connectedBody = this.GetComponent<Rigidbody>();
-					yield return new WaitForSeconds (.02f);
+					yield return new WaitForSeconds (.05f);
 				}
 
 				count++;

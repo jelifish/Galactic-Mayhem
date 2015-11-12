@@ -235,6 +235,10 @@ public class PlayerController : CollisionObject
 	
 	public Boundary boundary;
 	public bool sectorClear = false;
+	public void setMoveDirection(Vector3 move){
+		this.GetComponent<Rigidbody>().velocity += move * speed*5;
+		this.GetComponent<Rigidbody>().velocity = this.GetComponent<Rigidbody>().velocity.normalized * speed;
+	}
 	void FixedUpdate ()
 	{
 		//if (!freezeChara) {
@@ -242,7 +246,15 @@ public class PlayerController : CollisionObject
 			float moveHorizontal = Input.GetAxis ("HorizontalPlayer");
 			float moveVertical = Input.GetAxis ("VerticalPlayer");
 			Vector3 movement = new Vector3 (moveHorizontal,moveVertical, 0.0f);
-			this.GetComponent<Rigidbody>().velocity = movement * speed;
+		setMoveDirection (movement);	
+
+
+
+			//this.GetComponent<Rigidbody>().velocity += movement * speed;
+		//Debug.Log (this.GetComponent<Rigidbody> ().velocity.magnitude);
+		//if (this.GetComponent<Rigidbody> ().velocity.magnitude > 20) {
+		//	this.GetComponent<Rigidbody> ().velocity = 20;
+		//}
 			
 		if (!sectorClear) {
 			this.GetComponent<Rigidbody> ().position = new Vector3 

@@ -9,6 +9,11 @@ public class BoxColSetSectorSize : MonoBehaviour {
 	public LineRenderer east;
 	public LineRenderer west;
 
+	public LineRenderer north2;
+	public LineRenderer south2;
+	public LineRenderer east2;
+	public LineRenderer west2;
+
 
 
 
@@ -30,6 +35,25 @@ public class BoxColSetSectorSize : MonoBehaviour {
 		
 		east.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (SectorSize.size.x/2+1, SectorSize.size.y/2+1, 0f));
 		east.GetComponent<LineRenderer>().SetPosition(1, new Vector3(SectorSize.size.x/2+1,-SectorSize.size.y/2-1,0f));
+
+
+
+
+		north2.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (-SectorSize.size.x/2-1-cornerOffset, SectorSize.size.y/2+1, 0f));
+		north2.GetComponent<LineRenderer>().SetPosition(1, new Vector3(SectorSize.size.x/2+1+cornerOffset,SectorSize.size.y/2+1,0f));
+		
+		south2.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (-SectorSize.size.x/2-1f-cornerOffset, -SectorSize.size.y/2-1f, 0f));
+		south2.GetComponent<LineRenderer>().SetPosition(1, new Vector3(SectorSize.size.x/2 +1+cornerOffset,-SectorSize.size.y/2-1f,0f));
+		
+		west2.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (-SectorSize.size.x/2-1, SectorSize.size.y/2+1,0f));
+		west2.GetComponent<LineRenderer>().SetPosition(1, new Vector3(-SectorSize.size.x/2-1,-SectorSize.size.y/2-1,0f));
+		
+		east2.GetComponent<LineRenderer>().SetPosition (0, new Vector3 (SectorSize.size.x/2+1, SectorSize.size.y/2+1, 0f));
+		east2.GetComponent<LineRenderer>().SetPosition(1, new Vector3(SectorSize.size.x/2+1,-SectorSize.size.y/2-1,0f));
+
+
+
+
 
 		totalSectorSize = size + padding;
 

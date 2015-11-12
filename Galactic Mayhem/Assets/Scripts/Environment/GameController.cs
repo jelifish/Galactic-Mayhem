@@ -2,9 +2,11 @@
 using System.Collections;
 
 public class GameController : MonoBehaviour {
+	public GameObject player;
 	public GameObject blueSquare1;
+	public GameObject core1;
 	public Vector3 spawnValues;
-	public int hazardCount;
+
 	public float spawnWait;
 	public long gold;
 
@@ -12,7 +14,7 @@ public class GameController : MonoBehaviour {
 	public Camera GameCamera;
 
 
-
+	public float difficulty;
 	public float getDifficulty(){
 		return Vector2.Distance (new Vector2 (0, 0), new Vector2(xSector, ySector));
 	}
@@ -34,12 +36,46 @@ public class GameController : MonoBehaviour {
 	public GUIText weapon_txt;
 	public string[] weapons;
 
+	public GUIText wave_txt;
+	public int waveLimit = 0;
+	public int waveCurrent = 0;
+
 	private PlayerController pc;
 
 	void Start () {
+
+	}
+
+	public void init(){
+		calcHazardCount ();
+		spawnWait = Random.Range (5, 10);
 		score = 0;
-		UpdateHUD ();
+
+		waveLimit = hazardCount;
 		StartCoroutine(Wave1());
+
+		UpdateHUD (); //always do this at the end
+	}
+
+
+	public int hazardCount = 1;
+	public float enemyModifier = 0;
+	public void calcHazardCount(){
+		int count;
+		float tempdiff = difficulty;
+		float chance = 0.2f;
+		while (Mathf.Sqrt(tempdiff) >= 1){
+			if(Random.value > chance){
+				enemyModifier++;
+				chance = chance * 1.5f;
+				tempdiff = tempdiff - Mathf.Sqrt(tempdiff);
+				hazardCount = (int) tempdiff;
+				Debug.Log(tempdiff);
+			}else {break;}
+
+		}
+
+		hazardCount = (int)tempdiff + 1;
 	}
 
 	// Use this for initialization
@@ -49,12 +85,15 @@ public class GameController : MonoBehaviour {
 
 	void Awake(){
 		generateSectorSize();
+		difficulty = getDifficulty ();
 		//Debug.Log (getDifficulty());
 	
 	}
+	public float sectorSizeMin;
+	public float sectorSizeMax;
 
 	private void generateSectorSize(){
-		sectorSize = Random.Range (30.0F, 40.0F); //randomize sector size
+		sectorSize = Random.Range (sectorSizeMin, sectorSizeMax); //randomize sector size
 		sectorSize = Mathf.Round(sectorSize * 100f) / 100f; // truncate decimal precision
 
 	}
@@ -62,8 +101,8 @@ public class GameController : MonoBehaviour {
 	IEnumerator Wave1(){
 		for(int i=0; i<hazardCount; i++){
 
-			Vector3 spawnPosition = new Vector3(Random.Range(-sectorSize/2, sectorSize/2),spawnValues.y,Random.Range(-sectorSize/2, sectorSize/2));
-			Instantiate(blueSquare1, spawnPosition, Quaternion.Euler(90,0,0));//GameCamera.transform.rotation);
+			Vector3 spawnPosition = new Vector3(Random.Range(-sectorSize/2, sectorSize/2),Random.Range(-sectorSize/2, sectorSize/2),spawnValues.z);
+			Instantiate(core1, spawnPosition, Quaternion.Euler(0,0,0));//GameCamera.transform.rotation);
 
 			yield return new WaitForSeconds(spawnWait);
 		}
@@ -95,6 +134,17 @@ public class GameController : MonoBehaviour {
 			sector_txt.text = "Sector ("+xSector+","+ySector+")";
 		
 		}
+		if (wave_txt != null) {
+			wave_txt.text = "Wave "+waveCurrent+"/"+waveLimit+"";
+			
+		} 
+		Debug.Log (waveCurrent);
+	}
+
+	public void addWave(){
+		Debug.Log("enemykilled");
+		waveCurrent += 1;
+		UpdateHUD ();
 	}
 
 	public void addScore(int new_score){
