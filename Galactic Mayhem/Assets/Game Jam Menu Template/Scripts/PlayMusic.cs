@@ -10,21 +10,32 @@ public class PlayMusic : MonoBehaviour {
 
 
 	private AudioSource musicSource;				//Reference to the AudioSource which plays music
+	private AudioSource tempMusic;
 
 	void Awake () 
 	{
 		//Get a component reference to the AudioSource attached to the UI game object
 		musicSource = GetComponent<AudioSource> ();
+		tempMusic = musicSource;
 	}
 	
 	//Used if running the game in a single scene, takes an integer music source allowing you to choose a clip by number and play.
 	public void PlaySelectedMusic(int musicChoice)
 	{
 		//Play the music clip at the array index musicChoice
-		musicSource.clip = musicClips [musicChoice];
+		tempMusic.clip = musicClips[Random.Range(1,musicClips.Length)];
+		while (tempMusic!= musicSource) {
+			tempMusic.clip = musicClips[Random.Range(1,musicClips.Length)];
+		}
+		musicSource.clip = tempMusic.clip;
 
 		//Play the selected clip
 		musicSource.Play ();
+		Invoke("PlayNextSong", musicSource.clip.length);
+	}
+	public void PlayNextSong()
+	{
+		PlaySelectedMusic (1);
 	}
 
 	//Call this function to very quickly fade up the volume of master mixer

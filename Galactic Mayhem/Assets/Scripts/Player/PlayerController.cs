@@ -109,23 +109,26 @@ public class PlayerController : CollisionObject
 	}
 	void Start(){
 
-
-	GameController = GameObject.Find ("GameController");
+	}
+	public void init(){
+		
+		
+		GameController = GameObject.Find ("GameController");
 		maxHull = hull;
 		maxShield = shield;
-
-
-
-	
-//	fireball1.transform.localScale = attack1DefaultSize;
-//	fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
-//	ready = true;
-	//channeling = false;
-
-
+		
+		
+		
+		
+		//	fireball1.transform.localScale = attack1DefaultSize;
+		//	fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
+		//	ready = true;
+		//channeling = false;
+		
+		
 		setBoundary (); /////////////////sets bounds for player movement.
 		sectorClear = false;
-
+		
 		for (int i=0; i<numOfWeaponSlots; i++) {
 			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, this.GetComponent<Rigidbody>().position, GetComponent<Rigidbody>().rotation);
 			tempSlot.GetComponent<WeaponSystem>().setSlotPosition(i);
@@ -142,7 +145,7 @@ public class PlayerController : CollisionObject
 			}
 		}
 		//shotSpawn = weaponSlots [0].transform;  
-
+		
 
 	}
 //

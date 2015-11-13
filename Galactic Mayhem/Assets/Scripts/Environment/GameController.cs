@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void init(){
+		player.GetComponent<PlayerController> ().init ();
 		calcHazardCount ();
 		spawnWait = Random.Range (5, 10);
 		score = 0;
