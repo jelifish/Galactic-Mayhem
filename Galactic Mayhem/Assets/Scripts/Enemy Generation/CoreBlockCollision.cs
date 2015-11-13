@@ -65,8 +65,7 @@ public class CoreBlockCollision : BlockCollision{
 //		}
 //	}
 //	public GameObject deathParticles;
-//	
-
+//	scoreValue = 10
 	public override void onDeath(){
 
 		Debug.Log("enemydeath");

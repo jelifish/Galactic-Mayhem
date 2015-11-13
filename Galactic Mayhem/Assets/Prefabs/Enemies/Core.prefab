@@ -103,13 +103,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69647c3675a79664fa97387c0b72cf23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onState: {fileID: 0}
-  offState: {fileID: 0}
+  maxShield: 0
   shield: 50
   hull: 100
   maxHull: 0
-  score_value: 100
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
+  gc: {fileID: 0}
+  killed: 0
+  scoreValue: 30
 --- !u!114 &11408536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0590b29d6f8ca074cbcc5a8ec20303f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 16
   passes: 8
   minValue: 10
   regressionRate: 1.20000005
@@ -170,6 +171,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: score_value
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: scoreValue
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

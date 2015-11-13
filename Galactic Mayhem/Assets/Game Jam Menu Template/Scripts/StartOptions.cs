@@ -37,6 +37,7 @@ public class StartOptions : MonoBehaviour {
 
 	public void StartButtonClicked()
 	{
+		showPanels.HideMenu ();
 		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic, using length of fadeColorAnimationClip as time. 
 		//To change fade time, change length of animation "FadeToColor"
 		if (changeMusicOnStart) 
@@ -93,7 +94,7 @@ public class StartOptions : MonoBehaviour {
 			Invoke ("PlayNewMusic", fadeAlphaAnimationClip.length);
 		}
 		//Set trigger for animator to start animation fading out Menu UI
-		animMenuAlpha.SetTrigger ("fade");
+//		animMenuAlpha.SetTrigger ("fade");
 
 		//Wait until game has started, then hide the main menu
 		Invoke("HideDelayed", fadeAlphaAnimationClip.length);

@@ -20,9 +20,6 @@ public class Mover : MonoBehaviour {
 	}
 	float velo;
 	public GameObject bullet;
-	public void BuildSector(){
-		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize (); //expensive call
-	}
 	//
 	void OnCollisionEnter(Collision other)
 	{

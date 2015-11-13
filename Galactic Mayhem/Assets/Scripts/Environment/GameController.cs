@@ -40,7 +40,6 @@ public class GameController : MonoBehaviour {
 	public int waveLimit = 0;
 	public int waveCurrent = 0;
 
-	private PlayerController pc;
 
 	void Start () {
 

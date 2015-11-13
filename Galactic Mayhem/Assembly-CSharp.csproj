@@ -46,6 +46,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ChaseObject.cs" />
+     <Compile Include="Assets\DragTransform.cs" />
+     <Compile Include="Assets\FixRotation.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\DontDestroy.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\EventSystemChecker.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\Pause.cs" />
@@ -54,6 +57,8 @@
      <Compile Include="Assets\Game Jam Menu Template\Scripts\SetAudioLevels.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\ShowPanels.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\StartOptions.cs" />
+     <Compile Include="Assets\OverlapFollow.cs" />
+     <Compile Include="Assets\PlayerDrag.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\BlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\BlockCreation.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\CoreBlockCollision.cs" />
@@ -88,6 +93,8 @@
      <Compile Include="Assets\Scripts\Player\Weapon.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponScript.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponSystem.cs" />
+     <Compile Include="Assets\Scripts\misc\LookAtObject.cs" />
+     <Compile Include="Assets\Scripts\misc\SpawnedWeapon.cs" />
      <None Include="Assets\Game Jam Menu Template\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Game Jam Menu Template\GameJamTemplateReadMe.txt" />
  <Reference Include="UnityEngine.UI">

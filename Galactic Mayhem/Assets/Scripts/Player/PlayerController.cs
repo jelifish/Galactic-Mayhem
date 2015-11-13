@@ -243,10 +243,10 @@ public class PlayerController : CollisionObject
 	{
 		//if (!freezeChara) {
 
-			float moveHorizontal = Input.GetAxis ("HorizontalPlayer");
-			float moveVertical = Input.GetAxis ("VerticalPlayer");
-			Vector3 movement = new Vector3 (moveHorizontal,moveVertical, 0.0f);
-		setMoveDirection (movement);	
+//			float moveHorizontal = Input.GetAxis ("HorizontalPlayer");
+//			float moveVertical = Input.GetAxis ("VerticalPlayer");
+//			Vector3 movement = new Vector3 (moveHorizontal,moveVertical, 0.0f);
+//		setMoveDirection (movement);	
 
 
 
@@ -266,7 +266,7 @@ public class PlayerController : CollisionObject
 		}
 
 
-		this.GetComponent<Rigidbody>().position = new Vector3 (this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y,0.0f);
+		//this.GetComponent<Rigidbody>().position = new Vector3 (this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y,0.0f);
 
 			//GetComponent<Rigidbody> ().position = GetComponent<Rigidbody> ().rotation * Quaternion.Euler (0.0f, 0f, moveHorizontal * rotationSpeed);
 		}
