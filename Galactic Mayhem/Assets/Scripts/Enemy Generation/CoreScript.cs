@@ -181,7 +181,7 @@ public class CoreScript : MonoBehaviour {
 			yield return new WaitForSeconds( Random.Range (1F,5F));
 
 			GetComponent<Rigidbody> ().AddForce (Random.insideUnitSphere* Random.Range (50,300));
-			GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * 1;
+			GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * 5;
 			
 		}
 	}

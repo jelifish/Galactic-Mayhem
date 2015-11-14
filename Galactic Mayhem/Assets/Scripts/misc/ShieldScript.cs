@@ -3,12 +3,12 @@ using System.Collections;
 
 public class ShieldScript : MonoBehaviour {
 	private float maxShield;
-	public float maxCooldown = 3;
+	public float maxShieldCooldown = 3;
 
 
 	IEnumerator shieldRegen(){
 		float currentShield = 0;
-		float cooldown = maxCooldown;
+		float cooldown = maxShieldCooldown;
 
 		yield return new WaitForSeconds (.2f);
 
@@ -29,7 +29,7 @@ public class ShieldScript : MonoBehaviour {
 					tempValue +=maxShield * .01f;                                        //and increase tempvalue the same 
 				}
 				else if(tempValue != currentShield){ //other wise
-					cooldown = maxCooldown; //put shields on cooldown
+					cooldown = maxShieldCooldown; //put shields on cooldown
 					tempValue = currentShield; //reset the shield value
 				}
 			}
@@ -39,9 +39,6 @@ public class ShieldScript : MonoBehaviour {
 			}
 
 			
-
-
-
 	
 	}
 

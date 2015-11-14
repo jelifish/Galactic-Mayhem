@@ -10,7 +10,7 @@ public class SpecialBlasterMineField : SpecialWeapon{
 		if (Input.GetButton (fireButton) && Time.time > nextFire && (weaponSlot != null)) {
 			nextFire = Time.time + coolDown;
 			StartCoroutine(fireStorm());
-	//weaponSlot.GetComponent<WeaponSystem> ().loader.Add (new Load (projectile, Quaternion.identity));
+			//weaponSlot.GetComponent<WeaponSystem> ().loader.Add (new Load (projectile, Quaternion.identity));
 			//weaponSlot.GetComponent<WeaponSystem> ().shoot ();
 
 		}
@@ -24,6 +24,13 @@ public class SpecialBlasterMineField : SpecialWeapon{
 //		obj.GetComponent<Rigidbody>().AddForce(transform.right* 1000f);
 //	
 //	}
+	private Vector3 firePos;
+	public override void Fire(Vector3 firePosition){
+		firePos = firePosition;
+
+
+	}
+
 
 		IEnumerator fireStorm()
 		{
@@ -35,7 +42,7 @@ public class SpecialBlasterMineField : SpecialWeapon{
 				float tempDrag = projectile.GetComponent<Rigidbody>().drag;
 				projectile.GetComponent<Rigidbody>().drag = Random.Range(3f,5f);
 					
-				weaponSlot.GetComponent<WeaponSystem> ().loader.Add (new Load (projectile, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(-20.0f, 20.0f)) ));
+				weaponSlot.GetComponent<WeaponSystem> ().loader.Add (new Load (projectile,firePos, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(-20.0f, 20.0f)) ));
 				weaponSlot.GetComponent<WeaponSystem> ().shoot ();	
 				//Invoke("addDelayedForce(projectile)", 3f);
 				projectile.GetComponent<Rigidbody>().drag = tempDrag;

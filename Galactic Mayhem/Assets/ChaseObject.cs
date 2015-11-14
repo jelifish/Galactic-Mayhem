@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class ChaseObject : MonoBehaviour {
-	public GameObject target;
-	float speed = 5f;
+//	public GameObject target;
+//	float speed = 5f;
 
 	
 	// Update is called once per frame

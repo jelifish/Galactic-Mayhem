@@ -3,9 +3,9 @@ using System.Collections;
 
 public class ProjectileCollision : CollisionObject {
 
-	bool multiHit = false; //piercing attribute
-	float baseDamage = 0f;
-	float damageMultiplier = 1.2f;
+	//bool multiHit = false; //piercing attribute
+	//float baseDamage = 0f;
+	//float damageMultiplier = 1.2f;
 	//int integrity = 2;
 
 	//public void calculateDamage(){}

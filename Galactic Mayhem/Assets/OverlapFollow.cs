@@ -5,6 +5,6 @@ public class OverlapFollow : MonoBehaviour {
 
 	public GameObject player;
 	void Update(){
-		this.transform.position = player.transform.position;
+		if(player != null)this.transform.position = player.transform.position;
 	}
 }

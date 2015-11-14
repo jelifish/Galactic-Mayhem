@@ -31,6 +31,7 @@ public class PlayMusic : MonoBehaviour {
 
 		//Play the selected clip
 		musicSource.Play ();
+		musicSource.loop = false;
 		Invoke("PlayNextSong", musicSource.clip.length);
 	}
 	public void PlayNextSong()

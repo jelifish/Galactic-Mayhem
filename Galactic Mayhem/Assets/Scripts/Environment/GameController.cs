@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameController : MonoBehaviour {
@@ -20,23 +21,20 @@ public class GameController : MonoBehaviour {
 	}
 	public int xSector = 5;
 	public int ySector = 10;
+	  
+	//HUD references
+	public Text hullText;
+	//public Text scoreText;
+	public Text sectorText;
+	public Text shieldText;
+	public Text waveText;
 
 
-
-
-	//HUD Variables
-	public GUIText score_txt = null;
 	public int score;
-	public GUIText sector_txt;
 
-	public GUIText health_txt;
-	public int health;
-	public GUIText shield_txt;
-	public int shield;
-	public GUIText weapon_txt;
+	//public GUIText weapon_txt;
 	public string[] weapons;
 
-	public GUIText wave_txt;
 	public int waveLimit = 0;
 	public int waveCurrent = 0;
 
@@ -61,7 +59,7 @@ public class GameController : MonoBehaviour {
 	public int hazardCount = 1;
 	public float enemyModifier = 0;
 	public void calcHazardCount(){
-		int count;
+
 		float tempdiff = difficulty;
 		float chance = 0.2f;
 		while (Mathf.Sqrt(tempdiff) >= 1){
@@ -126,19 +124,21 @@ public class GameController : MonoBehaviour {
 
 	//HUD Functions
 	void UpdateHUD(){
-		if (score_txt != null) {
-			score_txt.text = "Score: " + score;
-		}
+//		if (score_txt != null) {
+//			score_txt.text = "Score: " + score;
+//		}
+//
+			sectorText.text = "Sector: ("+xSector+","+ySector+")";
 
-		if (sector_txt != null) {
-			sector_txt.text = "Sector ("+xSector+","+ySector+")";
-		
-		}
-		if (wave_txt != null) {
-			wave_txt.text = "Wave "+waveCurrent+"/"+waveLimit+"";
-			
-		} 
-		Debug.Log (waveCurrent);
+			waveText.text = "Wave: "+waveCurrent+"/"+waveLimit+"";
+//		} 
+//		Debug.Log (waveCurrent);
+	}
+	public void setHealth (float curHP, float hpMax){
+		hullText.text = "Hull: " + (int)curHP + "/" + (int)hpMax;
+	}
+	public void setShield (float curShield, float shieldMax){
+		shieldText.text = "Shield: " + (int)curShield + "/" + (int)shieldMax;
 	}
 
 	public void addWave(){
@@ -151,5 +151,6 @@ public class GameController : MonoBehaviour {
 		score += new_score;
 		UpdateHUD ();
 	}
+
 
 }

@@ -28,7 +28,9 @@ public class BlasterWeapon : Weapon {
 		{
 			nextFire = Time.time + blaster.rateOfFire;
 
-			weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(-20.0f, 20.0f)) ));
+			weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
+			weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
+			//weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
 			weaponSlot.GetComponent<WeaponSystem>().shoot();
 		}
 

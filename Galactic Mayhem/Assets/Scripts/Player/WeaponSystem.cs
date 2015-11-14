@@ -24,7 +24,7 @@ public class WeaponSystem : MonoBehaviour {
 //	private bool loaded = false;
 	public List<Load> loader = new List<Load>();
 	public GameObject weapon;
-	public float reloadSpeed = Time.time + .5f;
+	public float reloadSpeed =  .5f;
 	public bool channeling; //if channeling do not shoot anything
 
 	private int slotPosition;
@@ -131,7 +131,7 @@ public class BlasterAttributes
 		projectileDrag = Random.Range(.1f, 1.5f);
 		fireAngleVariance = 5f;
 		//directionOfFire = Quaternio * Random.insideUnitCircle.x;
-		projectileAge = 100f;
+		projectileAge = 10f;
 		//generateSpecial ();
 	}
 	public GameObject generateSpecial(){

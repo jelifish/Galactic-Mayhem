@@ -35,14 +35,23 @@ public class Load
 
 public class PlayerController : CollisionObject
 {
+	public override void ShieldUpdate(){
+		updateHUD ();
+	}
+	public void updateHUD(){
+		gc.GetComponent<GameController> ().setHealth (hull, maxHull);
+		gc.GetComponent<GameController> ().setShield (shield, maxShield);
+	}
 	public override void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "Enemy") {
-
-			
+			updateHUD();
 		} else if(other.gameObject.tag == "EnemyBullet"){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
 			Destroy(other.gameObject);
+			updateHUD();
+
+
 		}else if(other.gameObject.tag == "Player"){
 //			other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
 //			takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
@@ -96,9 +105,11 @@ public class PlayerController : CollisionObject
 //		//return load;
 //	}
 
-	void Awake(){
-	//	anim = GetComponent<Animator> ();
-	}
+//	void Awake(){
+//	//	anim = GetComponent<Animator> ();
+//		updateHUD ();
+//	}
+	
 	public void setBoundary(){
 		float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
 		boundary.xMin = - (sectorSize / 2);
@@ -107,9 +118,12 @@ public class PlayerController : CollisionObject
 		boundary.yMax = (sectorSize / 2);
 		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
 	}
-	void Start(){
+	public void newSector(){
+		setBoundary ();
+		sectorClear = false;
 
 	}
+
 	public void init(){
 		
 		
@@ -141,6 +155,9 @@ public class PlayerController : CollisionObject
 				tempSlot.GetComponent<WeaponSystem>().initWeapon();
 			}
 			if(i==2){
+				tempSlot.GetComponent<WeaponSystem>().initWeapon();
+			}
+			if(i==3){
 				tempSlot.GetComponent<WeaponSystem>().initWeapon();
 			}
 		}
@@ -180,67 +197,16 @@ public class PlayerController : CollisionObject
 //	private bool ready;
 	//private bool freezeChara;
 
-	void Update()
-	{
-//		if (ready) {
-//			if (Input.GetButtonDown ("Fire3")) {
-//				StartCoroutine (fireStorm());
-//				ready = false;
-//				
-//				nextFire = Time.time;
-//				
-//			}
-//		}
-//		if (!Input.GetButton ("Fire1") && Time.time > nextFire) {
-//			if (loaded == false) {
-//				
-//				fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
-//				
-//				loader.Add (new Load (fireball1, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(-20.0f, 20.0f)) ));
-//				
-//			}
-//			
-////			foreach (Load load in loader) {
-////				shoot (load); //shoots and removes the loaded object
-////				
-////			}
-//			loader.Clear ();
-//			loaded = false;//empty magazine
-//			
-//			nextFire = Time.time + fireRate;
-//		} else if (Input.GetButton ("Fire1") && Time.time > nextFire + chargeShotDelay && !loaded) {
-//			nextFire = Time.time;
-//			loaded = true;  //locked and loaded
-//			//				loader.Add (new Load (fireball1, Quaternion.identity * new Quaternion (0f, 0.01f, 0f, 0.1f))); angular change left
-//			//				loader.Add (new Load (fireball1, Quaternion.identity * new Quaternion (0f, -0.01f, 0f, 0.1f))); angular change right
-//			for(int i=0;i<chargeShotNum;i++){
-//				loader.Add (new Load (fireball1, Quaternion.identity));
-//			}
-//			
-//		} else if (Input.GetButton ("Fire1") && Time.time > nextFire && loaded) {
-//			nextFire = Time.time + fireRate;
-//			//shoot (new Load (fireball1, Quaternion.identity));
-//		}
-//		
-//		
-//		if ((Input.GetButtonUp ("Fire1") && loaded == true) || Input.GetButtonDown ("Fire3")) { 
-//			foreach (Load load in loader) {
-//			//	shoot (load); //shoots and removes the loaded object
-//			}
-//			loader.Clear ();
-//			loaded = false;//empty magazine
-//		}
-
-	}
 
 
-	public float speed;
+
+
 	
 	public Boundary boundary;
 	public bool sectorClear = false;
 	public void setMoveDirection(Vector3 move){
-		this.GetComponent<Rigidbody>().velocity += move * speed*5;
-		this.GetComponent<Rigidbody>().velocity = this.GetComponent<Rigidbody>().velocity.normalized * speed;
+		this.GetComponent<Rigidbody>().velocity += move * movementSpeedCap*5;
+		this.GetComponent<Rigidbody>().velocity = this.GetComponent<Rigidbody>().velocity.normalized * movementSpeedCap;
 	}
 	void FixedUpdate ()
 	{

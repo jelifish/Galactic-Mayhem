@@ -1,42 +1,42 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &100598
+--- !u!1 &198492
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 475486}
-  - 33: {fileID: 3336624}
-  - 64: {fileID: 6407540}
-  - 23: {fileID: 2388394}
-  - 114: {fileID: 11401660}
+  - 4: {fileID: 432678}
+  - 33: {fileID: 3333592}
+  - 64: {fileID: 6496420}
+  - 23: {fileID: 2384690}
+  - 114: {fileID: 11430302}
   m_Layer: 8
-  m_Name: TouchEvent
+  m_Name: SpawnedWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &475486
+--- !u!4 &432678
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100598}
+  m_GameObject: {fileID: 198492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5, y: -.170000002, z: 0}
+  m_LocalPosition: {x: 1, y: 1, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2388394
+--- !u!23 &2384690
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100598}
+  m_GameObject: {fileID: 198492}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -55,37 +55,41 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3336624
+--- !u!33 &3333592
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100598}
+  m_GameObject: {fileID: 198492}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &6407540
+--- !u!64 &6496420
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100598}
+  m_GameObject: {fileID: 198492}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11401660
+--- !u!114 &11430302
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100598}
+  m_GameObject: {fileID: 198492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce3bea141d092bf498ba3fb94d9708f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 783149a7128b1e542a0fcdbed5e5a0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitdrag: 1
+  speed: 0
+  rotationSpeed: 1
+  targetObject: {fileID: 0}
+  touchEvent: {fileID: 100598, guid: e4643c293d0a11f4bab2ba2cec4d19f7, type: 2}
+  SpecialWeapon: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -95,5 +99,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 100598}
+  m_RootGameObject: {fileID: 198492}
   m_IsPrefabParent: 1

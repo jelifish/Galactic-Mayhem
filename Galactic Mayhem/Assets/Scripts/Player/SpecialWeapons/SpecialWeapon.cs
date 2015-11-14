@@ -9,7 +9,11 @@ public class SpecialWeapon : Weapon{
 	public float minCD = 5f, maxCD = 7f;
 	public int slotPosition = 1;
 	public string fireButton = "Fire";
-	
+
+	public virtual void Fire(Vector3 firePosition){
+
+	}
+
 	void Start () {
 		
 		if (GetComponentInParent<WeaponScript>() != null) {

@@ -103,13 +103,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69647c3675a79664fa97387c0b72cf23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeedCap: 5
+  mitigation: 0
   maxShield: 0
   shield: 50
   hull: 100
   maxHull: 0
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
   gc: {fileID: 0}
+  shieldRegenEnabled: 1
   killed: 0
+  maxShieldCooldown: 3
+  shieldRegenIncrement: 0
   scoreValue: 30
 --- !u!114 &11408536
 MonoBehaviour:
@@ -179,6 +184,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: scoreValue
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: movementSpeedCap
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
