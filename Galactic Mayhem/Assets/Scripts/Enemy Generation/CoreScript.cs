@@ -11,7 +11,7 @@ public class CoreScript : MonoBehaviour {
 	public float regressionRate;  
 
 	public GameObject block;
-
+	public GameObject core;
 
 
 	void Start(){
@@ -22,6 +22,7 @@ public class CoreScript : MonoBehaviour {
 		for (int i = 0; i<=size; i++) {
 			arr[i] = new int[size+1];
 		}
+		//Debug.Log (isChild + " " + childCore);
 		setCore ();
 
 
@@ -123,8 +124,8 @@ public class CoreScript : MonoBehaviour {
 	{
 		return (x <= size-1);
 	}
-
-
+	public bool isChild =false;
+	public int childCore = 1;
 	public GameObject blaster;
 	private IEnumerator build()
 	{
@@ -145,15 +146,40 @@ public class CoreScript : MonoBehaviour {
 					{adjust = 0;}
 					else {adjust = .5f;}
 					float hexa = .5f;
-					GameObject child = (GameObject)Instantiate(block, new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),((size/2 - b))*transform.lossyScale.y + this.transform.position.y ,Random.Range(-.1f,.1f)), this.transform.rotation);
+					GameObject child;
+//					if(childCore>=1&&Random.value>=.95){
+//						//CoreSpawner 5%chance?
+//
+//							child = (GameObject)Instantiate(core, new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),((size/2 - b))*transform.lossyScale.y + this.transform.position.y ,Random.Range(-.1f,.1f)), this.transform.rotation);
+//
+//							child.transform.localScale = transform.lossyScale; 
+//							child.transform.parent = transform;//child; 
+//							child.GetComponent<CoreScript>().childCore = 0;
+//							child.GetComponent<CoreScript>().isChild = true;
+//
+//					}else{
+					child = (GameObject)Instantiate(block, new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),((size/2 - b))*transform.lossyScale.y + this.transform.position.y ,Random.Range(-.1f,.1f)), this.transform.rotation);
+						child.transform.localScale = transform.lossyScale;
+						child.transform.parent = transform;
 
-					child.transform.localScale = transform.lossyScale;
-					child.transform.parent = transform;
-					if(Random.Range(0,100)>=90){
-						GameObject thisBlaster = (GameObject)Instantiate(blaster, child.transform.position, this.transform.rotation);
-						thisBlaster.transform.localScale = child.transform.lossyScale;
-						thisBlaster.transform.parent = child.transform;//child;
-					}
+
+						if(Random.Range(0,100)>=90){
+							GameObject thisBlaster = (GameObject)Instantiate(blaster, child.transform.position, this.transform.rotation);
+							thisBlaster.transform.localScale = child.transform.lossyScale;
+							thisBlaster.transform.parent = child.transform;//child;
+						}
+
+
+
+
+
+
+
+
+//					}
+
+
+
 
 
 					//child.transform.position = new Vector3(((a-(size/2)-(b%2)*hexa))*transform.lossyScale.x + this.transform.position.x +((hexa)* (adjust)),0,((size/2 - b))*transform.lossyScale.x + this.transform.position.z); /// HEXA ON
@@ -173,15 +199,17 @@ public class CoreScript : MonoBehaviour {
 			b=0;
 			a++;
 		}
-		GetComponent<Rigidbody> ().AddForce (Random.insideUnitSphere* 200);
-		GetComponent<Rigidbody> ().AddTorque (new Vector3 (0, 0, Random.Range (-.5f, .5f)), ForceMode.Impulse);
+		if (!isChild) {
+			GetComponent<Rigidbody> ().AddForce (Random.insideUnitSphere * 200);
+			GetComponent<Rigidbody> ().AddTorque (new Vector3 (0, 0, Random.Range (-.5f, .5f)), ForceMode.Impulse);
+		}
 	}
 	IEnumerator move(){
-		while (true) {
+		while (true&&!isChild) {
 			yield return new WaitForSeconds( Random.Range (1F,5F));
 
 			GetComponent<Rigidbody> ().AddForce (Random.insideUnitSphere* Random.Range (50,300));
-			GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * 5;
+			GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * 7;
 			
 		}
 	}

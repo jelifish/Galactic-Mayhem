@@ -60,7 +60,7 @@ public class GameController : MonoBehaviour {
 	public float enemyModifier = 0;
 	public void calcHazardCount(){
 
-		float tempdiff = difficulty;
+		float tempdiff = Random.Range(difficulty*0.75f,difficulty*1.25f) ;
 		float chance = 0.2f;
 		while (Mathf.Sqrt(tempdiff) >= 1){
 			if(Random.value > chance){

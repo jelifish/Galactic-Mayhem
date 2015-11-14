@@ -1,19 +1,6 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemy Generation\CoreScript.cs">
-    <Files>
-      <File FileName="Assets\FixRotation.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\misc\SpawnedWeapon.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\SpecialWeapons\SpecialBlasterMineField.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\SpecialWeapons\SpecialWeapon.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="131" Column="3" />
-      <File FileName="Assets\Scripts\Parents\CollisionObject.cs" Line="50" Column="4" />
-      <File FileName="Assets\PlayerDrag.cs" Line="74" Column="201" />
-      <File FileName="Assets\Scripts\Player\WeaponSystem.cs" Line="64" Column="43" />
-      <File FileName="Assets\Scripts\Environment\GameController.cs" Line="133" Column="12" />
-      <File FileName="Assets\Scripts\Enemy Generation\CoreScript.cs" Line="184" Column="90" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

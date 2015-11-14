@@ -109,7 +109,7 @@ MonoBehaviour:
   shield: 50
   hull: 100
   maxHull: 0
-  deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
+  deathParticles: {fileID: 192746, guid: 508ddaa3d692ec348a9b8ce399072f7c, type: 2}
   gc: {fileID: 0}
   shieldRegenEnabled: 1
   killed: 0
@@ -145,6 +145,9 @@ MonoBehaviour:
   minValue: 10
   regressionRate: 1.20000005
   block: {fileID: 101974, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
+  core: {fileID: 134758}
+  isChild: 0
+  childCore: 1
   blaster: {fileID: 129876, guid: 3de62137f4f5fe940a4b475d845da4a6, type: 2}
 --- !u!1001 &100100000
 Prefab:
@@ -189,6 +192,18 @@ Prefab:
       propertyPath: movementSpeedCap
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: childCore
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: core
+      value: 
+      objectReference: {fileID: 134758}
+    - target: {fileID: 0}
+      propertyPath: deathParticles
+      value: 
+      objectReference: {fileID: 192746, guid: 508ddaa3d692ec348a9b8ce399072f7c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 134758}
