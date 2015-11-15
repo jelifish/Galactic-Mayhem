@@ -27,6 +27,7 @@ public class PlayMusic : MonoBehaviour {
 		while (tempMusic!= musicSource) {
 			tempMusic.clip = musicClips[Random.Range(1,musicClips.Length)];
 		}
+
 		musicSource.clip = tempMusic.clip;
 
 		//Play the selected clip

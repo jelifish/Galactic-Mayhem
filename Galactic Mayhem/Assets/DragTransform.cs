@@ -23,9 +23,11 @@ class DragTransform : MonoBehaviour
 	{
 		screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 		Interactable[] interArr;
+
 		if (spawn != null) {
 			interArr = spawn.GetComponents<Interactable> ();
-		
+
+			//spawn.GetComponent<Material>().SetColor("_Color",Color.red);
 			Debug.Log (interArr.Length);
 //		if ((transform.position.x - spawn.transform.position.x < 1 &&
 //		     transform.position.x - spawn.transform.position.x > -1) &&

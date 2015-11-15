@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3336624}
   - 23: {fileID: 2388394}
   - 114: {fileID: 11401660}
-  - 65: {fileID: 6550670}
+  - 65: {fileID: 6557818}
   m_Layer: 8
   m_Name: TouchEvent
   m_TagString: Untagged
@@ -62,7 +62,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100598}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &6550670
+--- !u!65 &6557818
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -86,6 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limitdrag: 1
+  spawn: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

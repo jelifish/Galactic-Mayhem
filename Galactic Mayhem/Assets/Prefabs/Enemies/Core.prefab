@@ -105,9 +105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeedCap: 5
   mitigation: 0
+  armor: 0
   maxShield: 0
-  shield: 50
-  hull: 100
+  shield: 200
+  hull: 400
   maxHull: 0
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
   gc: {fileID: 0}
@@ -146,9 +147,11 @@ MonoBehaviour:
   regressionRate: 1.20000005
   block: {fileID: 101974, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
   core: {fileID: 134758}
+  gc: {fileID: 0}
   isChild: 0
   childCore: 1
   blaster: {fileID: 129876, guid: 3de62137f4f5fe940a4b475d845da4a6, type: 2}
+  shortBlaster: {fileID: 130436, guid: 41c6104054cddd2438dec18322ba5d08, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -162,11 +165,11 @@ Prefab:
       objectReference: {fileID: 101974, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
     - target: {fileID: 0}
       propertyPath: shield
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hull
-      value: 100
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: blaster
@@ -204,6 +207,10 @@ Prefab:
       propertyPath: deathParticles
       value: 
       objectReference: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: shortBlaster
+      value: 
+      objectReference: {fileID: 130436, guid: 41c6104054cddd2438dec18322ba5d08, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 134758}

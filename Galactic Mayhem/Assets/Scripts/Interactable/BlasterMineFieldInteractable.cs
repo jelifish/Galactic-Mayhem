@@ -13,6 +13,10 @@ public class BlasterMineFieldInteractable : Interactable{
 	public void stopDestroy(){
 		GetComponent<SpawnedWeapon> ().destroyThis = false;
 	}
+
+	void Start(){
+		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", Color.green);
+	}
 	IEnumerator mineField()
 	{
 		initialSpeed = 5;

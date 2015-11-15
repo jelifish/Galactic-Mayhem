@@ -7,6 +7,7 @@ public class BlasterWeapon : Weapon {
 	public GameObject bolt;
 
 	public void Start(){ //this overwrites parent
+		gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
 		bolt.GetComponent<Rigidbody> ().drag = blaster.projectileDrag;
 		weaponSlot = this.transform.parent.gameObject; 
 	}
@@ -17,6 +18,7 @@ public class BlasterWeapon : Weapon {
 		bolt.GetComponent<Mover> ().age = blaster.projectileAge;
 
 		GameObject special = (GameObject) Instantiate (blaster.generateSpecial(), this.transform.position, this.transform.rotation);
+		
 		special.tag = "ActiveSpecial";
 		special.GetComponent<SpecialWeapon> ().activated = true;
 		special.transform.parent = this.transform;
@@ -44,7 +46,11 @@ public class BlasterWeapon : Weapon {
 			nextFire = Time.time + blaster.rateOfFire;
 
 			weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
+
 			weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
+
+
+
 			//weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
 			weaponSlot.GetComponent<WeaponSystem>().shoot();
 		}

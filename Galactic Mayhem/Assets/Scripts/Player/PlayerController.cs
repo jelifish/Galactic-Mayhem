@@ -35,9 +35,6 @@ public class Load
 		this.rotation = rotation;
 		this.speed = speed;
 	}
-//	public void setSound(GameObject soundObject){
-//		sound = soundObject;
-//	}
 }
 
 public class PlayerController : CollisionObject
@@ -62,10 +59,8 @@ public class PlayerController : CollisionObject
 			Destroy(other.gameObject);
 			updateHUD();
 
-
 		}else if(other.gameObject.tag == "Player"){
-//			other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
-//			takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
+
 		}else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet"){
 
 		}
@@ -80,78 +75,43 @@ public class PlayerController : CollisionObject
 	public int numOfWeaponSlots;
 
 
-	private GameObject GameController;
+	//private GameObject GameController;
 
 	public float chargeShotDelay;
 	public float fireStormDelay;
 	public int fireStormDuration;
 	public float rotationSpeed;
 	public Load load;
-//	private bool loaded = false;
 
-	public GameObject fireball1;
 	public Vector3 attack1DefaultSize = new Vector3(1F,1F,1F);
 	public float attack1DefaultDrag = .1f;
 	public int chargeShotNum;
-	//public GameObject fireball2;
 
 	public List<Load> loader = new List<Load>();
-
-	//public Transform shotSpawn;
 	
-//	public float fireRate = 0.5F;
-//	private float nextFire = 0.0F;
-//	private bool channeling;
-
-	//private Animator anim;
-
-//	public void shoot(Load load) 
-//	{
-//		Instantiate (load.projectile, shotSpawn.position + load.offset, shotSpawn.rotation * load.rotation);
-//		//Instantiate (load.projectile, shotSpawn.position, shotSpawn.rotation);
-//		//Debug.Log (shotSpawn.rotation);
-//		//Instantiate(load.projectile, new Vector3(3,4,0), shotSpawn.rotation);
-//		//fireballSound.GetComponent<AudioSource> ().Play ();
-//		//anim.SetBool (0, true);
-//		//return load;
+//	public void setBoundary(){
+//		float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
+//		boundary.xMin = - (sectorSize / 2);
+//		boundary.xMax = (sectorSize / 2);
+//		boundary.yMin = - (sectorSize / 2);
+//		boundary.yMax = (sectorSize / 2);
+//		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
 //	}
-
-//	void Awake(){
-//	//	anim = GetComponent<Animator> ();
-//		updateHUD ();
+//	public void newSector(){
+//		setBoundary ();
+//		sectorClear = false;
+//
 //	}
-	
-	public void setBoundary(){
-		float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
-		boundary.xMin = - (sectorSize / 2);
-		boundary.xMax = (sectorSize / 2);
-		boundary.yMin = - (sectorSize / 2);
-		boundary.yMax = (sectorSize / 2);
-		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
-	}
-	public void newSector(){
-		setBoundary ();
-		sectorClear = false;
-
-	}
 
 	public void init(){
 		
 		
-		GameController = GameObject.Find ("GameController");
+		//GameController = GameObject.Find ("GameController");
 		maxHull = hull;
 		maxShield = shield;
+
 		
-		
-		
-		
-		//	fireball1.transform.localScale = attack1DefaultSize;
-		//	fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
-		//	ready = true;
-		//channeling = false;
-		
-		
-		setBoundary (); /////////////////sets bounds for player movement.
+		//setBoundary (); /////////////////sets bounds for player movement.
 		sectorClear = false;
 		
 		for (int i=0; i<numOfWeaponSlots; i++) {
@@ -172,48 +132,16 @@ public class PlayerController : CollisionObject
 				tempSlot.GetComponent<WeaponSystem>().initWeapon();
 			}
 		}
-		//shotSpawn = weaponSlots [0].transform;  
 		
 
 	}
-//
-//	IEnumerator fireStorm()
-//	{
-//		fireball1.transform.localScale = new Vector3(0.5F,0.5F,0.5F);
-//		//channeling = true;
-//		//ready = false;
-//		while (true) {
-//			for(int i=0;i<fireStormDuration;i++){
-//				fireball1.GetComponent<Rigidbody>().drag = 3.0f;
-//				
-//				loader.Add (new Load (fireball1, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(-20.0f, 20.0f)) ));
-//				//foreach (Load load in loader) {
-//					//shoot (load); //shoots and removes the loaded object
-//					
-//				//}
-//				yield return new WaitForSeconds (.01f);
-//			}
-//			break;
-//		}
-//		fireball1.transform.localScale = attack1DefaultSize;
-//		fireball1.GetComponent<Rigidbody>().drag = attack1DefaultDrag;
-//		//channeling = false;
-//		fireball1.transform.localScale = new Vector3(1F,1F,1F);
-//		yield return new WaitForSeconds (fireStormDelay);//cooldown before cast again
-//		//ready = true;
-//
-//
-//	}
-
-//	private bool ready;
-	//private bool freezeChara;
 
 
 
 
 
 	
-	public Boundary boundary;
+	//public Boundary boundary;
 	public bool sectorClear = false;
 	public void setMoveDirection(Vector3 move){
 		this.GetComponent<Rigidbody>().velocity += move * movementSpeedCap*5;
@@ -221,36 +149,43 @@ public class PlayerController : CollisionObject
 	}
 	void FixedUpdate ()
 	{
-		//if (!freezeChara) {
 
-//			float moveHorizontal = Input.GetAxis ("HorizontalPlayer");
-//			float moveVertical = Input.GetAxis ("VerticalPlayer");
-//			Vector3 movement = new Vector3 (moveHorizontal,moveVertical, 0.0f);
-//		setMoveDirection (movement);	
-
-
-
-			//this.GetComponent<Rigidbody>().velocity += movement * speed;
-		//Debug.Log (this.GetComponent<Rigidbody> ().velocity.magnitude);
-		//if (this.GetComponent<Rigidbody> ().velocity.magnitude > 20) {
-		//	this.GetComponent<Rigidbody> ().velocity = 20;
-		//}
 			
 		if (!sectorClear) {
 			this.GetComponent<Rigidbody> ().position = new Vector3 
 				(
-					Mathf.Clamp (this.GetComponent<Rigidbody> ().position.x, boundary.xMin, boundary.xMax), 
-				    Mathf.Clamp (this.GetComponent<Rigidbody> ().position.y, boundary.yMin, boundary.yMax), 
+					Mathf.Clamp (this.GetComponent<Rigidbody> ().position.x, gc.GetComponent<GameController>().boundary.xMin, gc.GetComponent<GameController>().boundary.xMax), 
+					Mathf.Clamp (this.GetComponent<Rigidbody> ().position.y, gc.GetComponent<GameController>().boundary.yMin, gc.GetComponent<GameController>().boundary.yMax), 
 					0.0f//Mathf.Clamp (this.GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
 			);
 		}
 
-
-		//this.GetComponent<Rigidbody>().position = new Vector3 (this.GetComponent<Rigidbody>().position.x, this.GetComponent<Rigidbody>().position.y,0.0f);
-
-			//GetComponent<Rigidbody> ().position = GetComponent<Rigidbody> ().rotation * Quaternion.Euler (0.0f, 0f, moveHorizontal * rotationSpeed);
+		if (sectorClear) {
+			if(this.GetComponent<Rigidbody> ().position.x > gc.GetComponent<GameController>().boundary.xMax+5)
+			{
+				gc.moveEast();
+				Debug.Log("est");
+				//sectorClear = false;
+			}
+			if(this.GetComponent<Rigidbody> ().position.x < gc.GetComponent<GameController>().boundary.xMin-5)
+			{
+				gc.moveWest();Debug.Log("est");
+				//sectorClear = false;
+			}
+			if(this.GetComponent<Rigidbody> ().position.y > gc.GetComponent<GameController>().boundary.yMax+5)
+			{
+				gc.moveNorth();Debug.Log("ntrt");
+				//sectorClear = false;
+			}
+			if(this.GetComponent<Rigidbody> ().position.y < gc.GetComponent<GameController>().boundary.xMin-5)
+			{
+				gc.moveSouth();Debug.Log("sth");
+				//sectorClear = false;
+			}
 		}
-	//}
+
+
+		}
 	public override void onDeath(){
 		updateHUD ();
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);

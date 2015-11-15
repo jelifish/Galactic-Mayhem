@@ -1,70 +1,70 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &129876
+--- !u!1 &130436
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 451726}
-  - 114: {fileID: 11464906}
-  - 114: {fileID: 11464872}
+  - 4: {fileID: 411470}
+  - 114: {fileID: 11457974}
+  - 114: {fileID: 11433390}
   m_Layer: 0
-  m_Name: BlasterModule
+  m_Name: BlasterShortModule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &451726
+--- !u!4 &411470
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129876}
+  m_GameObject: {fileID: 130436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11464872
+--- !u!114 &11433390
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129876}
+  m_GameObject: {fileID: 130436}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b6e7d17afbe7284c81d658af9f0e541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   towardsObject: {fileID: 0}
-  rotationSpeed: 1
---- !u!114 &11464906
+  rotationSpeed: .100000001
+--- !u!114 &11457974
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 129876}
+  m_GameObject: {fileID: 130436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 805ebb87ed7a2d440843ca233d2278bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 97df2ef27f754714887ad536c9284d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aim: {fileID: 0}
   load:
     offset: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
-    projectile: {fileID: 186802, guid: 5236c76f62aed2e4bb0cb906ad61611b, type: 2}
+    projectile: {fileID: 195934, guid: 3dadf26c7e255524b9b474e05e83029e, type: 2}
     speed: 0
     sound: {fileID: 0}
   loader: []
-  enemyBolt: {fileID: 186802, guid: 5236c76f62aed2e4bb0cb906ad61611b, type: 2}
+  enemyBolt: {fileID: 195934, guid: 3dadf26c7e255524b9b474e05e83029e, type: 2}
   attack1DefaultSize: {x: 1, y: 1, z: 1}
   attack1DefaultDrag: .100000001
-  fireRate: 2
+  fireRate: .699999988
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -73,18 +73,22 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: enemyBolt
+      value: 
+      objectReference: {fileID: 195934, guid: 3dadf26c7e255524b9b474e05e83029e, type: 2}
+    - target: {fileID: 0}
+      propertyPath: load.projectile
+      value: 
+      objectReference: {fileID: 195934, guid: 3dadf26c7e255524b9b474e05e83029e, type: 2}
+    - target: {fileID: 0}
       propertyPath: fireRate
-      value: 2
+      value: .699999988
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_LocalRotation.w
-      value: 1
+      propertyPath: rotationSpeed
+      value: .100000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 129876}
+  m_RootGameObject: {fileID: 130436}
   m_IsPrefabParent: 1

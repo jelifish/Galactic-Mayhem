@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeedCap: 0
   mitigation: 0
+  armor: 0
   maxShield: 0
   shield: 0
   hull: 3

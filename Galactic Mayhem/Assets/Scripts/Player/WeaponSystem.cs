@@ -5,11 +5,13 @@ using System.Collections.Generic;
 public class WeaponSystem : MonoBehaviour {
 	
 
+	public GameController gc;
 
 	public void shoot() 
 	{if (!channeling) {
 			foreach (Load load in loader) {
 				Instantiate (load.projectile, this.transform.position + load.offset, this.transform.rotation * load.rotation);
+			
 				load.sound.GetComponent<AudioSource> ().Play ();
 			}
 			loader.Clear ();
@@ -29,6 +31,7 @@ public class WeaponSystem : MonoBehaviour {
 	}
 
 	void Start(){
+		gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
 	}
 
 
@@ -38,6 +41,7 @@ public class WeaponSystem : MonoBehaviour {
 			Destroy (transform.GetChild (0));//should only ever be one weapon
 		} 
 		GameObject child = (GameObject)Instantiate (weapon, this.transform.position, this.transform.rotation);
+
 		child.GetComponent<WeaponScript> ().weaponSlot = this.gameObject;
 		child.AddComponent<BlasterWeapon>();
 		child.GetComponent<BlasterWeapon> ().bolt = bolt;

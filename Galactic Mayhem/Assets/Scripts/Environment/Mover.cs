@@ -9,7 +9,7 @@ public class Mover : MonoBehaviour {
 	public float totalSectorSize;
 	void Start()
 	{
-		GetComponent<Rigidbody>().velocity =transform.right* speed;
+		GetComponent<Rigidbody>().velocity =transform.right.normalized*speed;
 		originalObject = GetComponent<Rigidbody> ().transform;
 		Destroy (gameObject, age);
 

@@ -103,9 +103,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeedCap: 0
   mitigation: 0
+  armor: 0
   maxShield: 0
-  shield: 50
-  hull: 100
+  shield: 100
+  hull: 200
   maxHull: 0
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
   gc: {fileID: 0}
@@ -127,11 +128,11 @@ Prefab:
       objectReference: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
     - target: {fileID: 0}
       propertyPath: shield
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hull
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score_value

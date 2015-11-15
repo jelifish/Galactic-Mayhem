@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\Enemy Generation\OuterBlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\RotateTowardsPlayer.cs" />
      <Compile Include="Assets\Scripts\Enemy Weapons\BlasterModule.cs" />
+     <Compile Include="Assets\Scripts\Enemy Weapons\BlasterShortModule.cs" />
      <Compile Include="Assets\Scripts\Environment\BoxColSetSectorSize.cs" />
      <Compile Include="Assets\Scripts\Environment\CamMouse.cs" />
      <Compile Include="Assets\Scripts\Environment\CameraController.cs" />
@@ -80,8 +81,8 @@
      <Compile Include="Assets\Scripts\Environment\audioDetection.cs" />
      <Compile Include="Assets\Scripts\Environment\drawline.cs" />
      <Compile Include="Assets\Scripts\Interactable\BlasterMineFieldInteractable.cs" />
+     <Compile Include="Assets\Scripts\Interactable\Interactable.cs" />
      <Compile Include="Assets\Scripts\Parents\CollisionObject.cs" />
-     <Compile Include="Assets\Scripts\Parents\Interactable.cs" />
      <Compile Include="Assets\Scripts\Parents\RotateTowards.cs" />
      <Compile Include="Assets\Scripts\Player\BlasterWeapon.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />

@@ -13,35 +13,21 @@ public class CoreScript : MonoBehaviour {
 	public GameObject block;
 	public GameObject core;
 
-
+	public GameController gc;
 	void Start(){
+		if (GameObject.FindWithTag ("GameController") != null) {
+			gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
+		}else{ Debug.LogWarning("Cannot Find GameController");
+		}
+		Debug.Log ("hit1");
 		//GetComponent<Rigidbody> ().rotation = Quaternion.Euler (0, Random.Range (0, 360), 0);
 		//GetComponent<Rigidbody>().rotation= Quaternion.Euler(GetComponent<Rigidbody>().rotation.eulerAngles.x,Random.Range (0, 360),GetComponent<Rigidbody>().rotation.eulerAngles.z);
-		regressionRate = (regressionRate * 100) / 100;
-		arr = new int[size+1] [];
-		for (int i = 0; i<=size; i++) {
-			arr[i] = new int[size+1];
-		}
-		//Debug.Log (isChild + " " + childCore);
-		setCore ();
-
-
-		int finalPass = Random.Range (passes - passes / 2, passes + passes / 2);
-		for (int j=0; j<=finalPass; j++) {
-			makePass ();
-			//displayArray ();
-
-			if(Random.value>=.7f && finalPass - j >3)
-			{
-				arr[Random.Range(0,size)][Random.Range(0,size)] += 50;
-			}
-
-
-		}
+		StartCoroutine (design ());
 		StartCoroutine (build ());
 		
 		StartCoroutine (move ());
 	}
+
 	private void makePass(){
 		for (int i = 0; i<size; i++) {
 			for( int j = 0; j<size; j++)
@@ -127,8 +113,39 @@ public class CoreScript : MonoBehaviour {
 	public bool isChild =false;
 	public int childCore = 1;
 	public GameObject blaster;
+	public GameObject shortBlaster;
+	private IEnumerator design()
+	{
+
+		regressionRate = (regressionRate * 100) / 100;
+		arr = new int[size+1] [];
+		for (int i = 0; i<=size; i++) {
+			arr[i] = new int[size+1];
+		}
+		//Debug.Log (isChild + " " + childCore);
+		setCore ();
+		yield return new WaitForSeconds (.01f);
+		
+		int finalPass = Random.Range (passes - passes / 2, passes + passes / 2);
+		for (int j=0; j<=finalPass; j++) {
+			makePass ();
+			//displayArray ();
+			
+			if(Random.value>=.7f && finalPass - j >3)
+			{
+				arr[Random.Range(0,size)][Random.Range(0,size)] += 50;
+				yield return new WaitForSeconds (.001f);
+			}
+			
+			
+		}
+
+
+		yield return new WaitForSeconds (.01f);
+	}
 	private IEnumerator build()
 	{
+		Debug.Log ("hit2");
 //		Vector3 origpos = transform.position;
 //		Vector3 origrot = transform.rotation;
 
@@ -168,6 +185,11 @@ public class CoreScript : MonoBehaviour {
 							thisBlaster.transform.localScale = child.transform.lossyScale;
 							thisBlaster.transform.parent = child.transform;//child;
 						}
+					else if(Random.Range(0,100)>= 90&&gc.difficulty>4){
+						GameObject thisBlaster = (GameObject)Instantiate(shortBlaster, child.transform.position, this.transform.rotation);
+						thisBlaster.transform.localScale = child.transform.lossyScale;
+						thisBlaster.transform.parent = child.transform;
+					}
 
 
 

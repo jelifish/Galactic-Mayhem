@@ -10,6 +10,7 @@ public class CollisionObject : MonoBehaviour {
 	//4. particle instantiation
 	public float movementSpeedCap;
 	public float mitigation = 0;
+	public float armor = 0;
 
 	[HideInInspector] public float maxShield;
 	public float shield;
@@ -32,6 +33,9 @@ public class CollisionObject : MonoBehaviour {
 			gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
 		}else{ Debug.LogWarning("Cannot Find GameController");
 		}
+
+
+
 		if (shieldRegenEnabled) {
 			StartCoroutine (shieldRegen ());
 		}
@@ -47,8 +51,11 @@ public class CollisionObject : MonoBehaviour {
 	public void takeDamage(float damage){
 		shield -= damage;
 		if (shield < 0) {
-			
-			hull += shield;
+//			Debug.Log(shield*-1);
+			if(armor > (shield*-1))
+			{
+			}else{
+				hull += shield+armor;}
 			shield = 0f;
 		}
 		if (hull <= 0.0f) {
@@ -75,7 +82,7 @@ public class CollisionObject : MonoBehaviour {
 			
 		}else if(other.gameObject.tag == "Player"){
 			other.GetComponent<PlayerController>().takeDamage((getShield()+getHull())/other.GetComponent<PlayerController>().mitigation); //effective damage to player
-			takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
+			takeDamage (getShield()+getHull());
 		}else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet"){
 			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
 			other.gameObject.GetComponent<ProjectileCollision>().takeDamage(1);

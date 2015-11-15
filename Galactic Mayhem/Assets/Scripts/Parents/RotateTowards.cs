@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class RotateTowards : MonoBehaviour {
-
 	public GameObject towardsObject;
 
 	// Use this for initialization
 	void Start () {
 		//towardsObject = GameObject.FindGameObjectWithTag ("Player");
+
 	}
 
 
