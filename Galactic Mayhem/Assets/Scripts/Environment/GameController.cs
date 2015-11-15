@@ -4,6 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
+
+
+
 	public GameObject player;
 	public GameObject core1;
 	public Vector3 spawnValues;
@@ -46,14 +49,14 @@ public class GameController : MonoBehaviour {
 		spawnWait = Random.Range (5, 10);
 		score = 0;
 
-		StartCoroutine(Wave1());
+
 
 		setBounds();
-		Coord thisCoord = new Coord ();
-		thisCoord.x = xSector;
-		thisCoord.y = ySector;
-		coords.Add (thisCoord);
-
+//		Coord thisCoord = new Coord ();
+//		thisCoord.x = xSector;
+//		thisCoord.y = ySector;
+//		coords.Add (thisCoord);
+		StartCoroutine(Wave1());
 
 
 
@@ -112,7 +115,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	IEnumerator Wave1(){
+		yield return new WaitForSeconds (2f);
 		if (xSector == 0 && ySector == 0) {
+			//sectorBounds.GetComponent<BoxColSetSectorSize> ().liftBorder ();
 			sectorClear();
 		} else {
 			for (int i=0; i<hazardCount; i++) {
@@ -129,12 +134,11 @@ public class GameController : MonoBehaviour {
 			}
 		}
 }
-
+	//public Dictionary<Coord, bool> coords = new Dictionary<Coord, bool>();
 	public List<Coord> coords = new List<Coord>();
 	public void sectorClear(){
-		Coord thisCoord = new Coord ();
-		thisCoord.x = xSector;
-		thisCoord.y = ySector;
+		Debug.Log ("Hit");
+		Coord thisCoord = new Coord (xSector,ySector);
 //		bool add = true;
 //		foreach (Coord coord in coords) {
 //			if (coord.x == xSector && coord.y == ySector) {
@@ -154,31 +158,82 @@ public class GameController : MonoBehaviour {
 		player.GetComponent<PlayerController> ().sectorClear = true;
 
 	}
+	private bool moving = false;
 	public void moveNorth(){
-		ySector++;
-		newSector ();
+		if (!moving) {
+			ySector++;
+			animColorFade.SetTrigger ("fade");
+			Invoke ("newSector", 3f);
+			moving = true;
+		}
 	}
 	public void moveSouth(){
-		ySector--;
-		newSector ();
+		if (!moving) {
+			ySector--;
+			animColorFade.SetTrigger ("fade");
+
+			Invoke ("newSector", 3f);
+			moving = true;
+		}
 	}
 	public void moveEast(){
-		xSector++;
-		newSector ();
+		if (!moving) {
+			xSector++;
+			animColorFade.SetTrigger ("fade");
+
+			//animColorFade.Play("animColorFade");
+			//Animation.//animation.Play();
+			Invoke ("newSector", 3f);
+			moving = true;
+		}
 	}
 	public void moveWest(){
-		xSector--;
-		newSector ();
+		if (!moving) {
+			xSector--;
+
+			animColorFade.SetTrigger ("fade");
+//			animColorFade.Play();
+			Invoke ("newSector", 3f);
+			moving = true;
+		}
 	}
+
+	public Animator animColorFade; 
 	private bool visitedSector = false;
 	public void newSector(){
+		//Invoke ("LoadDelayed", fadeColorAnimationClip.length * .5f);
+		//animColorFade.enabled = true;
+		//animColorFade.ResetTrigger("fade");
+		//animColorFade.SetTrigger ("fade");
+		//Set the trigger of Animator animColorFade to start transition to the FadeToOpaque state.
+
+
+
+
+
 		setDifficulty ();
 		generateSectorSize();
 		setBounds ();
 		waveCurrent = 0;
 		visitedSector = false;
-//		Debug.Log (xSector + "," + ySector);
+		Debug.Log (coords.Count);
+		//bool fal = false;
+		clear = false;
+
+//		if(coords.TryGetValue(new Coord(xSector,ySector), out fal))
+//		{
+//			//success!
+//			visitedSector = true;
+//			sectorBounds.GetComponent<BoxColSetSectorSize> ().liftBorder ();
+//			player.GetComponent<PlayerController>().sectorClear = true;
+//			waveLimit = 0;
+//		}
+//		else
+//		{
+//			//fail
+//		}
 		foreach (Coord coord in coords) {
+			Debug.Log(coord.x+","+coord.y);
 			if (coord.x == xSector && coord.y == ySector) {
 
 				visitedSector = true;
@@ -217,12 +272,15 @@ public class GameController : MonoBehaviour {
 //		}
 		//sectorJunk.Clear ();
 		player.transform.position = new Vector3 (0, 0, 0);
-
+		moving = false;
+		//animColorFade.ResetTrigger("fade");
 		//sectorBounds.GetComponent<BoxColSetSectorSize> ().setBorder ();
 		UpdateHUD ();
 
 	}
 	//HUD Functions
+
+	private bool clear = false; 
 	void UpdateHUD(){
 //		if (score_txt != null) {
 //			score_txt.text = "Score: " + score;
@@ -233,9 +291,13 @@ public class GameController : MonoBehaviour {
 			waveText.text = "Enemies: "+waveCurrent+"/"+waveLimit+"";
 //		} 
 //		Debug.Log (waveCurrent);
+
 		if (waveCurrent == waveLimit) {
-		
+
+			if(!clear){
 			sectorClear();
+			clear = true;
+			}
 		}
 	}
 	public void setHealth (float curHP, float hpMax){
@@ -260,6 +322,14 @@ public class GameController : MonoBehaviour {
 public class Coord
 {
 	public float x, y;
+	public Coord()
+	{
+	}
+	public Coord(int x, int y)
+	{
+		this.x = x;
+		this.y = y;
+	}
 }
 
 

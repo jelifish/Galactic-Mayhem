@@ -12,6 +12,7 @@ TagManager:
   - Audio
   - Special
   - ActiveSpecial
+  - Interactible
   layers:
   - Default
   - TransparentFX

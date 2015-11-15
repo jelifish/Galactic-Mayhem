@@ -14,7 +14,7 @@ GameObject:
   - 65: {fileID: 6557818}
   m_Layer: 8
   m_Name: TouchEvent
-  m_TagString: Untagged
+  m_TagString: Interactible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,6 +113,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Size.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Interactible
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
