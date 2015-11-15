@@ -14,8 +14,8 @@ public class Load
 	public Quaternion rotation;
 	//GameObject projectile = Instantiate (loader, shotSpawn.position, shotSpawn.rotation) as GameObject;
 	public GameObject projectile;
+	public float speed;
 	public GameObject sound = GameObject.Find("BoltSound");
-
 	public Load(GameObject projectile,Quaternion rotation)
 	{
 		this.projectile = projectile;
@@ -28,6 +28,13 @@ public class Load
 		this.projectile = projectile;
 		this.rotation = rotation;
 	}
+	public Load(GameObject projectile,Vector3 offset,Quaternion rotation, float speed)
+	{
+		this.offset = offset;
+		this.projectile = projectile;
+		this.rotation = rotation;
+		this.speed = speed;
+	}
 //	public void setSound(GameObject soundObject){
 //		sound = soundObject;
 //	}
@@ -39,7 +46,11 @@ public class PlayerController : CollisionObject
 		updateHUD ();
 	}
 	public void updateHUD(){
-		gc.GetComponent<GameController> ().setHealth (hull, maxHull);
+		if (hull <= 0) {
+			gc.GetComponent<GameController> ().setHealth (0f, maxHull);
+		} else {
+			gc.GetComponent<GameController> ().setHealth (hull, maxHull);
+		}
 		gc.GetComponent<GameController> ().setShield (shield, maxShield);
 	}
 	public override void OnTriggerEnter(Collider other)
@@ -47,7 +58,7 @@ public class PlayerController : CollisionObject
 		if (other.gameObject.tag == "Enemy") {
 			updateHUD();
 		} else if(other.gameObject.tag == "EnemyBullet"){
-			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
+			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude*2);
 			Destroy(other.gameObject);
 			updateHUD();
 
@@ -240,12 +251,10 @@ public class PlayerController : CollisionObject
 			//GetComponent<Rigidbody> ().position = GetComponent<Rigidbody> ().rotation * Quaternion.Euler (0.0f, 0f, moveHorizontal * rotationSpeed);
 		}
 	//}
-
-	void LateUpdate(){
-
-
+	public override void onDeath(){
+		updateHUD ();
+		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
 
 	}
-
 
 }

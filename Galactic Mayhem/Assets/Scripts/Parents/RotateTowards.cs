@@ -19,8 +19,6 @@ public class RotateTowards : MonoBehaviour {
 			var angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.Euler(0, 0, angle);
 		}
-		
-		
-		
+
 	}
 }

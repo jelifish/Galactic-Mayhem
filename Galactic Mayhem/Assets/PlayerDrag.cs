@@ -6,7 +6,6 @@ public class PlayerDrag : MonoBehaviour {
 	public GameObject playerObject;
 	public GameObject dragObject;
 	private float distance;
-	
 	//private Vector3 screenPoint;
 	//private Vector3 offset;
 	void OnMouseEnter()
@@ -69,6 +68,7 @@ public class PlayerDrag : MonoBehaviour {
 			Vector3 curScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 1);
 		
 			Vector3 curPosition = Camera.main.ScreenToWorldPoint (curScreenPoint);// &#43; offset;
+
 			dragObject.transform.position = curPosition;
 
 			playerObject.GetComponent<Rigidbody> ().velocity = (dragObject.transform.position - playerObject.transform.position).normalized * playerObject.GetComponent<PlayerController> ().movementSpeedCap * 3;

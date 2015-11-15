@@ -109,7 +109,7 @@ MonoBehaviour:
   shield: 50
   hull: 100
   maxHull: 0
-  deathParticles: {fileID: 192746, guid: 508ddaa3d692ec348a9b8ce399072f7c, type: 2}
+  deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
   gc: {fileID: 0}
   shieldRegenEnabled: 1
   killed: 0
@@ -203,7 +203,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: deathParticles
       value: 
-      objectReference: {fileID: 192746, guid: 508ddaa3d692ec348a9b8ce399072f7c, type: 2}
+      objectReference: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 134758}

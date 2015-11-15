@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ChaseObject.cs" />
      <Compile Include="Assets\DragTransform.cs" />
      <Compile Include="Assets\FixRotation.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\DontDestroy.cs" />
@@ -80,7 +79,9 @@
      <Compile Include="Assets\Scripts\Environment\ScrollUV.cs" />
      <Compile Include="Assets\Scripts\Environment\audioDetection.cs" />
      <Compile Include="Assets\Scripts\Environment\drawline.cs" />
+     <Compile Include="Assets\Scripts\Interactable\BlasterMineFieldInteractable.cs" />
      <Compile Include="Assets\Scripts\Parents\CollisionObject.cs" />
+     <Compile Include="Assets\Scripts\Parents\Interactable.cs" />
      <Compile Include="Assets\Scripts\Parents\RotateTowards.cs" />
      <Compile Include="Assets\Scripts\Player\BlasterWeapon.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
@@ -91,7 +92,6 @@
      <Compile Include="Assets\Scripts\Player\Weapon.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponScript.cs" />
      <Compile Include="Assets\Scripts\Player\WeaponSystem.cs" />
-     <Compile Include="Assets\Scripts\misc\LookAtObject.cs" />
      <Compile Include="Assets\Scripts\misc\ShieldScript.cs" />
      <Compile Include="Assets\Scripts\misc\SpawnedWeapon.cs" />
      <None Include="Assets\Game Jam Menu Template\Fonts\OpenSans\License!.txt" />

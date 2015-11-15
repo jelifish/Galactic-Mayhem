@@ -17,9 +17,24 @@ public class BlasterWeapon : Weapon {
 		bolt.GetComponent<Mover> ().age = blaster.projectileAge;
 
 		GameObject special = (GameObject) Instantiate (blaster.generateSpecial(), this.transform.position, this.transform.rotation);
-
+		special.tag = "ActiveSpecial";
+		special.GetComponent<SpecialWeapon> ().activated = true;
 		special.transform.parent = this.transform;
 
+
+
+
+//
+//
+//		this.blaster = blaster;
+//		bolt.GetComponent<Mover> ().age = blaster.projectileAge;
+//		string str = blaster.generateSpecial ();
+//		GameObject special = new GameObject (str);
+//		special.AddComponent<>(this.GetType(str)) ;
+//		
+//		GameObject spec = (GameObject) Instantiate (special, this.transform.position, this.transform.rotation);
+//		//special = gameObject.AddComponent (blaster.generateSpecial());
+//		spec.transform.parent = this.transform;
 	}
 	public float nextFire = 3.0f;
 	void Update ()

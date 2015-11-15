@@ -14,7 +14,7 @@ public class BoxColSetSectorSize : MonoBehaviour {
 	public LineRenderer east2;
 	public LineRenderer west2;
 
-
+	public Camera minimap;
 
 
 	private float totalSectorSize; //size + padding
@@ -57,6 +57,8 @@ public class BoxColSetSectorSize : MonoBehaviour {
 
 		totalSectorSize = size + padding;
 
+
+		minimap.orthographicSize = totalSectorSize * 0.80f;
 	}
 
 

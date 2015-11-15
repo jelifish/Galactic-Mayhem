@@ -87,7 +87,7 @@ public class CollisionObject : MonoBehaviour {
 
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
 	}
-	public void destroyObject()
+	public virtual void destroyObject()
 	{
 		Destroy(this.gameObject);
 	}
