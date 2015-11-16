@@ -16,7 +16,7 @@ public class StartOptions : MonoBehaviour {
 	[HideInInspector] public bool inMainMenu = true;					//If true, pause button disabled in main menu (Cancel in input manager, default escape key)
 	[HideInInspector] public Animator animColorFade; 					//Reference to animator which will fade to and from black when starting game.
 	[HideInInspector] public Animator animMenuAlpha;					//Reference to animator that will fade out alpha of MenuPanel canvas group
-	[HideInInspector] public AnimationClip fadeColorAnimationClip;		//Animation clip fading to color (black default) when changing scenes
+	public AnimationClip fadeColorAnimationClip;		//Animation clip fading to color (black default) when changing scenes
 	[HideInInspector] public AnimationClip fadeAlphaAnimationClip;		//Animation clip fading out UI elements alpha
 
 
@@ -37,6 +37,7 @@ public class StartOptions : MonoBehaviour {
 
 	public void StartButtonClicked()
 	{
+		showPanels.HideMenu ();
 		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic, using length of fadeColorAnimationClip as time. 
 		//To change fade time, change length of animation "FadeToColor"
 		if (changeMusicOnStart) 
@@ -77,6 +78,8 @@ public class StartOptions : MonoBehaviour {
 		Application.LoadLevel (sceneToStart);
 	}
 
+	public GameObject gc;
+
 
 	public void StartGameInScene()
 	{
@@ -85,20 +88,16 @@ public class StartOptions : MonoBehaviour {
 
 		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic, using length of fadeColorAnimationClip as time. 
 		//To change fade time, change length of animation "FadeToColor"
-		if (changeMusicOnStart) 
-		{
-			//Wait until game has started, then play new music
-			Invoke ("PlayNewMusic", fadeAlphaAnimationClip.length);
-		}
+
 		//Set trigger for animator to start animation fading out Menu UI
-		animMenuAlpha.SetTrigger ("fade");
+//		animMenuAlpha.SetTrigger ("fade");
 
 		//Wait until game has started, then hide the main menu
 		Invoke("HideDelayed", fadeAlphaAnimationClip.length);
 
 		Debug.Log ("Game started in same scene! Put your game starting stuff here.");
-
-
+		showPanels.ShowHUDPanel ();
+		gc.GetComponent<GameController> ().init ();
 	}
 
 

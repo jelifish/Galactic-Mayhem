@@ -13,21 +13,19 @@ public class BlasterModule : MonoBehaviour {
 	public Vector3 attack1DefaultSize = new Vector3(1F,1F,1F);
 	public float attack1DefaultDrag = .1f;
 	
-	public float fireRate = 0.5F;
-	private float nextFire = 0.5F;//time until fire again
-	private bool loaded = false;
+	public float fireRate;
+	protected float nextFire = 0.5F;//time until fire again
+	protected bool loaded = false;
 
 
 	public void shoot(Load load) 
 	{
 		Instantiate (load.projectile, this.transform.position + load.offset, this.transform.rotation * load.rotation);
-		//anim.SetBool (0, true);
-		//return load;
 	}
 	void Update()
 	{
 
-		if (Time.time > nextFire) {
+		if (Time.time > nextFire+Random.Range(-fireRate*.1f, fireRate*1.1f)) {
 			if (loaded == false) {
 
 				loader.Add (new Load (enemyBolt, Quaternion.identity * Quaternion.Euler(0.0f, Random.Range(-10.0f, 10.0f), 0.0f) ));

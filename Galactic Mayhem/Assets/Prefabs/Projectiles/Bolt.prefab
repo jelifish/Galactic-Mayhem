@@ -28,6 +28,8 @@ GameObject:
   - 54: {fileID: 5428350}
   - 114: {fileID: 11489928}
   - 136: {fileID: 13634892}
+  - 114: {fileID: 11463258}
+  - 114: {fileID: 11404712}
   m_Layer: 9
   m_Name: Bolt
   m_TagString: Bullet
@@ -99,13 +101,55 @@ Rigidbody:
   m_GameObject: {fileID: 110276}
   serializedVersion: 2
   m_Mass: .100000001
-  m_Drag: 1.36586034
+  m_Drag: 1
   m_AngularDrag: .0500000007
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 56
   m_CollisionDetection: 0
+--- !u!114 &11404712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 476a7c6ca31dcd0469923b2e388e16e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towardsObject: {fileID: 0}
+  rotationSpeed: 100
+--- !u!114 &11463258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a110b176007434e958edaed6edff8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sectorDifficulty: 0
+  movementSpeedCap: 0
+  mitigation: 0
+  maxMitigation: 0
+  armor: 0
+  maxArmor: 0
+  maxShield: 0
+  shield: 0
+  hull: 3
+  maxHull: 0
+  deathParticles: {fileID: 104386, guid: f108801a581eb9843983eeb0db6997b1, type: 2}
+  gc: {fileID: 0}
+  shieldRegenEnabled: 0
+  killed: 0
+  maxShieldCooldown: 3
+  shieldRegenIncrement: .00999999978
+  curShieldCooldown: 0
+  currentregenIncrement: 0
 --- !u!114 &11489928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -117,11 +161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9419d3fd78c9a546b34524b053469d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  age: 100
+  age: 15
   speed: 10
   mirrorRate: 0
   totalSectorSize: 0
-  bullet: {fileID: 0}
 --- !u!136 &13634892
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -156,7 +199,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: age
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
@@ -176,7 +219,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Drag
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Radius
@@ -217,6 +260,34 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxShield
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shield
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hull
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxHull
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: deathParticles
+      value: 
+      objectReference: {fileID: 104386, guid: f108801a581eb9843983eeb0db6997b1, type: 2}
+    - target: {fileID: 0}
+      propertyPath: shieldRegenEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: rotationSpeed
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

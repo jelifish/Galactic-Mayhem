@@ -12,6 +12,8 @@ TagManager:
   - Audio
   - Special
   - ActiveSpecial
+  - Interactible
+  - MainMenu
   layers:
   - Default
   - TransparentFX
@@ -31,7 +33,7 @@ TagManager:
   - Enemy
   - EnemyEthereal
   - 
-  - 
+  - Interactable
   - 
   - 
   - 

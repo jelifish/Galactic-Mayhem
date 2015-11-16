@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Environment\Mover.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\WeaponSystem.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="96" Column="16" />
-      <File FileName="Assets\Scripts\Abstracts\CollisionObject.cs" Line="4" Column="29" />
-      <File FileName="Assets\Scripts\Environment\Mover.cs" Line="32" Column="6" />
+      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="118" Column="2" />
+      <File FileName="Assets\Scripts\Environment\GameController.cs" Line="17" Column="26" />
+      <File FileName="Assets\Scripts\Player\WeaponSystem.cs" Line="155" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

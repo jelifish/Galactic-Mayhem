@@ -103,13 +103,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69647c3675a79664fa97387c0b72cf23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onState: {fileID: 0}
-  offState: {fileID: 0}
-  shield: 50
-  hull: 100
+  sectorDifficulty: 0
+  movementSpeedCap: 5
+  mitigation: 0
+  armor: 0
+  maxShield: 0
+  shield: 200
+  hull: 400
   maxHull: 0
-  score_value: 100
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
+  gc: {fileID: 0}
+  shieldRegenEnabled: 1
+  killed: 0
+  maxShieldCooldown: 3
+  shieldRegenIncrement: .00100000005
+  curShieldCooldown: 0
+  currentregenIncrement: 0
+  scoreValue: 30
 --- !u!114 &11408536
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,12 +144,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0590b29d6f8ca074cbcc5a8ec20303f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 16
   passes: 8
   minValue: 10
   regressionRate: 1.20000005
   block: {fileID: 101974, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
+  core: {fileID: 134758}
+  gc: {fileID: 0}
+  sectorDifficulty: 0
+  isChild: 0
+  childCore: 1
   blaster: {fileID: 129876, guid: 3de62137f4f5fe940a4b475d845da4a6, type: 2}
+  shortBlaster: {fileID: 130436, guid: 41c6104054cddd2438dec18322ba5d08, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -153,11 +169,11 @@ Prefab:
       objectReference: {fileID: 101974, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
     - target: {fileID: 0}
       propertyPath: shield
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hull
-      value: 100
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: blaster
@@ -170,6 +186,38 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: score_value
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: scoreValue
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: movementSpeedCap
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: childCore
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: core
+      value: 
+      objectReference: {fileID: 134758}
+    - target: {fileID: 0}
+      propertyPath: deathParticles
+      value: 
+      objectReference: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: shortBlaster
+      value: 
+      objectReference: {fileID: 130436, guid: 41c6104054cddd2438dec18322ba5d08, type: 2}
+    - target: {fileID: 0}
+      propertyPath: shieldRegenIncrement
+      value: .00100000005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

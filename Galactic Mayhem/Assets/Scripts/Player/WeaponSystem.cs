@@ -5,26 +5,21 @@ using System.Collections.Generic;
 public class WeaponSystem : MonoBehaviour {
 	
 
+	public GameController gc;
 
 	public void shoot() 
 	{if (!channeling) {
 			foreach (Load load in loader) {
 				Instantiate (load.projectile, this.transform.position + load.offset, this.transform.rotation * load.rotation);
+			
 				load.sound.GetComponent<AudioSource> ().Play ();
 			}
 			loader.Clear ();
 		}
-		//Instantiate (load.projectile, this.transform.position, this.transform.rotation);
-		//Debug.Log (shotSpawn.rotation);
-		//Instantiate(load.projectile, new Vector3(3,4,0), shotSpawn.rotation);
-
-		//anim.SetBool (0, true);
-		//return load;
 	}
-//	private bool loaded = false;
 	public List<Load> loader = new List<Load>();
 	public GameObject weapon;
-	public float reloadSpeed = Time.time + .5f;
+	public float reloadSpeed =  .5f;
 	public bool channeling; //if channeling do not shoot anything
 
 	private int slotPosition;
@@ -36,7 +31,7 @@ public class WeaponSystem : MonoBehaviour {
 	}
 
 	void Start(){
-		//initWeapon ();
+		gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
 	}
 
 
@@ -46,6 +41,7 @@ public class WeaponSystem : MonoBehaviour {
 			Destroy (transform.GetChild (0));//should only ever be one weapon
 		} 
 		GameObject child = (GameObject)Instantiate (weapon, this.transform.position, this.transform.rotation);
+
 		child.GetComponent<WeaponScript> ().weaponSlot = this.gameObject;
 		child.AddComponent<BlasterWeapon>();
 		child.GetComponent<BlasterWeapon> ().bolt = bolt;
@@ -128,18 +124,45 @@ public class BlasterAttributes
 		projectileSize = 2f;
 		initialSpeed = 10f;
 		rateOfFire = Random.Range(.2f, 1f);
-		projectileDrag = Random.Range(.1f, 1.5f);
+		projectileDrag = 1f;
 		fireAngleVariance = 5f;
 		//directionOfFire = Quaternio * Random.insideUnitCircle.x;
-		projectileAge = 100f;
+		projectileAge = 15f;
 		//generateSpecial ();
 	}
 	public GameObject generateSpecial(){
+	
+//		List<string> specialWeps = new List<string> ();
+//
+//		///list of special weps
+//		specialWeps.Add ("SpecialBlasterMineField");
+//		specialWeps.Add ("SpecialStrike");
+//
+//		return specialWeps[Random.Range(0,specialWeps.Count)];
+
+
+
+
+
+
+
+
+
+//		Debug.Log(specialWeps.Count);
+//		GameObject new = new GameObject("Special");
+//		GameObject specialObj = (GameObject) //Instantiate(new GameObject("Special"),0,Quaternion.identity);
+//
+//		//specialObj.AddComponent(special.GetType());//gameObject.AddComponent ("special") as SpecialWeapon;
+//		//return specialObj;
+//
+//		return null;
+
+
+
 		int length = GameObject.FindGameObjectsWithTag ("Special").Length;
-		//Random.Range (0, length);
 		//Debug.Log("there are "+ length+" num of specials" );
 		GameObject spec = GameObject.FindGameObjectsWithTag("Special")[Random.Range (0, length)];  
-		//spec.tag = "ActiveSpecial";
+
 		return spec;
 	}
 

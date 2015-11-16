@@ -9,28 +9,20 @@ public class Mover : MonoBehaviour {
 	public float totalSectorSize;
 	void Start()
 	{
-		//float alpha = -Mathf.Tan(this.transform.rotation.z * Mathf.Deg2Rad);
-		//Debug.Log (transform.up);
-		//GetComponent<Rigidbody> ().velocity = speed * Vector3.up;
-		GetComponent<Rigidbody>().velocity =transform.right* speed;
+		//GetComponent<Rigidbody>().velocity =transform.right.normalized*speed;
+		GetComponent<Rigidbody>().AddForce(transform.right * speed*5);
+
+
 		originalObject = GetComponent<Rigidbody> ().transform;
 		Destroy (gameObject, age);
 
 		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize ()/1.95f; //expensive call
 	}
-	float velo;
-	public GameObject bullet;
-	public void BuildSector(){
-		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize (); //expensive call
-	}
-	//
+
 	void OnCollisionEnter(Collision other)
 	{
 
 		if (other.gameObject.tag == "Bullet" && this.gameObject.tag=="Strike") {
-			bullet.tag ="TriggeredBullet";
-			//if(Random.Range(1,3)==1)Instantiate(bullet, transform.localPosition,Quaternion.identity);
-			bullet.tag ="Bullet";
 			other.gameObject.tag = "TriggeredBullet";
 			other.gameObject.GetComponent<Rigidbody>().drag = (other.gameObject.GetComponent<Rigidbody>().drag /Random.Range(2f, 3f));
 		}
@@ -40,15 +32,9 @@ public class Mover : MonoBehaviour {
 	}
 	void Update()
 	{
-//		velo = this.GetComponent<Rigidbody> ().velocity.magnitude;
-//		if(velo > 20.0f){
-//		Debug.Log(velo);
-//		}
-		//remove glitched objects
-		if (mirrorRate >= 5) {
+		if (mirrorRate >= 10) {
 			Destroy (gameObject);
 		}
-
 
 		if (this.gameObject.tag != "EnemyBullet") { ///dont port if enemy bullet. 
 
@@ -66,9 +52,6 @@ public class Mover : MonoBehaviour {
 			}
 		}
 
-
-	}
-	void fixedUpdate(){
 
 	}
 }

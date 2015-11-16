@@ -13,7 +13,6 @@ GameObject:
   - 54: {fileID: 5488972}
   - 65: {fileID: 6510586}
   - 114: {fileID: 11489974}
-  - 114: {fileID: 11486884}
   m_Layer: 15
   m_Name: ExteriorBlock
   m_TagString: Enemy
@@ -91,18 +90,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .899999976, y: .899999976, z: .899999976}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11486884
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9b477be1227394db520fd9772083fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxCooldown: 3
 --- !u!114 &11489974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,12 +101,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372419253fbf20f48bb77941f8f4a885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onState: {fileID: 2100000, guid: af5f23b9d503eb9488eca7b4b1ddd67d, type: 2}
-  offState: {fileID: 0}
-  shield: 50
-  hull: 30
-  score_value: 5
+  sectorDifficulty: 0
+  movementSpeedCap: 0
+  mitigation: 0
+  armor: 0
+  maxShield: 0
+  shield: 100
+  hull: 200
+  maxHull: 0
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
+  gc: {fileID: 0}
+  shieldRegenEnabled: 1
+  killed: 0
+  maxShieldCooldown: 3
+  shieldRegenIncrement: .00100000005
+  curShieldCooldown: 0
+  currentregenIncrement: 0
+  scoreValue: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -133,15 +131,23 @@ Prefab:
       objectReference: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
     - target: {fileID: 0}
       propertyPath: shield
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hull
-      value: 30
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score_value
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: scoreValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shieldRegenIncrement
+      value: .00100000005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
