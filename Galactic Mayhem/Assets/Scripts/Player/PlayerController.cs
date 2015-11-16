@@ -79,22 +79,39 @@ public class PlayerController : CollisionObject
 		curShieldCooldown = -0.1f;
 	}
 	public void boostSpeed (){
-		curSpeedBoostDuration += speedBoostDuration;
+		if (curSpeedBoostDuration >= 6) {
+			curSpeedBoostDuration+=speedBoostDuration/3;
+		} else {
+			curSpeedBoostDuration += speedBoostDuration;
+		}
 	}
 
 	public float speedBoostDuration = 3;
 	public float curSpeedBoostDuration = 0;
+
 	IEnumerator speedBoost(){
+		bool boostTime = false;
 		while (true) {
 		
 			//curSpeedBoostDuration = 3;
-			if (curSpeedBoostDuration >= 0) {
+			if (curSpeedBoostDuration > 0) {
+				if(boostTime = false){
+				Time.timeScale -=.3f;
+					boostTime = true;
+				}
 				movementSpeedCap = 10;
+				armor = maxArmor * 2;
+				mitigation = maxMitigation * 2;
+
 				curSpeedBoostDuration -= .1f;
 				gc.setBoost(curSpeedBoostDuration);
-			}
-			else{
-
+			}else{
+				if(boostTime == true&&curSpeedBoostDuration <= 0){
+					Time.timeScale +=.3f;
+					boostTime = false;
+				}
+				armor = maxArmor;
+				mitigation = maxMitigation;
 				movementSpeedCap = 5;
 			}
 			yield return new WaitForSeconds (.1f);
@@ -104,7 +121,7 @@ public class PlayerController : CollisionObject
 
 
 	public GameObject weaponSlot;
-	private List<GameObject> weaponSlots = new List<GameObject>();
+	private Queue<GameObject> weaponSlots = new Queue<GameObject>();
 	public int numOfWeaponSlots;
 
 
@@ -137,7 +154,7 @@ public class PlayerController : CollisionObject
 			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, this.GetComponent<Rigidbody>().position, GetComponent<Rigidbody>().rotation);
 			tempSlot.GetComponent<WeaponSystem>().setSlotPosition(i);
 			tempSlot.transform.parent = this.transform;
-			weaponSlots.Add(tempSlot);
+			weaponSlots.Enqueue(tempSlot);
 			if(i==0){
 				tempSlot.GetComponent<WeaponSystem>().initWeapon();
 			}
@@ -201,7 +218,6 @@ public class PlayerController : CollisionObject
 	public override void onDeath(){
 		updateHUD ();
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
-		Debug.Log ("dead");
 		gc.restart ();
 
 	}

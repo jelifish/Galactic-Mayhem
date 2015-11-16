@@ -2,10 +2,21 @@
 using System.Collections;
 
 public class BlasterMineFieldInteractable : Interactable{
-	public override void fireAtLocation(){
-		
+	public override void mouseUpFire(){
+	if (timeSlow) {
+			Time.timeScale += 0.5F;
+			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+			timeSlow = false;
+		}
+
 	}
-	public override void fireAtTarget(){
+	private bool timeSlow = false;
+	public override void mouseDownFire(){
+		if (!timeSlow) {	
+			Time.timeScale -= 0.5F;
+			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+			timeSlow = true;
+		}
 		stopDestroy ();
 		StartCoroutine (mineField ());
 	}
@@ -15,7 +26,7 @@ public class BlasterMineFieldInteractable : Interactable{
 	}
 
 	void Start(){
-		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", Color.green);
+		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(152/255.0F,203/255.0F,74/255.0F,255f));
 	}
 	IEnumerator mineField()
 	{
@@ -28,7 +39,14 @@ public class BlasterMineFieldInteractable : Interactable{
 			}
 			break;
 		}
+		if (timeSlow) {
+			Time.timeScale += 0.5F;
+			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+			timeSlow = false;
+		}
 		Destroy (this.gameObject);
+
+
 		
 		
 	}

@@ -16,7 +16,6 @@ public class GameController : MonoBehaviour {
 
 	public float sectorSize;
 
-
 	public float difficulty;
 	public void setDifficulty(){
 		difficulty=Vector2.Distance (new Vector2 (0, 0), new Vector2 (xSector, ySector));
@@ -196,12 +195,12 @@ public class GameController : MonoBehaviour {
 		setBounds ();
 		waveCurrent = 0;
 		visitedSector = false;
-		Debug.Log (coords.Count);
+//		Debug.Log (coords.Count);
 		//bool fal = false;
 		clear = false;
 
 		foreach (Coord coord in coords) {
-			Debug.Log(coord.x+","+coord.y);
+//			Debug.Log(coord.x+","+coord.y);
 			if (coord.x == xSector && coord.y == ySector) {
 
 				visitedSector = true;

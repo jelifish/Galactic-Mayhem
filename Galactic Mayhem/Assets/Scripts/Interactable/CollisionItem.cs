@@ -10,6 +10,7 @@ public class CollisionItem : CollisionObject {
 		} else if(other.gameObject.tag == "EnemyBullet"){
 			
 		}else if(other.gameObject.tag == "Player"){
+
 			if (this.name == "HealthPickup(Clone)"&&other.GetComponent<PlayerController>().hull<other.GetComponent<PlayerController>().maxHull){
 			other.GetComponent<PlayerController>().recoverHull();
 			Destroy(gameObject);
@@ -22,13 +23,36 @@ public class CollisionItem : CollisionObject {
 				other.GetComponent<PlayerController>().boostSpeed();
 				Destroy(gameObject);
 			}
-			//takeDamage (getShield()+getHull());
+
+
+
+
+
+
+
+
+
+			if (this.name == "AcceleratorInteractable(Clone)"){
+				other.GetComponent<PlayerController>().boostSpeed();
+				Destroy(gameObject);
+			}
+			if (this.name == "SpeedPickup(Clone)"){
+				other.GetComponent<PlayerController>().boostSpeed();
+				Destroy(gameObject);
+			}
+
 		}else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet"){
-			//takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-			//other.gameObject.GetComponent<ProjectileCollision>().takeDamage(1);
-			//Destroy(other.gameObject);
 		}
 	}
+
+//	IEnumerator firemass(){
+//		yield return new WaitForSeconds (2f);
+//		foreach(GameObject bolt in GameObject.FindGameObjectsWithTag("Bullet")){
+//
+//			bolt.GetComponent<Rigidbody>().AddForce(bolt.transform.right * 100);
+//			
+//		}
+//	}
 
 
 }

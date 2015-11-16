@@ -8,10 +8,10 @@ public class Interactable : MonoBehaviour {
 	public PlayerController player;
 	public float initialSpeed;
 
-	public virtual void fireAtLocation(){
+	public virtual void mouseUpFire(){
 
 	}
-	public virtual void fireAtTarget(){
+	public virtual void mouseDownFire(){
 
 	}
 

@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Parents\CollisionObject.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\WeaponSystem.cs">
     <Files>
-      <File FileName="Assets\Scripts\Environment\GameController.cs" Line="112" Column="80" />
-      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="169" Column="8" />
-      <File FileName="Assets\Scripts\Parents\CollisionObject.cs" Line="11" Column="14" />
+      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="118" Column="2" />
+      <File FileName="Assets\Scripts\Environment\GameController.cs" Line="17" Column="26" />
+      <File FileName="Assets\Scripts\Player\WeaponSystem.cs" Line="155" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

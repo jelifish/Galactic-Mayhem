@@ -10,7 +10,7 @@ public class SpawnedWeapon : RotateTowards {
 		//Destroy (gameObject, 5);
 		//Debug.Log ("hit");
 		towardsObject = (GameObject)Instantiate (touchEvent, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 3), this.transform.rotation);
-
+		touchEvent = towardsObject;
 		towardsObject.GetComponent<DragTransform> ().spawn = this.transform.gameObject;
 
 		StartCoroutine (selfDestruct ());

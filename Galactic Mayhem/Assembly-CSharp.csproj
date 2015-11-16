@@ -46,9 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CollisionItem.cs" />
-     <Compile Include="Assets\DragTransform.cs" />
-     <Compile Include="Assets\FixRotation.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\DontDestroy.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\EventSystemChecker.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\Pause.cs" />
@@ -57,8 +54,6 @@
      <Compile Include="Assets\Game Jam Menu Template\Scripts\SetAudioLevels.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\ShowPanels.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\StartOptions.cs" />
-     <Compile Include="Assets\OverlapFollow.cs" />
-     <Compile Include="Assets\PlayerDrag.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\BlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\CoreBlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\CoreScript.cs" />
@@ -80,13 +75,19 @@
      <Compile Include="Assets\Scripts\Environment\ScrollUV.cs" />
      <Compile Include="Assets\Scripts\Environment\audioDetection.cs" />
      <Compile Include="Assets\Scripts\Environment\drawline.cs" />
+     <Compile Include="Assets\Scripts\Interactable\AcceleratorInteractable.cs" />
      <Compile Include="Assets\Scripts\Interactable\BlasterMineFieldInteractable.cs" />
+     <Compile Include="Assets\Scripts\Interactable\CollisionItem.cs" />
+     <Compile Include="Assets\Scripts\Interactable\DragTransform.cs" />
      <Compile Include="Assets\Scripts\Interactable\Interactable.cs" />
      <Compile Include="Assets\Scripts\Parents\CollisionObject.cs" />
      <Compile Include="Assets\Scripts\Parents\RotateTowards.cs" />
      <Compile Include="Assets\Scripts\Player\BlasterWeapon.cs" />
+     <Compile Include="Assets\Scripts\Player\OverlapFollow.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerDrag.cs" />
      <Compile Include="Assets\Scripts\Player\ProjectileCollision\ProjectileCollision.cs" />
+     <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialAccelerator.cs" />
      <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialBlasterMineField.cs" />
      <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialStrike.cs" />
      <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialWeapon.cs" />
