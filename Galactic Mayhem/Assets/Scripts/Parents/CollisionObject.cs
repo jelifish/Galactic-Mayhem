@@ -8,10 +8,12 @@ public class CollisionObject : MonoBehaviour {
 	//2. score and score incrementals
 	//3. self destruction -- no child destruction
 	//4. particle instantiation
+	public float sectorDifficulty;
 	public float movementSpeedCap;
 	public float mitigation = 0;
+	public float maxMitigation;
 	public float armor = 0;
-
+	public float maxArmor;
 	[HideInInspector] public float maxShield;
 	public float shield;
 	public float hull;
@@ -27,14 +29,13 @@ public class CollisionObject : MonoBehaviour {
 
 		maxShield = shield;
 		maxHull = hull;
-		
+		maxArmor = armor;
+		maxMitigation = mitigation;
 		//get gamecontroller
 		if (GameObject.FindWithTag ("GameController") != null) {
 			gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
 		}else{ Debug.LogWarning("Cannot Find GameController");
 		}
-
-
 
 		if (shieldRegenEnabled) {
 			StartCoroutine (shieldRegen ());
@@ -51,7 +52,6 @@ public class CollisionObject : MonoBehaviour {
 	public void takeDamage(float damage){
 		shield -= damage;
 		if (shield < 0) {
-//			Debug.Log(shield*-1);
 			if(armor > (shield*-1))
 			{
 			}else{
@@ -98,15 +98,19 @@ public class CollisionObject : MonoBehaviour {
 	{
 		Destroy(this.gameObject);
 	}
+	public virtual void dropOnDeath(){
+	}
 
 	public float maxShieldCooldown = 3;
 	public virtual void ShieldUpdate(){
 	}
 	public float shieldRegenIncrement = 0f;
+	public float curShieldCooldown;
+	public float currentregenIncrement;
 	IEnumerator shieldRegen(){
 		float currentShield = 0;
-		float cooldown = maxShieldCooldown;
-		float currentregenIncrement = 0f;
+		curShieldCooldown = maxShieldCooldown;
+		currentregenIncrement = 0f;
 		
 		yield return new WaitForSeconds (.2f);
 		
@@ -117,11 +121,11 @@ public class CollisionObject : MonoBehaviour {
 			
 			if (currentShield < maxShield) {         //if the unit has taken damage
 				
-				if(cooldown >= 0f)        // and if the cooldown for the unit is greater than zero
+				if(curShieldCooldown >= 0f)        // and if the cooldown for the unit is greater than zero
 				{
-					cooldown-=.2f; //reduce the cooldown, should be consistent with the yield of the ienumerator
+					curShieldCooldown-=.1f; //reduce the cooldown, should be consistent with the yield of the ienumerator
 				}
-				if (cooldown< 0 && tempValue == currentShield) // if the cooldown has reached negative and the tempvalue is the same as the currentShield
+				if (curShieldCooldown< 0 && tempValue == currentShield) // if the cooldown has reached negative and the tempvalue is the same as the currentShield
 				{
 					addShield((int)(maxShield * (.01f+currentregenIncrement))); //then we increase health
 
@@ -130,7 +134,7 @@ public class CollisionObject : MonoBehaviour {
 					ShieldUpdate();
 				}
 				else if(tempValue != currentShield){ //other wise
-					cooldown = maxShieldCooldown; //put shields on cooldown
+					curShieldCooldown = maxShieldCooldown; //put shields on cooldown
 					tempValue = currentShield; //reset the shield value
 					currentregenIncrement = 0; //reset regen multiplier value
 					ShieldUpdate();
@@ -138,7 +142,7 @@ public class CollisionObject : MonoBehaviour {
 			}
 			
 			
-			yield return new WaitForSeconds (.2f);
+			yield return new WaitForSeconds (.1f);
 		}
 		
 		

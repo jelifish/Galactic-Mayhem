@@ -2,9 +2,10 @@
 using System.Collections;
 
 public class OuterBlockCollision : BlockCollision {
-	public new void onDeath(){
+	public override void onDeath(){
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
-		gc.addScore (scoreValue);
+		gc.addScore (scoreValue); 
+		dropOnDeath ();
 	}
 
 }

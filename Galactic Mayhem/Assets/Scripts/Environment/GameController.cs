@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
-
+	[HideInInspector]public GameObject heal, shield, resist, boost;
 
 	public GameObject player;
 	public GameObject core1;
@@ -15,7 +15,6 @@ public class GameController : MonoBehaviour {
 	public long gold;
 
 	public float sectorSize;
-	//public Camera GameCamera;
 
 
 	public float difficulty;
@@ -27,10 +26,11 @@ public class GameController : MonoBehaviour {
 	  
 	//HUD references
 	public Text hullText;
-	//public Text scoreText;
+	public Text pixText;
 	public Text sectorText;
 	public Text shieldText;
 	public Text waveText;
+	public Text boostText;
 
 	public GameObject sectorBounds;
 
@@ -46,16 +46,12 @@ public class GameController : MonoBehaviour {
 
 		player.GetComponent<PlayerController> ().init ();
 		calcHazardCount ();
-		spawnWait = Random.Range (5, 10);
+		spawnWait = Random.Range (2f, 5f);
 		score = 0;
 
 
 
 		setBounds();
-//		Coord thisCoord = new Coord ();
-//		thisCoord.x = xSector;
-//		thisCoord.y = ySector;
-//		coords.Add (thisCoord);
 		StartCoroutine(Wave1());
 
 
@@ -80,19 +76,24 @@ public class GameController : MonoBehaviour {
 	public void calcHazardCount(){
 
 		float tempdiff = Random.Range(difficulty*0.75f,difficulty*1.25f) ;
-		float chance = 0.2f;
+		float chance = 0.3f;
+		hazardCount = (int)tempdiff; 
 		while (Mathf.Sqrt(tempdiff) >= 1){
-			if(Random.value > chance){
+			Debug.Log(hazardCount);
+			if(Random.value > chance||hazardCount>10){
 				enemyModifier++;
 				chance = chance * 1.5f;
 				tempdiff = tempdiff - Mathf.Sqrt(tempdiff);
 				hazardCount = (int) tempdiff;
-			}else {break;}
+			}
+			else{break;}
 
 		}
 
 		hazardCount = (int)tempdiff + 1;
 		waveLimit = hazardCount;
+
+
 	}
 
 	// Use this when initializing
@@ -109,44 +110,39 @@ public class GameController : MonoBehaviour {
 	public float sectorSizeMax;
 
 	private void generateSectorSize(){
-		sectorSize = Random.Range (sectorSizeMin, sectorSizeMax); //randomize sector size
+		sectorSize = Random.Range (sectorSizeMin+difficulty, sectorSizeMax+difficulty); //randomize sector size
 		sectorSize = Mathf.Round(sectorSize * 100f) / 100f; // truncate decimal precision
 
 	}
 
 	IEnumerator Wave1(){
-		yield return new WaitForSeconds (2f);
+
 		if (xSector == 0 && ySector == 0) {
-			//sectorBounds.GetComponent<BoxColSetSectorSize> ().liftBorder ();
 			sectorClear();
 		} else {
+			yield return new WaitForSeconds (2f);
 			for (int i=0; i<hazardCount; i++) {
 				float randX = Random.Range (-sectorSize / 2, sectorSize / 2);
 				float randY = Random.Range (-sectorSize / 2, sectorSize / 2);
-				while (randX < player.transform.position.x+5&&randX>player.transform.position.x-5 && randY < player.transform.position.y+5&& randY>player.transform.position.y-5) {
+
+				while (randX < player.transform.position.x+5&&randX>player.transform.position.x-5 && randY < player.transform.position.y+5&& randY>player.transform.position.y-5&& player!=null) {
 					randX = Random.Range (-sectorSize, sectorSize);
 					randY = Random.Range (-sectorSize, sectorSize);
 				}
 				Vector3 spawnPosition = new Vector3 (randX, randY, spawnValues.z);
-				Instantiate (core1, spawnPosition, Quaternion.Euler (0, 0, 0));//GameCamera.transform.rotation);
+				GameObject coreSpawn = (GameObject)Instantiate (core1, spawnPosition, Quaternion.Euler (0, 0, 0));//GameCamera.transform.rotation);
+
+				coreSpawn.GetComponent<CollisionObject>().sectorDifficulty = this.difficulty + this.enemyModifier;
+				coreSpawn.GetComponent<CoreScript>().sectorDifficulty = this.difficulty + this.enemyModifier;
 
 				yield return new WaitForSeconds (spawnWait);
+				spawnWait = Random.Range (1f, 5f);
 			}
 		}
 }
-	//public Dictionary<Coord, bool> coords = new Dictionary<Coord, bool>();
 	public List<Coord> coords = new List<Coord>();
 	public void sectorClear(){
-		Debug.Log ("Hit");
 		Coord thisCoord = new Coord (xSector,ySector);
-//		bool add = true;
-//		foreach (Coord coord in coords) {
-//			if (coord.x == xSector && coord.y == ySector) {
-//				add = false;
-//				Debug.Log("already visited");
-//			}
-//		}
-//		if(!add)
 			coords.Add (thisCoord);
 
 		openBorders();
@@ -171,7 +167,6 @@ public class GameController : MonoBehaviour {
 		if (!moving) {
 			ySector--;
 			animColorFade.SetTrigger ("fade");
-
 			Invoke ("newSector", 3f);
 			moving = true;
 		}
@@ -180,9 +175,6 @@ public class GameController : MonoBehaviour {
 		if (!moving) {
 			xSector++;
 			animColorFade.SetTrigger ("fade");
-
-			//animColorFade.Play("animColorFade");
-			//Animation.//animation.Play();
 			Invoke ("newSector", 3f);
 			moving = true;
 		}
@@ -190,9 +182,7 @@ public class GameController : MonoBehaviour {
 	public void moveWest(){
 		if (!moving) {
 			xSector--;
-
 			animColorFade.SetTrigger ("fade");
-//			animColorFade.Play();
 			Invoke ("newSector", 3f);
 			moving = true;
 		}
@@ -201,16 +191,6 @@ public class GameController : MonoBehaviour {
 	public Animator animColorFade; 
 	private bool visitedSector = false;
 	public void newSector(){
-		//Invoke ("LoadDelayed", fadeColorAnimationClip.length * .5f);
-		//animColorFade.enabled = true;
-		//animColorFade.ResetTrigger("fade");
-		//animColorFade.SetTrigger ("fade");
-		//Set the trigger of Animator animColorFade to start transition to the FadeToOpaque state.
-
-
-
-
-
 		setDifficulty ();
 		generateSectorSize();
 		setBounds ();
@@ -220,18 +200,6 @@ public class GameController : MonoBehaviour {
 		//bool fal = false;
 		clear = false;
 
-//		if(coords.TryGetValue(new Coord(xSector,ySector), out fal))
-//		{
-//			//success!
-//			visitedSector = true;
-//			sectorBounds.GetComponent<BoxColSetSectorSize> ().liftBorder ();
-//			player.GetComponent<PlayerController>().sectorClear = true;
-//			waveLimit = 0;
-//		}
-//		else
-//		{
-//			//fail
-//		}
 		foreach (Coord coord in coords) {
 			Debug.Log(coord.x+","+coord.y);
 			if (coord.x == xSector && coord.y == ySector) {
@@ -267,14 +235,8 @@ public class GameController : MonoBehaviour {
 		foreach (GameObject junk in GameObject.FindGameObjectsWithTag("Interactible")) {
 			Destroy(junk);
 		}
-//		foreach (GameObject junk in sectorJunk) {
-//			Destroy(junk);
-//		}
-		//sectorJunk.Clear ();
 		player.transform.position = new Vector3 (0, 0, 0);
 		moving = false;
-		//animColorFade.ResetTrigger("fade");
-		//sectorBounds.GetComponent<BoxColSetSectorSize> ().setBorder ();
 		UpdateHUD ();
 
 	}
@@ -285,6 +247,7 @@ public class GameController : MonoBehaviour {
 //		if (score_txt != null) {
 //			score_txt.text = "Score: " + score;
 //		}
+
 //
 			sectorText.text = "Sector: ("+xSector+","+ySector+")";
 			
@@ -306,6 +269,15 @@ public class GameController : MonoBehaviour {
 	public void setShield (float curShield, float shieldMax){
 		shieldText.text = "Shield: " + (int)curShield + "/" + (int)shieldMax;
 	}
+	public void setBoost (float curBoost){
+		if (curBoost <= 0) {
+			boostText.text = "";
+		} else {
+			//Debug.Log(curBoost);
+			boostText.text = "Boost Time: " + (int)curBoost;
+		}
+
+	}
 
 	public void addWave(){
 		waveCurrent += 1;
@@ -316,7 +288,21 @@ public class GameController : MonoBehaviour {
 		score += new_score;
 		UpdateHUD ();
 	}
+
+	public void restart (){
+		//sectorText.text = "Now reinitializing";
+		Invoke ("destroyAndCreate", 5);
+	}
+	public void destroyAndCreate(){
+		animColorFade.SetTrigger ("fade");
+		Destroy (GameObject.FindWithTag ("MainMenu"));
+		Destroy (gameObject);
+		Application.LoadLevel(0);
+	}
+
+
 }
+
 
 [System.Serializable]
 public class Coord

@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69647c3675a79664fa97387c0b72cf23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sectorDifficulty: 0
   movementSpeedCap: 5
   mitigation: 0
   armor: 0
@@ -115,7 +116,9 @@ MonoBehaviour:
   shieldRegenEnabled: 1
   killed: 0
   maxShieldCooldown: 3
-  shieldRegenIncrement: 0
+  shieldRegenIncrement: .00100000005
+  curShieldCooldown: 0
+  currentregenIncrement: 0
   scoreValue: 30
 --- !u!114 &11408536
 MonoBehaviour:
@@ -148,6 +151,7 @@ MonoBehaviour:
   block: {fileID: 101974, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
   core: {fileID: 134758}
   gc: {fileID: 0}
+  sectorDifficulty: 0
   isChild: 0
   childCore: 1
   blaster: {fileID: 129876, guid: 3de62137f4f5fe940a4b475d845da4a6, type: 2}
@@ -211,6 +215,10 @@ Prefab:
       propertyPath: shortBlaster
       value: 
       objectReference: {fileID: 130436, guid: 41c6104054cddd2438dec18322ba5d08, type: 2}
+    - target: {fileID: 0}
+      propertyPath: shieldRegenIncrement
+      value: .00100000005
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 134758}

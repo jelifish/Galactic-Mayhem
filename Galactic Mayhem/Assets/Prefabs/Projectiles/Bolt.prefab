@@ -118,9 +118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a110b176007434e958edaed6edff8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sectorDifficulty: 0
   movementSpeedCap: 0
   mitigation: 0
+  maxMitigation: 0
   armor: 0
+  maxArmor: 0
   maxShield: 0
   shield: 0
   hull: 3
@@ -131,6 +134,8 @@ MonoBehaviour:
   killed: 0
   maxShieldCooldown: 3
   shieldRegenIncrement: .00999999978
+  curShieldCooldown: 0
+  currentregenIncrement: 0
 --- !u!114 &11489928
 MonoBehaviour:
   m_ObjectHideFlags: 1

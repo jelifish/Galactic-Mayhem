@@ -49,6 +49,7 @@ public class PlayerController : CollisionObject
 			gc.GetComponent<GameController> ().setHealth (hull, maxHull);
 		}
 		gc.GetComponent<GameController> ().setShield (shield, maxShield);
+		gc.GetComponent<GameController> ().setBoost(curSpeedBoostDuration);
 	}
 	public override void OnTriggerEnter(Collider other)
 	{
@@ -65,8 +66,40 @@ public class PlayerController : CollisionObject
 
 		}
 	}
+	public void recoverHull(){
+		float healAmount = maxHull / 5;
+		hull += healAmount;
+		if (hull > maxHull) {
+			hull = maxHull;
+		}
+		updateHUD ();
+	}
+	public void recoverShield(){
 
+		curShieldCooldown = -0.1f;
+	}
+	public void boostSpeed (){
+		curSpeedBoostDuration += speedBoostDuration;
+	}
 
+	public float speedBoostDuration = 3;
+	public float curSpeedBoostDuration = 0;
+	IEnumerator speedBoost(){
+		while (true) {
+		
+			//curSpeedBoostDuration = 3;
+			if (curSpeedBoostDuration >= 0) {
+				movementSpeedCap = 10;
+				curSpeedBoostDuration -= .1f;
+				gc.setBoost(curSpeedBoostDuration);
+			}
+			else{
+
+				movementSpeedCap = 5;
+			}
+			yield return new WaitForSeconds (.1f);
+		}
+	}
 
 
 
@@ -88,24 +121,10 @@ public class PlayerController : CollisionObject
 	public int chargeShotNum;
 
 	public List<Load> loader = new List<Load>();
-	
-//	public void setBoundary(){
-//		float sectorSize = GameController.GetComponent<GameController> ().sectorSize;
-//		boundary.xMin = - (sectorSize / 2);
-//		boundary.xMax = (sectorSize / 2);
-//		boundary.yMin = - (sectorSize / 2);
-//		boundary.yMax = (sectorSize / 2);
-//		GameController.GetComponentInChildren<BoxColSetSectorSize> ().setBounds (sectorSize);
-//	}
-//	public void newSector(){
-//		setBoundary ();
-//		sectorClear = false;
-//
-//	}
 
 	public void init(){
 		
-		
+		StartCoroutine (speedBoost ());
 		//GameController = GameObject.Find ("GameController");
 		maxHull = hull;
 		maxShield = shield;
@@ -137,9 +156,6 @@ public class PlayerController : CollisionObject
 	}
 
 
-
-
-
 	
 	//public Boundary boundary;
 	public bool sectorClear = false;
@@ -156,7 +172,7 @@ public class PlayerController : CollisionObject
 				(
 					Mathf.Clamp (this.GetComponent<Rigidbody> ().position.x, gc.GetComponent<GameController>().boundary.xMin, gc.GetComponent<GameController>().boundary.xMax), 
 					Mathf.Clamp (this.GetComponent<Rigidbody> ().position.y, gc.GetComponent<GameController>().boundary.yMin, gc.GetComponent<GameController>().boundary.yMax), 
-					0.0f//Mathf.Clamp (this.GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
+					0.0f
 			);
 		}
 
@@ -164,32 +180,32 @@ public class PlayerController : CollisionObject
 			if(this.GetComponent<Rigidbody> ().position.x > gc.GetComponent<GameController>().boundary.xMax+5)
 			{
 				gc.moveEast();
-				Debug.Log("est");
-				//sectorClear = false;
 			}
 			if(this.GetComponent<Rigidbody> ().position.x < gc.GetComponent<GameController>().boundary.xMin-5)
 			{
-				gc.moveWest();Debug.Log("est");
-				//sectorClear = false;
+				gc.moveWest();
 			}
 			if(this.GetComponent<Rigidbody> ().position.y > gc.GetComponent<GameController>().boundary.yMax+5)
 			{
-				gc.moveNorth();Debug.Log("ntrt");
-				//sectorClear = false;
+				gc.moveNorth();
 			}
 			if(this.GetComponent<Rigidbody> ().position.y < gc.GetComponent<GameController>().boundary.xMin-5)
 			{
-				gc.moveSouth();Debug.Log("sth");
-				//sectorClear = false;
+				gc.moveSouth();
 			}
 		}
 
 
 		}
+
 	public override void onDeath(){
 		updateHUD ();
 		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
+		Debug.Log ("dead");
+		gc.restart ();
 
 	}
+
+
 
 }

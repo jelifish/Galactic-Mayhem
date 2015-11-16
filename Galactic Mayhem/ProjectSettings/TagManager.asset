@@ -13,6 +13,7 @@ TagManager:
   - Special
   - ActiveSpecial
   - Interactible
+  - MainMenu
   layers:
   - Default
   - TransparentFX

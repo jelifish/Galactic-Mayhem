@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372419253fbf20f48bb77941f8f4a885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sectorDifficulty: 0
   movementSpeedCap: 0
   mitigation: 0
   armor: 0
@@ -113,7 +114,9 @@ MonoBehaviour:
   shieldRegenEnabled: 1
   killed: 0
   maxShieldCooldown: 3
-  shieldRegenIncrement: 0
+  shieldRegenIncrement: .00100000005
+  curShieldCooldown: 0
+  currentregenIncrement: 0
   scoreValue: 5
 --- !u!1001 &100100000
 Prefab:
@@ -141,6 +144,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: scoreValue
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shieldRegenIncrement
+      value: .00100000005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

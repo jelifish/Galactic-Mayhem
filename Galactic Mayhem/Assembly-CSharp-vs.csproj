@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CollisionItem.cs" />
      <Compile Include="Assets\DragTransform.cs" />
      <Compile Include="Assets\FixRotation.cs" />
      <Compile Include="Assets\Game Jam Menu Template\Scripts\DontDestroy.cs" />
@@ -59,7 +60,6 @@
      <Compile Include="Assets\OverlapFollow.cs" />
      <Compile Include="Assets\PlayerDrag.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\BlockCollision.cs" />
-     <Compile Include="Assets\Scripts\Enemy Generation\BlockCreation.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\CoreBlockCollision.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\CoreScript.cs" />
      <Compile Include="Assets\Scripts\Enemy Generation\EnemyBehavior.cs" />
