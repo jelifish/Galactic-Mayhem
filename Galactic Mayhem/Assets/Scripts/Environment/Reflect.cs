@@ -56,10 +56,10 @@ public class Reflect : MonoBehaviour {
 		if (GetComponent<Rigidbody> ().position.x >= totalSectorSize || -GetComponent<Rigidbody> ().position.x >= totalSectorSize)        
 				{
 			if(GetComponent<Rigidbody> ().position.x >=totalSectorSize){
-						GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.right* .5f);
+						GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.right* .2f);
 					}
 			else if(GetComponent<Rigidbody> ().position.x <=totalSectorSize){
-						GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.left* .5f);
+						GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.left* .2f);
 					}
 					GetComponent<Rigidbody>().velocity =  Vector3.Reflect(originalObject.GetComponent<Rigidbody>().velocity, Vector3.right);
 					originalObject =GetComponent<Rigidbody>().transform;
@@ -69,10 +69,10 @@ public class Reflect : MonoBehaviour {
 		if (GetComponent<Rigidbody> ().position.y >= totalSectorSize || -GetComponent<Rigidbody> ().position.y >= totalSectorSize)        
 		{
 			if(GetComponent<Rigidbody> ().position.y >=totalSectorSize){
-				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.up* .5f);
+				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.up* .2f);
 			}
 			else if(GetComponent<Rigidbody> ().position.y <=totalSectorSize){
-				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.down* .5f);
+				GetComponent<Rigidbody>().position =  originalObject.position- (Vector3.down* .2f);
 			}
 			GetComponent<Rigidbody>().velocity =  Vector3.Reflect(originalObject.GetComponent<Rigidbody>().velocity, Vector3.up);
 			originalObject =GetComponent<Rigidbody>().transform;

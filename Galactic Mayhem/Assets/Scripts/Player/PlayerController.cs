@@ -95,7 +95,7 @@ public class PlayerController : CollisionObject
 		
 			//curSpeedBoostDuration = 3;
 			if (curSpeedBoostDuration > 0) {
-				if(boostTime = false){
+				if(boostTime == false){
 				Time.timeScale -=.3f;
 					boostTime = true;
 				}

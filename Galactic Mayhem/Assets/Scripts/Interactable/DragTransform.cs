@@ -7,9 +7,17 @@ class DragTransform : MonoBehaviour
 	private bool finished = false;
 	private float distance;
 	public GameObject spawn;
+	public Transform spawnTransform;
 	
 	private Vector3 screenPoint;
+	public CameraController mainCamera;
 	//private Vector3 offset;
+	void Start(){
+		if (spawn != null) {
+			spawnTransform = spawn.transform;
+		}
+		mainCamera = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<CameraController> ();
+	}
 	void OnMouseEnter()
 	{
 
@@ -21,6 +29,7 @@ class DragTransform : MonoBehaviour
 	
 	void OnMouseDown()
 	{
+
 		screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
 		Interactable[] interArr;
 		if (spawn != null) {
@@ -33,6 +42,7 @@ class DragTransform : MonoBehaviour
 	
 	void OnMouseUp()
 	{
+		mainCamera.resetFollow(); //reset camera view back to player
 		Interactable[] interArr;
 		if (spawn != null) {
 			interArr = spawn.GetComponents<Interactable> ();
@@ -49,8 +59,14 @@ class DragTransform : MonoBehaviour
 
 
 	}
+	private bool setFollow;
 	void OnMouseDrag()
 	{
+		if (spawnTransform!=null && Vector3.Distance (transform.position, spawnTransform.position) > 7&& !setFollow) {
+			mainCamera.followObject (this.transform); //set camera view to this player
+			setFollow = true;
+
+		}
 		if (!finished) {
 			Vector3 curScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 		

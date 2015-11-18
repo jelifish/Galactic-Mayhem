@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CameraController : MonoBehaviour {
-	public Transform Player;
+	public Transform follow;
 
 	public Vector3 Margin;
 	public Vector3 Smoothing;
@@ -11,14 +11,21 @@ public class CameraController : MonoBehaviour {
 	public BoxCollider Bounds;
 
 	//private Vector3 _min,_max;
-
+	public void resetFollow (){
+		follow = GameObject.Find("Player").transform;
+		Smoothing = new Vector3 (8f, 8f, 0);
+	}
+	public void followObject(Transform obj, bool smooth = true){
+		follow = obj;
+		Smoothing = new Vector3 (1.5f, 1.5f, 0);
+	}
 
 	public bool IsFollowing(){
 		return true;}
 
 	public void Start()
 	{
-		Player = GameObject.Find("Player").transform;
+		follow = GameObject.Find("Player").transform;
 		//_min = Bounds.bounds.min;
 		//_max = Bounds.bounds.max;
 	}
@@ -29,13 +36,13 @@ public class CameraController : MonoBehaviour {
 		float x = transform.position.x;
 		float y = transform.position.y;
 
-		if (IsFollowing()&& Player != null) {
-		if (Mathf.Abs(x-Player.position.x) > Margin.x)
-			{x = Mathf.Lerp(x,Player.position.x, Smoothing.x * Time.deltaTime);
+		if (IsFollowing()&& follow != null) {
+			if (Mathf.Abs(x-follow.position.x) > Margin.x)
+			{x = Mathf.Lerp(x,follow.position.x, Smoothing.x * Time.deltaTime);
 			}
 
-			if (Mathf.Abs(y-Player.position.y) > Margin.y)
-			{y = Mathf.Lerp(y,Player.position.y, Smoothing.y * Time.deltaTime);
+			if (Mathf.Abs(y-follow.position.y) > Margin.y)
+			{y = Mathf.Lerp(y,follow.position.y, Smoothing.y * Time.deltaTime);
 			}
 		}
 

@@ -95,7 +95,7 @@ public class StartOptions : MonoBehaviour {
 		//Wait until game has started, then hide the main menu
 		Invoke("HideDelayed", fadeAlphaAnimationClip.length);
 
-		Debug.Log ("Game started in same scene! Put your game starting stuff here.");
+		//Debug.Log ("Game started in same scene! Put your game starting stuff here.");
 		showPanels.ShowHUDPanel ();
 		gc.GetComponent<GameController> ().init ();
 	}
