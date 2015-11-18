@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour {
 		float chance = 0.3f;
 		hazardCount = (int)tempdiff; 
 		while (Mathf.Sqrt(tempdiff) >= 1){
-			Debug.Log(hazardCount);
+			//Debug.Log(hazardCount);
 			if(Random.value > chance||hazardCount>10){
 				enemyModifier++;
 				chance = chance * 1.5f;
