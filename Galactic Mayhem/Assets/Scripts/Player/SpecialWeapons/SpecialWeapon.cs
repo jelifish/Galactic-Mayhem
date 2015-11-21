@@ -10,9 +10,6 @@ public class SpecialWeapon : Weapon{
 	public PlayerController player;
 	
 	public GameObject interactable;
-	public virtual void Fire(Vector3 firePosition){
-
-	}
 
 	IEnumerator interactableCreator()
 	{
@@ -23,9 +20,6 @@ public class SpecialWeapon : Weapon{
 
 		}
 	}
-
-
-
 
 	protected GameObject spawn;
 	public void spawnInteractable(){
@@ -49,6 +43,7 @@ public class SpecialWeapon : Weapon{
 	}
 
 
+
 	void Start () {
 		coolDown = Random.Range (minCD, maxCD);
 		if (GameObject.FindWithTag ("Player") != null) {
@@ -64,7 +59,6 @@ public class SpecialWeapon : Weapon{
 		if (activated) {
 			StartCoroutine (interactableCreator ());
 		}
-		//Debug.Log (fireButton); //"Fire1"
 	}
 
 

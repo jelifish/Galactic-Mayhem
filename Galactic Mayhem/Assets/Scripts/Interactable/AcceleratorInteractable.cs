@@ -14,6 +14,7 @@ public class AcceleratorInteractable : Interactable {
 
 	}
 	public override void mouseDownFire(){
+
 		Time.timeScale -= 0.5F;
 		Time.fixedDeltaTime = 0.02F * Time.timeScale;
 		stopDestroy ();

@@ -17,11 +17,11 @@ public class BlasterWeapon : Weapon {
 		this.blaster = blaster;
 		bolt.GetComponent<Mover> ().age = blaster.projectileAge;
 
-		GameObject special = (GameObject) Instantiate (blaster.generateSpecial(), this.transform.position, this.transform.rotation);
-		
-		special.tag = "ActiveSpecial";
-		special.GetComponent<SpecialWeapon> ().activated = true;
-		special.transform.parent = this.transform;
+//		GameObject special = (GameObject) Instantiate (blaster.generateSpecial(), this.transform.position, this.transform.rotation);
+//		
+//		special.tag = "ActiveSpecial";
+//		special.GetComponent<SpecialWeapon> ().activated = true;
+//		special.transform.parent = this.transform;
 
 
 

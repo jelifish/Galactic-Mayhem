@@ -140,8 +140,9 @@ public class PlayerController : CollisionObject
 	public List<Load> loader = new List<Load>();
 
 	public void init(){
-		
-		StartCoroutine (speedBoost ());
+
+
+		StartCoroutine (speedBoost ()); //this controls speedBoost of the player
 		//GameController = GameObject.Find ("GameController");
 		maxHull = hull;
 		maxShield = shield;
@@ -165,6 +166,9 @@ public class PlayerController : CollisionObject
 				tempSlot.GetComponent<WeaponSystem>().initWeapon();
 			}
 			if(i==3){
+				tempSlot.GetComponent<WeaponSystem>().initWeapon();
+			}
+			if(i==4){
 				tempSlot.GetComponent<WeaponSystem>().initWeapon();
 			}
 		}

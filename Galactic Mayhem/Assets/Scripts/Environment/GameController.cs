@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour {
 
 	public void init(){
 
+		player.GetComponent<SkillSystem> ().init ();
 		player.GetComponent<PlayerController> ().init ();
 		calcHazardCount ();
 		spawnWait = Random.Range (2f, 5f);
