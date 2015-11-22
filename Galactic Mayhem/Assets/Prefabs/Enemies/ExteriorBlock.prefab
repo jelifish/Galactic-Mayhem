@@ -104,7 +104,9 @@ MonoBehaviour:
   sectorDifficulty: 0
   movementSpeedCap: 0
   mitigation: 0
+  maxMitigation: 0
   armor: 0
+  maxArmor: 0
   maxShield: 0
   shield: 100
   hull: 200
@@ -148,6 +150,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: shieldRegenIncrement
       value: .00100000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.z
+      value: 31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

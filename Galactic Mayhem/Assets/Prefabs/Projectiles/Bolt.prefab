@@ -30,6 +30,7 @@ GameObject:
   - 136: {fileID: 13634892}
   - 114: {fileID: 11463258}
   - 114: {fileID: 11404712}
+  - 114: {fileID: 11410126}
   m_Layer: 9
   m_Name: Bolt
   m_TagString: Bullet
@@ -120,7 +121,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towardsObject: {fileID: 0}
-  rotationSpeed: 100
+  targetVector: {x: 0, y: 0, z: 0}
+--- !u!114 &11410126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bbe599bcea22d540a7a0f566c39487e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towardsObject: {fileID: 0}
+  targetVector: {x: 0, y: 0, z: 0}
 --- !u!114 &11463258
 MonoBehaviour:
   m_ObjectHideFlags: 1

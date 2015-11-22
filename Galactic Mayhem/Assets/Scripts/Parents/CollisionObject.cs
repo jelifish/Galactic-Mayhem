@@ -50,6 +50,7 @@ public class CollisionObject : MonoBehaviour {
 		return hull;
 	}
 	public void takeDamage(float damage){
+		//Debug.Log (damage);
 		shield -= damage;
 		if (shield < 0) {
 			if(armor > (shield*-1))

@@ -21,7 +21,7 @@ public class AcceleratorInteractable : Interactable {
 		foreach(GameObject bolt in GameObject.FindGameObjectsWithTag("Bullet")){
 			//Debug.Log("found");]
 			bullets.Add(bolt);
-			bolt.GetComponent<RotateTowards>().towardsObject = GetComponent<SpawnedWeapon>().touchEvent.gameObject;
+			bolt.GetComponentInChildren<RotateTowards>().towardsObject = GetComponent<SpawnedWeapon>().touchEvent.gameObject;
 			
 			
 			//bolt.GetComponent<Rigidbody>().AddForce(bolt.transform.right * 50);

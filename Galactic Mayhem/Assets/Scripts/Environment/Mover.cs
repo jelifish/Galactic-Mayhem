@@ -30,7 +30,7 @@ public class Mover : MonoBehaviour {
 
 
 	}
-	void Update()
+	void FixedUpdate()
 	{
 		if (mirrorRate >= 10) {
 			Destroy (gameObject);

@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 //public enum Activation { Button, Action, Automatic };
 public enum SkillType { MaterialType, ControlType, GuardType, AssaultType, AuraType };
+//public enum SkillLevel { Lv1, Lv2, Lv3};
 
-
-//=== Individual Skills =============================
 //=== 001 Compressed Bolts =============================
 public class Skill001 : Skill {
 	public override void init(){
 		skillName = "Compressed Bolts";
+		skillType = SkillType.MaterialType;
 	}
 	public override void attachAttributes(){
 		spawn.AddComponent<Skill001Attr> ();
 		spawn.GetComponent<Skill001Attr> ().projectile = this.projectile;
 	}
 	public override void attachSpecialAttributes(){
-		spawn.AddComponent<AcceleratorInteractable> ();
-		spawn.GetComponent<AcceleratorInteractable> ().projectile = this.projectile;
+		spawn.AddComponent<Skill011Attr> ();
+		spawn.GetComponent<Skill011Attr> ().projectile = this.projectile;
 	}
 }
 public class Skill001Attr : Interactable{
@@ -76,17 +76,19 @@ public class Skill001Attr : Interactable{
 	}
 }
 
+//=== 002 Cone Bolts =============================
 public class Skill002 : Skill {
 	public override void init(){
 		skillName = "Cone Bolts";
+		skillType = SkillType.MaterialType;
 	}
 	public override void attachAttributes(){
 		spawn.AddComponent<Skill002Attr> ();
 		spawn.GetComponent<Skill002Attr> ().projectile = this.projectile;
 	}
 	public override void attachSpecialAttributes(){
-		spawn.AddComponent<AcceleratorInteractable> ();
-		spawn.GetComponent<AcceleratorInteractable> ().projectile = this.projectile;
+		spawn.AddComponent<Skill011Attr> ();
+		spawn.GetComponent<Skill011Attr> ().projectile = this.projectile;
 	}
 }
 public class Skill002Attr : Interactable{
@@ -118,7 +120,7 @@ public class Skill002Attr : Interactable{
 		if (isTimeSlowed) {
 			Time.timeScale += 0.5F;
 			Time.fixedDeltaTime = 0.02F * Time.timeScale;
-			isTimeSlowed = false;
+			isTimeSlowed = false; 
 		}
 	}
 	IEnumerator fire()
@@ -128,7 +130,7 @@ public class Skill002Attr : Interactable{
 			for(int i=0;i<50;i++){
 				GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
 				temp.GetComponent<Mover>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
-				yield return new WaitForSeconds (.01f);
+				yield return new WaitForSeconds (.03f);
 			}
 			break;
 		}
@@ -142,6 +144,258 @@ public class Skill002Attr : Interactable{
 		Destroy (this.gameObject);
 	}
 }
+
+//=== 003 Machine Gun =============================
+public class Skill003 : Skill {
+	public override void init(){
+		skillName = "Machine Gun";
+		skillType = SkillType.MaterialType;
+	}
+	public override void attachAttributes(){
+		spawn.AddComponent<Skill003Attr> ();
+		spawn.GetComponent<Skill003Attr> ().projectile = this.projectile;
+	}
+	public override void attachSpecialAttributes(){
+		spawn.AddComponent<Skill011Attr> ();
+		spawn.GetComponent<Skill011Attr> ().projectile = this.projectile;
+	}
+}
+public class Skill003Attr : Interactable{
+	public override void mouseUpFire(){
+		if (isTimeSlowed) {
+			Time.timeScale += 0.5F;
+			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+			isTimeSlowed = false;
+		}
+	}
+	public override void mouseDownFire(){
+		if (!isTimeSlowed) {	
+			Time.timeScale -= 0.5F;
+			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+			isTimeSlowed = true;
+		}
+		stopDestroy ();
+		StartCoroutine (fire ());
+	}
+	
+	public void stopDestroy(){
+		GetComponent<SpawnedWeapon> ().destroyThis = false;
+	}
+	
+	void Start(){
+		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(152/255.0F,203/255.0F,74/255.0F,255f));
+	}
+	void OnDestroy() {
+		if (isTimeSlowed) {
+			Time.timeScale += 0.5F;
+			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+			isTimeSlowed = false; 
+		}
+	}
+	IEnumerator fire()
+	{
+		initialSpeed = 25;
+		while (true) {
+			for(int i=0;i<25;i++){
+				GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
+				temp.GetComponent<Mover>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
+				yield return new WaitForSeconds (.1f);
+			}
+			break;
+		}
+		if (isTimeSlowed) {
+			Time.timeScale += 0.5F;
+			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+			isTimeSlowed = false;
+		}
+		this.GetComponent<MeshRenderer> ().enabled = false;
+		yield return new WaitForSeconds (5f);
+		Destroy (this.gameObject);
+	}
+}
+
+//=== 011 Accelerator =============================
+public class Skill011 : Skill {
+	public override void init(){
+		skillName = "Accelerator";
+		skillType = SkillType.ControlType;
+
+	}
+	public override void attachAttributes(){
+		spawn.AddComponent<Skill011Attr> ();
+		spawn.GetComponent<Skill011Attr> ().projectile = this.projectile;
+	}
+	public override void attachSpecialAttributes(){
+		spawn.AddComponent<AcceleratorInteractable> ();
+		spawn.GetComponent<AcceleratorInteractable> ().projectile = this.projectile;
+	}
+}
+public class Skill011Attr : Interactable{
+
+	public List<GameObject> bullets = new List<GameObject>();
+
+	
+	public override void mouseUpFire(){
+		Time.timeScale += 0.5F;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		StartCoroutine (Blast ());
+		
+	}
+	public override void mouseDownFire(){
+		
+		Time.timeScale -= 0.5F;
+		Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		stopDestroy ();
+
+		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
+		//int i = 0;
+		foreach (Collider col in hitColliders) {
+			if(col.tag == "Bullet"&&col.GetComponent<FindTowardsVector>()!=null){
+				col.GetComponent<FindTowardsVector>().towardsObject = GetComponent<SpawnedWeapon>().towardsObject;
+				bullets.Add(col.gameObject);
+			}
+		}
+
+
+
+
+
+
+
+
+
+
+//		foreach(GameObject bolt in GameObject.FindGameObjectsWithTag("Bullet") ){
+//			//Debug.Log("found");]
+//			if(Vector3.Distance(bolt.transform.position, this.transform.position) < 3){
+//			bullets.Add(bolt);
+//			
+//			}
+//			
+//			//bolt.GetComponent<Rigidbody>().AddForce(bolt.transform.right * 50);
+//			
+//		}
+	}
+	
+	public void stopDestroy(){
+		GetComponent<SpawnedWeapon> ().destroyThis = false;
+	}
+	
+	void Start(){
+		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(247/255.0F,216/255.0F,66/255.0F,255f));
+	}
+	
+	IEnumerator Blast()
+	{
+		yield return new WaitForSeconds (0.1f);
+		foreach(GameObject bolt in bullets){
+			if(bolt !=null){
+				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 25);
+				//bolt.GetComponent<Rigidbody>().AddForce(bolt.transform.right * 100);
+				//Debug.Log(bolt.GetComponentInChildren<RotateTowards>().angle);
+			}
+		}
+		yield return new WaitForSeconds (0.1f);
+		foreach(GameObject bolt in bullets){
+			if(bolt !=null){
+				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 50);
+			}
+		}
+		yield return new WaitForSeconds (0.1f);
+		foreach(GameObject bolt in bullets){
+			if(bolt !=null){
+				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 75);
+			}
+		}
+		yield return new WaitForSeconds (0.1f);
+		foreach(GameObject bolt in bullets){
+			if(bolt !=null){
+				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 100);
+			}
+		}
+		Destroy (this.gameObject);
+		yield return new WaitForSeconds (0.1f);
+		
+	}
+}
+//=== 012 Instant Imploder =============================
+public class Skill012 : Skill {
+	public override void init(){
+		skillName = "Instant Imploder";
+		skillType = SkillType.ControlType;
+		
+	}
+	public override void attachAttributes(){
+		spawn.AddComponent<Skill012Attr> ();
+		spawn.GetComponent<Skill012Attr> ().projectile = this.projectile;
+	}
+	public override void attachSpecialAttributes(){
+		spawn.AddComponent<AcceleratorInteractable> ();
+		spawn.GetComponent<AcceleratorInteractable> ().projectile = this.projectile;
+	}
+}
+public class Skill012Attr : Interactable{
+	
+	public List<GameObject> bullets = new List<GameObject>();
+	
+	public override void mouseUpFire(){
+	}
+	public override void mouseDownFire(){
+		stopDestroy ();
+		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
+		//int i = 0;
+		foreach (Collider col in hitColliders) {
+			if(col.tag == "Bullet"){
+				col.GetComponentInChildren<RotateTowards>().towardsObject = this.gameObject;
+				bullets.Add(col.gameObject);
+			}
+		}
+
+		StartCoroutine (Blast ());
+	}
+	
+	public void stopDestroy(){
+		GetComponent<SpawnedWeapon> ().destroyThis = false;
+	}
+	
+	void Start(){
+		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(247/255.0F,216/255.0F,66/255.0F,255f));
+	}
+	
+	IEnumerator Blast()
+	{
+		yield return new WaitForSeconds (0.1f);
+		foreach(GameObject bolt in bullets){
+			if(bolt !=null&&Vector3.Distance(bolt.transform.position, this.transform.position) < 10){
+				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 25);
+				//bolt.GetComponent<Rigidbody>().AddForce(bolt.transform.right * 100);
+				//Debug.Log(bolt.GetComponentInChildren<RotateTowards>().angle);
+			}
+		}
+		yield return new WaitForSeconds (0.1f);
+		foreach(GameObject bolt in bullets){
+			if(bolt !=null&&Vector3.Distance(bolt.transform.position, this.transform.position) < 10){
+				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 50);
+			}
+		}
+		yield return new WaitForSeconds (0.1f);
+		foreach(GameObject bolt in bullets){
+			if(bolt !=null&&Vector3.Distance(bolt.transform.position, this.transform.position) < 10){
+				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 75);
+			}
+		}
+		yield return new WaitForSeconds (0.1f);
+		foreach(GameObject bolt in bullets){
+			if(bolt !=null&&Vector3.Distance(bolt.transform.position, this.transform.position) < 10){
+				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 100);
+			}
+		}
+		Destroy (this.gameObject);
+		yield return new WaitForSeconds (0.1f);
+		
+	}
+}
+
 
 
 //=== Skill Base Class ===============================
@@ -327,18 +581,24 @@ public class SkillSystem: MonoBehaviour {
 		inactive.SetActive (false);
 		activeSkills[5] = inactive;
 
-		GameObject blasterSkill = new GameObject ("MaterialSkill");
-		blasterSkill.AddComponent<Skill001> ();
+//		GameObject blasterSkill = new GameObject ("MaterialSkill");
+//		blasterSkill.AddComponent<Skill001> ();
+//
+//		Debug.Log (equipSkill (blasterSkill));
+
+		GameObject blasterSkill = new GameObject ("BlasterCone");
+		blasterSkill.AddComponent<Skill002> ();
+		blasterSkill.AddComponent<Skill002> ();
+		blasterSkill.AddComponent<Skill002> ();
+		//material.GetComponentInChildren<Skill> ().isSpecialOn = true;
 
 		Debug.Log (equipSkill (blasterSkill));
 
-		GameObject blasterSkill2 = new GameObject ("MaterialSkill2");
-		blasterSkill2.AddComponent<Skill001> ();
-		blasterSkill2.AddComponent<Skill001> ();
-		blasterSkill2.AddComponent<Skill001> ();
-		material.GetComponentInChildren<Skill> ().isSpecialOn = true;
+		GameObject controlSkill = new GameObject ("Accelerator");
+		controlSkill.AddComponent<Skill011> ();
+		equipSkill (controlSkill);
 
-		Debug.Log (equipSkill (blasterSkill2));
+
 		//blasterSkill.transform.parent = material.transform.parent;
 
 //		GameObject blasterSkill2 = Instantiate(new GameObject ("MaterialSkill"));;
