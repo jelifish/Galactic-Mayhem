@@ -520,29 +520,46 @@ public class Skill031Attr : Interactable{
 		
 	}
 	GameObject temp;
+	public List<GameObject> missiles = new List<GameObject>();
+	IEnumerator createMissiles(){
+		yield return new WaitForSeconds (.5f);
+	}
 	IEnumerator fire()
 	{
 		initialSpeed = 5;
+		for (int i=0; i<5; i++) {
+			temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler (0f, 0.0f, Random.Range (0, 360)));
+			temp.GetComponent<Mover> ().speed = Random.Range (initialSpeed * .9f, initialSpeed * 1.7f);
+			missiles.Add (temp);
+			yield return new WaitForSeconds (.5f);
+		}
 		//while (true) {
-			//for(int i=0;i<50;i++){
-		temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
-		temp.GetComponent<Mover>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.7f);
+			
 		//bullets.Add(temp.gameObject);
-				
+		StartCoroutine (createMissiles ());		
 		while(GetComponent<SpawnedWeapon>().towardsObject!=null){
-
+			foreach(GameObject missile in missiles)
+			{
 				Vector3 targetVector = (GetComponent<SpawnedWeapon>().towardsObject.transform.position - temp.transform.position).normalized;
-				temp.GetComponent<Rigidbody>().AddForce(targetVector * 25);
+				missile.GetComponent<Rigidbody>().AddForce(targetVector * 25);
+			}
 			yield return new WaitForSeconds (.01f);
 		}
 		yield return new WaitForSeconds (.01f);
+		foreach(GameObject missile in missiles)
+		{
+			temp.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+		}
+		yield return new WaitForSeconds (.01f);
 
-		temp.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		while (true) {
-			for(int i=0;i<150;i++){
-				GameObject bolty= (GameObject)Instantiate (bolt, temp.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
+			for(int i=0;i<15;i++){
+				foreach(GameObject missile in missiles)
+				{
+				GameObject bolty= (GameObject)Instantiate (bolt, missile.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
 				bolty.GetComponent<Mover>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
-				yield return new WaitForSeconds (.01f);
+				//yield return new WaitForSeconds (.01f);
+				}
 			}
 			break;
 		}
