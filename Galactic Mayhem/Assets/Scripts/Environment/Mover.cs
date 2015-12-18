@@ -19,17 +19,7 @@ public class Mover : MonoBehaviour {
 		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize ()/1.95f; //expensive call
 	}
 
-	void OnCollisionEnter(Collision other)
-	{
 
-		if (other.gameObject.tag == "Bullet" && this.gameObject.tag=="Strike") {
-			other.gameObject.tag = "TriggeredBullet";
-			other.gameObject.GetComponent<Rigidbody>().drag = (other.gameObject.GetComponent<Rigidbody>().drag /Random.Range(2f, 3f));
-		}
-	
-
-
-	}
 	void FixedUpdate()
 	{
 		if (mirrorRate >= 10) {

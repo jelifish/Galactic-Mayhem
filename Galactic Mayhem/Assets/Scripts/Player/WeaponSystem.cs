@@ -12,7 +12,7 @@ public class WeaponSystem : MonoBehaviour {
 			foreach (Load load in loader) {
 				Instantiate (load.projectile, this.transform.position + load.offset, this.transform.rotation * load.rotation);
 			
-				load.sound.GetComponent<AudioSource> ().Play ();
+				//load.sound.GetComponent<AudioSource> ().Play ();
 			}
 			loader.Clear ();
 		}

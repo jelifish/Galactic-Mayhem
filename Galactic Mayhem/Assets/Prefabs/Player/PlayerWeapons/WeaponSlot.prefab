@@ -39,11 +39,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78b61471e7b89e94fa687d8961f777d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gc: {fileID: 0}
   loader: []
   weapon: {fileID: 110598, guid: a917207c822897a4880378214c85ef95, type: 2}
   reloadSpeed: .5
   channeling: 0
-  bolt: {fileID: 110276, guid: 6dcdd9def94cec345976ba90774b0c3b, type: 2}
+  bolt: {fileID: 189882, guid: 9df46fb887e02bc4b9d5feeee064a6fe, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -86,7 +87,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: bolt
       value: 
-      objectReference: {fileID: 110276, guid: 6dcdd9def94cec345976ba90774b0c3b, type: 2}
+      objectReference: {fileID: 189882, guid: 9df46fb887e02bc4b9d5feeee064a6fe, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 164200}

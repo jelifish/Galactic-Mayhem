@@ -800,6 +800,18 @@ Prefab:
       propertyPath: m_TagString
       value: MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 11414684, guid: 65c8c7048e6d4fc40b6bec5780325c57, type: 2}
+      propertyPath: m_Text
+      value: Stellar
+      objectReference: {fileID: 0}
+    - target: {fileID: 22448524, guid: 65c8c7048e6d4fc40b6bec5780325c57, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 125.367493
+      objectReference: {fileID: 0}
+    - target: {fileID: 22448524, guid: 65c8c7048e6d4fc40b6bec5780325c57, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 249.26503
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 65c8c7048e6d4fc40b6bec5780325c57, type: 2}
   m_IsPrefabParent: 0

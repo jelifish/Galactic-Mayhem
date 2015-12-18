@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 189882}
   m_LocalRotation: {x: 0, y: 0, z: .115804009, w: .993272126}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: .200000003, y: .200000003, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,7 +45,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: aa8322a3767a344b98d51048b8fe505a, type: 2}
+  - {fileID: 2100000, guid: 31cec3c855ff780409eae7b20dc218fa, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -73,9 +73,9 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 189882}
   serializedVersion: 2
-  m_Mass: .100000001
+  m_Mass: .5
   m_Drag: 1
-  m_AngularDrag: .0500000007
+  m_AngularDrag: .00999999978
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -120,24 +120,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a110b176007434e958edaed6edff8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectorDifficulty: 0
-  movementSpeedCap: 0
-  mitigation: 0
-  maxMitigation: 0
-  armor: 0
-  maxArmor: 0
-  maxShield: 0
   shield: 0
+  maxShield: 0
   hull: 3
   maxHull: 0
-  deathParticles: {fileID: 104386, guid: f108801a581eb9843983eeb0db6997b1, type: 2}
-  gc: {fileID: 0}
-  shieldRegenEnabled: 0
+  armor: 0
+  maxArmor: 0
   killed: 0
-  maxShieldCooldown: 3
-  shieldRegenIncrement: .00999999978
-  curShieldCooldown: 0
-  currentregenIncrement: 0
+  deathParticles: {fileID: 104386, guid: f108801a581eb9843983eeb0db6997b1, type: 2}
 --- !u!114 &11474528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,7 +160,27 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_AngularDrag
+      value: .00999999978
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31cec3c855ff780409eae7b20dc218fa, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Mass
+      value: .5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 189882}

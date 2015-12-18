@@ -55,11 +55,13 @@ public class Skill001Attr : Interactable{
 	}
 	IEnumerator fire()
 	{
+		yield return new WaitForSeconds (.03f);
 		initialSpeed = 5;
 		while (true) {
 			for(int i=0;i<50;i++){
 				GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
-				temp.GetComponent<Mover>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
+				//temp.GetComponent<Mover>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
+				temp.GetComponent<Rigidbody>().AddForce(transform.right * Random.Range(initialSpeed*1f, initialSpeed*5f));
 				yield return new WaitForSeconds (.01f);
 			}
 			break;
@@ -125,11 +127,13 @@ public class Skill002Attr : Interactable{
 	}
 	IEnumerator fire()
 	{
+		yield return new WaitForSeconds (.03f);
 		initialSpeed = 15;
 		while (true) {
 			for(int i=0;i<50;i++){
 				GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
-				temp.GetComponent<Mover>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
+				//temp.GetComponent<Mover>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
+				temp.GetComponent<Rigidbody>().AddForce(transform.right * Random.Range(initialSpeed*10f, initialSpeed*50f));
 					yield return new WaitForSeconds (.03f);
 			}
 			break;
@@ -194,6 +198,7 @@ public class Skill003Attr : Interactable{
 	}
 	IEnumerator fire()
 	{
+		yield return new WaitForSeconds (.03f);
 		initialSpeed = 25;
 		while (true) {
 			for(int i=0;i<25;i++){
@@ -285,7 +290,7 @@ public class Skill011Attr : Interactable{
 	
 	IEnumerator Blast()
 	{
-		yield return new WaitForSeconds (0.1f);
+		yield return new WaitForSeconds (.03f);
 		foreach(GameObject bolt in bullets){
 			if(bolt !=null){
 				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 25);
@@ -361,7 +366,7 @@ public class Skill012Attr : Interactable{
 	
 	IEnumerator Blast()
 	{
-		yield return new WaitForSeconds (0.1f);
+		yield return new WaitForSeconds (.03f);
 		foreach(GameObject bolt in bullets){
 			if(bolt !=null&&Vector3.Distance(bolt.transform.position, this.transform.position) < 10){
 				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 25);
@@ -445,7 +450,7 @@ public class Skill031Attr : Interactable{
 	}
 	IEnumerator Blast()
 	{
-		yield return new WaitForSeconds (0.1f);
+		yield return new WaitForSeconds (.03f);
 		foreach(GameObject bolt in bullets){
 			if(bolt !=null){
 				Vector3 targetVector = (bolt.transform.position - temp.transform.position).normalized;
@@ -526,12 +531,15 @@ public class Skill031Attr : Interactable{
 	}
 	IEnumerator fire()
 	{
+		yield return new WaitForSeconds (.03f);
 		initialSpeed = 5;
 		for (int i=0; i<5; i++) {
+			//float direction = Random.Range (0, 360);
 			temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler (0f, 0.0f, Random.Range (0, 360)));
 			temp.GetComponent<Mover> ().speed = Random.Range (initialSpeed * .9f, initialSpeed * 1.7f);
+			//temp.GetComponent<Rigidbody>().AddForce(100);
 			missiles.Add (temp);
-			yield return new WaitForSeconds (.5f);
+			yield return new WaitForSeconds (.1f);
 		}
 		//while (true) {
 			
@@ -553,7 +561,7 @@ public class Skill031Attr : Interactable{
 		yield return new WaitForSeconds (.01f);
 
 		while (true) {
-			for(int i=0;i<15;i++){
+			for(int i=0;i<200;i++){
 				foreach(GameObject missile in missiles)
 				{
 				GameObject bolty= (GameObject)Instantiate (bolt, missile.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
