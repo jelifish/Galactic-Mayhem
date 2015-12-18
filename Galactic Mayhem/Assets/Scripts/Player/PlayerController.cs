@@ -96,7 +96,8 @@ public class PlayerController : CollisionObject
 			//curSpeedBoostDuration = 3;
 			if (curSpeedBoostDuration > 0) {
 				if(boostTime == false){
-				Time.timeScale -=.3f;
+					Time.timeScale *=.6f;
+					Time.fixedDeltaTime = 0.02F * Time.timeScale;
 					boostTime = true;
 				}
 				movementSpeedCap = 10;
@@ -107,7 +108,8 @@ public class PlayerController : CollisionObject
 				gc.setBoost(curSpeedBoostDuration);
 			}else{
 				if(boostTime == true&&curSpeedBoostDuration <= 0){
-					Time.timeScale +=.3f;
+					Time.timeScale /=.6f;
+					Time.fixedDeltaTime = 0.02F * Time.timeScale;
 					boostTime = false;
 				}
 				armor = maxArmor;
@@ -140,7 +142,6 @@ public class PlayerController : CollisionObject
 	public List<Load> loader = new List<Load>();
 
 	public void init(){
-
 
 		StartCoroutine (speedBoost ()); //this controls speedBoost of the player
 		//GameController = GameObject.Find ("GameController");

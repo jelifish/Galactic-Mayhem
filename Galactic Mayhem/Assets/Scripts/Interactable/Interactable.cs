@@ -8,6 +8,7 @@ public class Interactable : MonoBehaviour {
 	public PlayerController player;
 	public float initialSpeed;
 	protected bool isTimeSlowed = false;
+	public Vector3 targetPosition = Vector3.zero;
 
 	public virtual void mouseUpFire(){
 

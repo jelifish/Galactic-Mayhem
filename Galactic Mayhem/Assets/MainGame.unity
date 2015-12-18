@@ -2040,6 +2040,7 @@ GameObject:
   - 114: {fileID: 1730701557}
   - 65: {fileID: 1730701559}
   - 114: {fileID: 1730701558}
+  - 114: {fileID: 1730701560}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -2136,6 +2137,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 200, y: 200, z: 5}
   m_Center: {x: 0, y: 0, z: 50}
+--- !u!114 &1730701560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730701555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 469601cc49bd7004e8b0aad5f900f936, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1819948225
 GameObject:
   m_ObjectHideFlags: 0

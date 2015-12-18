@@ -96,16 +96,15 @@ public class Skill002 : Skill {
 public class Skill002Attr : Interactable{
 	public override void mouseUpFire(){
 		if (isTimeSlowed) {
-			Time.timeScale += 0.5F;
-			Time.fixedDeltaTime = 0.02F * Time.timeScale;
-			isTimeSlowed = false;
+//			Time.timeScale += 0.5F;
+//			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+//			isTimeSlowed = false;
 		}
 	}
 	public override void mouseDownFire(){
 		if (!isTimeSlowed) {	
-			Time.timeScale -= 0.5F;
-			Time.fixedDeltaTime = 0.02F * Time.timeScale;
-			isTimeSlowed = true;
+//			Time.timeScale -= 0.5F;
+//			isTimeSlowed = true;
 		}
 		stopDestroy ();
 		StartCoroutine (fire ());
@@ -120,9 +119,9 @@ public class Skill002Attr : Interactable{
 	}
 	void OnDestroy() {
 		if (isTimeSlowed) {
-			Time.timeScale += 0.5F;
-			Time.fixedDeltaTime = 0.02F * Time.timeScale;
-			isTimeSlowed = false; 
+//			Time.timeScale *= 0.5F;
+//			Time.fixedDeltaTime *= 0.5F;
+//			isTimeSlowed = false; 
 		}
 	}
 	IEnumerator fire()
@@ -133,8 +132,10 @@ public class Skill002Attr : Interactable{
 			for(int i=0;i<50;i++){
 				GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
 				//temp.GetComponent<Mover>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
-				temp.GetComponent<Rigidbody>().AddForce(transform.right * Random.Range(initialSpeed*10f, initialSpeed*50f));
-					yield return new WaitForSeconds (.03f);
+				//temp.GetComponent<Rigidbody>().AddForce((transform.right * Random.Range(initialSpeed*10f, initialSpeed*50f)) / Time.timeScale);
+				temp.GetComponent<Rigidbody>().AddForce((transform.right * initialSpeed* 10) * (1 / Time.timeScale));
+				yield return new WaitForSeconds (.03f);
+
 			}
 			break;
 		}
@@ -246,16 +247,7 @@ public class Skill011Attr : Interactable{
 	
 	public override void mouseUpFire(){
 		Time.timeScale += 0.5F;
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
-		StartCoroutine (Blast ());
-		
-	}
-	public override void mouseDownFire(){
-		
-		Time.timeScale -= 0.5F;
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
-		stopDestroy ();
-
+		//Time.fixedDeltaTime = 0.02F * Time.timeScale;
 		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
 		//int i = 0;
 		foreach (Collider col in hitColliders) {
@@ -264,6 +256,15 @@ public class Skill011Attr : Interactable{
 				bullets.Add(col.gameObject);
 			}
 		}
+		StartCoroutine (Blast ());
+		
+	}
+	public override void mouseDownFire(){
+		Time.timeScale -= 0.5F;
+		//Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		stopDestroy ();
+
+
 
 
 
@@ -290,35 +291,57 @@ public class Skill011Attr : Interactable{
 	
 	IEnumerator Blast()
 	{
-		yield return new WaitForSeconds (.03f);
-		foreach(GameObject bolt in bullets){
-			if(bolt !=null){
-				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 25);
-				//bolt.GetComponent<Rigidbody>().AddForce(bolt.transform.right * 100);
-				//Debug.Log(bolt.GetComponentInChildren<RotateTowards>().angle);
-			}
-		}
+		//yield return new WaitForSeconds (0.2f);
+
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
+		yield return new WaitForSeconds (0.1f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.medForce);
+		yield return new WaitForSeconds (0.1f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
+		yield return new WaitForSeconds (0.1f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
 		yield return new WaitForSeconds (0.1f);
-		foreach(GameObject bolt in bullets){
-			if(bolt !=null){
-				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 50);
-			}
-		}
-		yield return new WaitForSeconds (0.1f);
-		foreach(GameObject bolt in bullets){
-			if(bolt !=null){
-				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 75);
-			}
-		}
-		yield return new WaitForSeconds (0.1f);
-		foreach(GameObject bolt in bullets){
-			if(bolt !=null){
-				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 100);
-			}
-		}
+//		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
+//		yield return new WaitForSeconds (0.1f); 
+//		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
+//		yield return new WaitForSeconds (0.1f); 
+//		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
+//		yield return new WaitForSeconds (0.1f); 
+
+//		yield return new WaitForSeconds (.03f);
+//		foreach(GameObject bolt in bullets){
+//			if(bolt !=null){
+//				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 25);
+//				//bolt.GetComponent<Rigidbody>().AddForce(bolt.transform.right * 100);
+//				//Debug.Log(bolt.GetComponentInChildren<RotateTowards>().angle);
+//			}
+//		}
+//		yield return new WaitForSeconds (0.1f);
+//		foreach(GameObject bolt in bullets){
+//			if(bolt !=null){
+//				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 50);
+//			}
+//		}
+//		yield return new WaitForSeconds (0.1f);
+//		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
+//		yield return new WaitForSeconds (0.1f);
+//		foreach(GameObject bolt in bullets){
+//			if(bolt !=null){
+//				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 75);
+//			}
+//		}
+//		yield return new WaitForSeconds (0.1f);
+//		foreach(GameObject bolt in bullets){
+//			if(bolt !=null){
+//				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponent<FindTowardsVector>().targetVector * 100);
+//			}
+//		}
+
+
+
 		Destroy (this.gameObject);
 		yield return new WaitForSeconds (0.1f);
-		
+//		
 	}
 }
 //=== 012 Instant Imploder =============================
@@ -420,14 +443,14 @@ public class Skill031Attr : Interactable{
 	public override void mouseUpFire(){
 		if (isTimeSlowed) { //slows time for the duration of the skill
 			Time.timeScale += 0.5F;
-			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+			//Time.fixedDeltaTime = 0.02F * Time.timeScale;
 			isTimeSlowed = false; 
 		}
 	}
 	public override void mouseDownFire(){
 		if (!isTimeSlowed) {	
 			Time.timeScale -= 0.5F;
-			Time.fixedDeltaTime = 0.02F * Time.timeScale;
+			//Time.fixedDeltaTime = 0.02F * Time.timeScale;
 			isTimeSlowed = true;
 		}
 		stopDestroy ();
@@ -533,7 +556,7 @@ public class Skill031Attr : Interactable{
 	{
 		yield return new WaitForSeconds (.03f);
 		initialSpeed = 5;
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<1; i++) {
 			//float direction = Random.Range (0, 360);
 			temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler (0f, 0.0f, Random.Range (0, 360)));
 			temp.GetComponent<Mover> ().speed = Random.Range (initialSpeed * .9f, initialSpeed * 1.7f);
@@ -556,7 +579,7 @@ public class Skill031Attr : Interactable{
 		yield return new WaitForSeconds (.01f);
 		foreach(GameObject missile in missiles)
 		{
-			temp.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+			missile.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 		}
 		yield return new WaitForSeconds (.01f);
 
@@ -612,6 +635,8 @@ public class Skill031Attr : Interactable{
 		
 	}
 }
+
+
 
 
 
@@ -839,3 +864,15 @@ public class SkillSystem: MonoBehaviour {
 	}
 }
 
+//=======utility class=================//
+public static class CoroutineUtil
+{
+	public static IEnumerator WaitForRealSeconds(float time)
+	{
+		float start = Time.realtimeSinceStartup;
+		while (Time.realtimeSinceStartup < start + time)
+		{
+			yield return null;
+		}
+	}
+}

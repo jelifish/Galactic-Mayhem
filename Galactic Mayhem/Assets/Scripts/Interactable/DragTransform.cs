@@ -47,6 +47,7 @@ class DragTransform : MonoBehaviour
 		if (spawn != null) {
 			interArr = spawn.GetComponents<Interactable> ();
 			foreach (Interactable inter in interArr) {
+				inter.targetPosition = this.transform.position;
 				inter.mouseUpFire ();
 			}
 		}
@@ -62,7 +63,7 @@ class DragTransform : MonoBehaviour
 	private bool setFollow;
 	void OnMouseDrag()
 	{
-		if (spawnTransform!=null && Vector3.Distance (transform.position, spawnTransform.position) > 7&& !setFollow) {
+		if (spawnTransform!=null && Vector3.Distance (transform.position, spawnTransform.position) > 7 && !setFollow) {
 			mainCamera.followObject (this.transform); //set camera view to this player
 			setFollow = true;
 

@@ -38,11 +38,15 @@ public class CameraController : MonoBehaviour {
 
 		if (IsFollowing()&& follow != null) {
 			if (Mathf.Abs(x-follow.position.x) > Margin.x)
-			{x = Mathf.Lerp(x,follow.position.x, Smoothing.x * Time.deltaTime);
+			{
+				x = Mathf.Lerp(x,follow.position.x, Smoothing.x * Time.smoothDeltaTime);
+				//x = follow.position.x;
 			}
 
 			if (Mathf.Abs(y-follow.position.y) > Margin.y)
-			{y = Mathf.Lerp(y,follow.position.y, Smoothing.y * Time.deltaTime);
+			{
+				y = Mathf.Lerp(y,follow.position.y, Smoothing.y * Time.smoothDeltaTime);
+				//y = follow.position.y;
 			}
 		}
 
