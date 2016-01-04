@@ -15,10 +15,10 @@ public class ObjectPool : MonoBehaviour {
 	void Awake(){
 		pool = this;
 	}
-
+	public int count;
 	void Start(){
+		count = 0;
 		containerObject = new GameObject("ObjectPool");
-		Debug.Log("hitthe p[ool");
 		objs = new List<GameObject> ();
 		activeObj = new Queue<GameObject> ();
 		for (int i = 0; i< poolSize; i++) {
@@ -29,27 +29,37 @@ public class ObjectPool : MonoBehaviour {
 
 	}
 
-//	public void FlushObjects(){//this method returns all queue objects back to the gameobject list and deactivates.
-//		GameObject temp = null;
-//		while (activeObj.Peek != null) {
-//			temp =activeObj.Dequeue;
-//			temp.SetActive(false);
-//			objs.Add(temp);
-//		}
-//	}
+	public void FlushObjects(){//this method returns all queue objects back to the gameobject list and deactivates.
+		GameObject temp = null;
+		while (activeObj.Count >0) {
+			temp =activeObj.Dequeue();
+			if (temp == null)
+			{break;}
+			else{
+			temp.SetActive(false);
+			objs.Add(temp);
+			}
+		}
+	}
 
 
 	public GameObject GetPooledObject(){
+		GameObject temp = null;
 		for(int i=0; i<objs.Count; i++)
 		{
-			if(!objs[i].activeInHierarchy)
+			temp = objs[i];
+			if(!temp.activeInHierarchy)
 			{
 				activeObj.Enqueue(objs[i]);
-				return objs[i];
+				count++;
+				temp.SetActive(true);
+				temp.transform.rotation = Quaternion.identity;
+				temp.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				return temp;
 			}
 		}
 		while (true) {
-			GameObject temp = activeObj.Dequeue();
+			temp = activeObj.Dequeue();
 			if(temp == null){ //if queue is empty then we recursive
 
 				Debug.Log("out of objects");
@@ -60,8 +70,23 @@ public class ObjectPool : MonoBehaviour {
 //				return temp;
 //			}
 			else {
-				activeObj.Enqueue(temp);
-				return temp;
+				if(temp.activeInHierarchy){
+					activeObj.Enqueue(temp);
+					temp.SetActive(true);
+					temp.transform.rotation = Quaternion.identity;
+					temp.GetComponent<Rigidbody>().velocity = Vector3.zero;
+					count++;
+					return temp;
+
+				}else{
+					activeObj.Enqueue(temp);
+					temp.SetActive(true);
+					temp.transform.rotation = Quaternion.identity;
+					temp.GetComponent<Rigidbody>().velocity = Vector3.zero;
+					count++;
+					return temp;
+				}
+
 			}
 		}
 	}

@@ -1927,6 +1927,7 @@ GameObject:
   - 114: {fileID: 1730701558}
   - 114: {fileID: 1730701560}
   - 114: {fileID: 1730701561}
+  - 114: {fileID: 1730701562}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -2044,6 +2045,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e88acd4b45cc343a7ef424c0bb117e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1730701562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730701555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f7fed4ccf213df4fb22fc1066741277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bolt: {fileID: 189882, guid: 9df46fb887e02bc4b9d5feeee064a6fe, type: 2}
+  poolSize: 500
+  count: 0
 --- !u!1 &1854971131
 GameObject:
   m_ObjectHideFlags: 0

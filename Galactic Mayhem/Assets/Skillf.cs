@@ -24,6 +24,14 @@ public class Skillf : MonoBehaviour{
 			}
 		}
 	}
+	public void ExplosiveForceRandom50 (List<GameObject> objs,Vector3 pos,float force = 250,float radius = 0)
+	{
+		foreach(GameObject obj in objs){
+			if(obj !=null){
+				obj.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(force*.5f, force), pos, radius);
+			}
+		}
+	}
 	public void ExplosiveForce (GameObject obj,Vector3 pos,float force = 250,float radius = 0)
 	{
 			if(obj !=null){

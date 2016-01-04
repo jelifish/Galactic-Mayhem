@@ -223,9 +223,10 @@ public class GameController : MonoBehaviour {
 			StartCoroutine (Wave1 ());
 
 		}
-		foreach (GameObject junk in GameObject.FindGameObjectsWithTag("Bullet")) {
-			Destroy(junk);
-		}
+//		foreach (GameObject junk in GameObject.FindGameObjectsWithTag("Bullet")) {
+//			Destroy(junk);
+//		}
+		ObjectPool.pool.FlushObjects();
 		foreach (GameObject junk in GameObject.FindGameObjectsWithTag("EnemyBullet")) {
 			Destroy(junk);
 		}

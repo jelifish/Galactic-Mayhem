@@ -36,7 +36,8 @@ public class ProjectileCollision : MonoBehaviour {
 	}
 	public virtual void destroyObject()
 	{
-		Destroy(this.gameObject);
+		//Destroy(this.gameObject);
+		this.gameObject.SetActive (false);
 	}
 	
 	public float age;
@@ -60,7 +61,9 @@ public class ProjectileCollision : MonoBehaviour {
 	void FixedUpdate()
 	{
 		if (mirrorRate >= 10) {
-			Destroy (gameObject);
+			mirrorRate = 0;
+			this.gameObject.SetActive(false);
+
 		}
 		
 		if (this.gameObject.tag != "EnemyBullet") { ///dont port if enemy bullet. 

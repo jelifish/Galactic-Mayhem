@@ -93,7 +93,6 @@ public class Skill002Attr : Interactable{
 			for(int i=0;i<50;i++){
 				//GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
 				GameObject temp = ObjectPool.pool.GetPooledObject();
-				temp.SetActive(true);
 				temp.transform.position = this.transform.position;
 				temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f));
 				Skillf.f.AddForce(temp, Skillf.medForce*Random.Range(.9f, 1.1f));
@@ -379,7 +378,10 @@ public class Skill031Attr : Interactable{
 			for(int i=0;i<200;i++){
 				foreach(GameObject missile in missiles)
 				{
-					GameObject bolty= (GameObject)Instantiate (bolt, new Vector3(missile.transform.position.x+Random.insideUnitCircle.x, missile.transform.position.y+Random.insideUnitCircle.y,0), this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
+					//GameObject bolty= (GameObject)Instantiate (bolt, new Vector3(missile.transform.position.x+Random.insideUnitCircle.x, missile.transform.position.y+Random.insideUnitCircle.y,0), this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
+					GameObject temp = ObjectPool.pool.GetPooledObject();
+					temp.transform.position = new Vector3(missile.transform.position.x+Random.insideUnitCircle.x, missile.transform.position.y+Random.insideUnitCircle.y,0);
+					temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360));
 					//Skillf.f.ExplosiveForce (bolty,missile.transform.position);
 					//bolty.GetComponent<ProjectileCollision>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
 
@@ -442,7 +444,7 @@ public class Skill031Attr : Interactable{
 		Skillf.f.ExplosiveForce (bullets,new Vector3(blastPos.x+(Random.insideUnitCircle*2).x, blastPos.y+(Random.insideUnitCircle*2).y,0),Skillf.lowForce);
 		Skillf.f.ExplosiveForce (bullets,new Vector3(blastPos.x+(Random.insideUnitCircle*2).x, blastPos.y+(Random.insideUnitCircle*2).y,0),Skillf.lowForce);
 		yield return new WaitForSeconds (.5f);
-		Skillf.f.ExplosiveForce (bullets,blastPos,Skillf.highForce*2, 10);
+		Skillf.f.ExplosiveForceRandom50 (bullets,blastPos,Skillf.highForce*2, 10);
 		yield return new WaitForSeconds (0.1f);
 		
 	}

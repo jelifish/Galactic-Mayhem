@@ -45,14 +45,22 @@ public class BlasterWeapon : Weapon {
 		{
 			nextFire = Time.time + blaster.rateOfFire;
 
-			weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
+			GameObject temp = ObjectPool.pool.GetPooledObject();
+			temp.transform.position = this.transform.position;
+			temp.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f));
+			temp.SetActive(true);
+			//weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
 
-			weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
+			//weaponSlot.GetComponent<WeaponSystem>().loader.Add (temp);
 
-
+			temp = ObjectPool.pool.GetPooledObject();
+			temp.transform.position = this.transform.position;
+			temp.transform.rotation = Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f));
+			temp.SetActive(true);
+			//weaponSlot.GetComponent<WeaponSystem>().loader.Add (temp);
 
 			//weaponSlot.GetComponent<WeaponSystem>().loader.Add (new Load (bolt, Quaternion.identity * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)) ));
-			weaponSlot.GetComponent<WeaponSystem>().shoot();
+			//weaponSlot.GetComponent<WeaponSystem>().shoot();
 		}
 
 	}
