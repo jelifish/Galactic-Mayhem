@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class ProjectileCollision : MonoBehaviour {
-	public float shield;
-	[HideInInspector] public float maxShield;
+//	public float shield;
+//	[HideInInspector] public float maxShield;
 	public float hull;
 	[HideInInspector] public float maxHull;
 	
@@ -14,33 +14,35 @@ public class ProjectileCollision : MonoBehaviour {
 
 	public void takeDamage(float damage){
 		//Debug.Log (damage);
-		shield -= damage;
-		if (shield < 0) {
-			if(armor > (shield*-1))
-			{
-			}else{
-				hull += shield+armor;}
-			shield = 0f;
-		}
+//		shield -= damage;
+//		if (shield < 0) {
+//			if(armor > (shield*-1))
+//			{
+//			}else{
+//				hull += shield+armor;}
+//			shield = 0f;
+//		}
+		hull -= damage;///added line
 		if (hull <= 0.0f) {
 			if(!killed){
-				onDeath ();
-				destroyObject();
+//				onDeath ();
+//				destroyObject();
+				ObjectPool.pool.DestroyObject (this.gameObject);
 				killed = true;
 			}
 		}
 	}
-	public virtual void onDeath(){
-		
-		Instantiate( deathParticles, this.transform.position, this.transform.rotation);
-	}
-	public virtual void destroyObject()
-	{
-		//Destroy(this.gameObject);
-		this.gameObject.SetActive (false);
-	}
-	
-	public float age;
+//	public virtual void onDeath(){
+//		
+//		//Instantiate( deathParticles, this.transform.position, this.transform.rotation);
+//	}
+//	public virtual void destroyObject()
+//	{
+//		//Destroy(this.gameObject);
+//		ObjectPool.pool.DestroyObject (this.gameObject);
+//
+//	}
+
 	private Transform originalObject;
 	public int mirrorRate = 0;
 	public float totalSectorSize;
@@ -51,13 +53,21 @@ public class ProjectileCollision : MonoBehaviour {
 		
 		
 		originalObject = GetComponent<Rigidbody> ().transform;
-		//Destroy (gameObject, age);
 
 
 		SetSectorSize ();
+		sizeSet = true;
+	}
+	public bool sizeSet;
+	public void SetSectorSize(float size){
+			totalSectorSize = size / 1.95f; //non expensive call
+		sizeSet = true;
 	}
 	public void SetSectorSize(){
-		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize ()/1.95f; //expensive call
+		if (sizeSet == false) {
+			totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize () / 1.95f; //expensive call
+		}
+		sizeSet = true;
 	}
 
 	void FixedUpdate()
@@ -88,32 +98,4 @@ public class ProjectileCollision : MonoBehaviour {
 		
 		
 	}
-
-
-
-	//bool multiHit = false; //piercing attribute
-	//float baseDamage = 0f;
-	//float damageMultiplier = 1.2f;
-	//int integrity = 2;
-
-	//public void calculateDamage(){}
-
-//	public override void OnTriggerEnter(Collider other)
-//	{
-//		if (other.gameObject.tag == "Enemy") {
-//			
-//			
-//		} else if(other.gameObject.tag == "EnemyBullet"){
-//			//takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
-//			//Destroy(other.gameObject);
-//		}else if(other.gameObject.tag == "Player"){
-//			//other.GetComponent<PlayerController>().takeDamage(getShield()+getHull());
-//			//takeDamage (other.GetComponent<PlayerController>().getHull() + other.GetComponent<PlayerController>().getShield());
-//		}else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet"){
-//			
-//		}
-//	}
-
-
-
 }

@@ -7,8 +7,8 @@ public class ObjectPool : MonoBehaviour {
 	public GameObject bolt;
 	private List<GameObject> objs;
 	private Queue<GameObject> activeObj;
-	public GameObject container;
-
+	private GameObject container;
+	public BoxColSetSectorSize sectorClass;
 	public int poolSize = 1000;
 
 	protected GameObject containerObject;
@@ -46,6 +46,11 @@ public class ObjectPool : MonoBehaviour {
 			AddObject();
 		}
 	}
+
+	public void DestroyObject(GameObject obj){
+		//deathparticles here
+		obj.SetActive (false);
+	}
 	public void FlushObjects(){//this method returns all queue objects back to the gameobject list and deactivates.
 		GameObject temp = null;
 		int counter = 0;
@@ -59,6 +64,7 @@ public class ObjectPool : MonoBehaviour {
 			}
 			else{
 			temp.SetActive(false);
+			temp.GetComponent<ProjectileCollision> ().sizeSet = false;
 			activeObj.Enqueue(temp);
 			}
 			counter++;
@@ -72,7 +78,7 @@ public class ObjectPool : MonoBehaviour {
 		temp.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		temp.GetComponent<ProjectileCollision> ().hull = 3f;
 		temp.GetComponent<ProjectileCollision> ().killed = false;
-		temp.GetComponent<ProjectileCollision> ().SetSectorSize ();
+		temp.GetComponent<ProjectileCollision> ().SetSectorSize (sectorClass.getTotalSectorSize());
 		temp.SetActive(true);
 	}
 	public GameObject GetPooledObject(){
