@@ -9,16 +9,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 490848}
   - 54: {fileID: 5472352}
-  - 114: {fileID: 11473252}
   - 136: {fileID: 13657252}
   - 114: {fileID: 11485608}
   - 23: {fileID: 2354442}
   - 33: {fileID: 3340344}
-  - 114: {fileID: 11439210}
-  - 114: {fileID: 11498026}
   m_Layer: 9
   m_Name: Missile
-  m_TagString: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +70,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177120}
   serializedVersion: 2
-  m_Mass: .100000001
+  m_Mass: 1000
   m_Drag: 1
   m_AngularDrag: .0500000007
   m_UseGravity: 0
@@ -81,34 +78,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 56
   m_CollisionDetection: 0
---- !u!114 &11439210
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bbe599bcea22d540a7a0f566c39487e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towardsObject: {fileID: 0}
-  targetVector: {x: 0, y: 0, z: 0}
---- !u!114 &11473252
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9419d3fd78c9a546b34524b053469d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  age: 15
-  speed: 10
-  mirrorRate: 0
-  totalSectorSize: 0
 --- !u!114 &11485608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,37 +89,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a110b176007434e958edaed6edff8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sectorDifficulty: 0
-  movementSpeedCap: 0
-  mitigation: 0
-  maxMitigation: 0
-  armor: 0
-  maxArmor: 0
-  maxShield: 0
   shield: 0
+  maxShield: 0
   hull: 3
   maxHull: 0
-  deathParticles: {fileID: 104386, guid: f108801a581eb9843983eeb0db6997b1, type: 2}
-  gc: {fileID: 0}
-  shieldRegenEnabled: 0
+  armor: 0
+  maxArmor: 0
   killed: 0
-  maxShieldCooldown: 3
-  shieldRegenIncrement: .00999999978
-  curShieldCooldown: 0
-  currentregenIncrement: 0
---- !u!114 &11498026
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 476a7c6ca31dcd0469923b2e388e16e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  towardsObject: {fileID: 0}
-  targetVector: {x: 0, y: 0, z: 0}
+  deathParticles: {fileID: 104386, guid: f108801a581eb9843983eeb0db6997b1, type: 2}
+  age: 10
+  mirrorRate: 0
+  totalSectorSize: 0
 --- !u!136 &13657252
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -177,7 +126,15 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 201ecd3bd4981c84fba293672dc9aa62, type: 2}
     - target: {fileID: 0}
       propertyPath: m_TagString
-      value: Bullet
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: age
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

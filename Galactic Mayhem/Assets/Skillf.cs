@@ -13,6 +13,24 @@ public class Skillf : MonoBehaviour{
 	{
 		f = this;
 	}
+	public void AddForce (GameObject obj, float force = 250){
+		obj.GetComponent<Rigidbody>().AddForce((obj.transform.right * force));
+	}
+	public void ExplosiveForce (List<GameObject> objs,Vector3 pos,float force = 250,float radius = 0)
+	{
+		foreach(GameObject obj in objs){
+			if(obj !=null){
+				obj.GetComponent<Rigidbody>().AddExplosionForce(force, pos, radius);
+			}
+		}
+	}
+	public void ExplosiveForce (GameObject obj,Vector3 pos,float force = 250,float radius = 0)
+	{
+			if(obj !=null){
+				obj.GetComponent<Rigidbody>().AddExplosionForce(force, pos, radius);
+			}
+
+	}
 	public void ForceTowardsPoint (List<GameObject> objs,Vector3 towards,float force = 250)
 	{
 		foreach(GameObject obj in objs){
@@ -22,17 +40,13 @@ public class Skillf : MonoBehaviour{
 			}
 		}
 	}
-	public void ForceFromPoint ( )
+	public void ForceTowardsPoint (GameObject obj,Vector3 towards,float force = 250)
 	{
-		
-	}
-	public void implosion ( )
-	{
+			if(obj !=null){
+				Vector3 targetVector = (towards - obj.transform.position).normalized;
+				obj.GetComponent<Rigidbody>().AddForce(targetVector * force * (1 / Time.timeScale));
+			}
 
-	}
-	public void explosion ( )
-	{
-		
 	}
 	
 }

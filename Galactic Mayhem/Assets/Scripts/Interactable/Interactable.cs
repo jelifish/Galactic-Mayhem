@@ -9,19 +9,34 @@ public class Interactable : MonoBehaviour {
 	public float initialSpeed;
 	protected bool isTimeSlowed = false;
 	public Vector3 targetPosition = Vector3.zero;
+	public float timeMulti = 2f;
+	void Awake(){
+		projectile = Resources.Load ("Projectiles/Bolt")as GameObject;
+	}
 
+	public virtual void timeSlow(){
+		if (!isTimeSlowed) {	
+			Timef.f.SlowTime(timeMulti);
+			isTimeSlowed = true;
+		}
+	}
+	public virtual void timeResume(){
+		if (isTimeSlowed) {
+			Timef.f.SpeedTime(timeMulti);
+			isTimeSlowed = false;
+		}
+	}
+	public virtual void OnDestroy() {
+		timeResume ();
+	}
 	public virtual void mouseUpFire(){
 
 	}
 	public virtual void mouseDownFire(){
 
 	}
-	void OnDestroy() {
-		if (isTimeSlowed) {
-			Time.timeScale += 0.5F;
-			Time.fixedDeltaTime = 0.02F * Time.timeScale;
-			isTimeSlowed = false;
-		}
+	public void stopDestroy(){
+		GetComponent<SpawnedWeapon> ().destroyThis = false;
 	}
 
 

@@ -187,7 +187,7 @@ public class PlayerController : CollisionObject
 	}
 	void FixedUpdate ()
 	{
-
+		//Debug.Log(GetComponent<Rigidbody>().velocity.magnitude);
 			
 		if (!sectorClear) {
 			this.GetComponent<Rigidbody> ().position = new Vector3 

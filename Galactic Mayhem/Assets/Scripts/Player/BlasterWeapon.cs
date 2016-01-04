@@ -15,7 +15,7 @@ public class BlasterWeapon : Weapon {
 	public void init(BlasterAttributes blaster)
 	{
 		this.blaster = blaster;
-		bolt.GetComponent<Mover> ().age = blaster.projectileAge;
+		//bolt.GetComponent<Mover> ().age = blaster.projectileAge;
 
 //		GameObject special = (GameObject) Instantiate (blaster.generateSpecial(), this.transform.position, this.transform.rotation);
 //		

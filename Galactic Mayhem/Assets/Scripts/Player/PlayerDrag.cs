@@ -68,8 +68,14 @@ public class PlayerDrag : MonoBehaviour {
 			Vector3 curScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 1);
 		
 			Vector3 curPosition = Camera.main.ScreenToWorldPoint (curScreenPoint);// &#43; offset;
+			Vector3 playerPosition = playerObject.transform.position;
+			if(Vector2.Distance(curPosition,playerPosition) >= 5){
+				dragObject.transform.position = playerPosition+((curPosition - playerPosition).normalized*10);
+			}
+			else{
+				dragObject.transform.position = curPosition;
+			}
 
-			dragObject.transform.position = curPosition;
 
 			playerObject.GetComponent<Rigidbody> ().velocity = (dragObject.transform.position - playerObject.transform.position).normalized * playerObject.GetComponent<PlayerController> ().movementSpeedCap * 3;
 	

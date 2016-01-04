@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour {
 		//_min = Bounds.bounds.min;
 		//_max = Bounds.bounds.max;
 	}
-	public void FixedUpdate()
+	public void Update()
 	{
 		//_min = Bounds.bounds.min; //////////// DEBUG CODE REMOVE IN FINAL VERSION
 		//_max = Bounds.bounds.max; ////////////DEBUG CODE REMOVE IN FINAL VERSION
