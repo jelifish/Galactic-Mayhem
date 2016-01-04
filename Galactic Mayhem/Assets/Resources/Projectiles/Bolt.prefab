@@ -89,17 +89,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4a110b176007434e958edaed6edff8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: 0
-  maxShield: 0
   hull: 3
   maxHull: 0
   armor: 0
   maxArmor: 0
   killed: 0
   deathParticles: {fileID: 104386, guid: f108801a581eb9843983eeb0db6997b1, type: 2}
-  age: 1000
   mirrorRate: 0
   totalSectorSize: 0
+  sizeSet: 0
 --- !u!136 &13673702
 CapsuleCollider:
   m_ObjectHideFlags: 1
