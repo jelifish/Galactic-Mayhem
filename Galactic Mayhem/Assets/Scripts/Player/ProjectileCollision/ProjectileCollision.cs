@@ -54,15 +54,19 @@ public class ProjectileCollision : MonoBehaviour {
 		//Destroy (gameObject, age);
 
 
+		SetSectorSize ();
+	}
+	public void SetSectorSize(){
 		totalSectorSize = GameObject.Find ("GameController").GetComponentInChildren<BoxColSetSectorSize> ().getTotalSectorSize ()/1.95f; //expensive call
 	}
-
 
 	void FixedUpdate()
 	{
 		if (mirrorRate >= 10) {
 			mirrorRate = 0;
+
 			this.gameObject.SetActive(false);
+			//this.gameObject.transform.position = Vector3.zero;
 
 		}
 		
