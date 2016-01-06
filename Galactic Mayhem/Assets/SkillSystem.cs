@@ -64,6 +64,7 @@ public class Skill002 : Skill {
 	}
 	public override void attachAttributes(){
 		spawn.AddComponent<Skill002Attr> ();
+		spawn.AddComponent<Skill002Attr> ();
 
 	}
 	public override void attachSpecialAttributes(){
