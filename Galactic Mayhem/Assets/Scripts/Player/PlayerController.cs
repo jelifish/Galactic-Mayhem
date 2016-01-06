@@ -114,7 +114,7 @@ public class PlayerController : CollisionObject
 				}
 				armor = maxArmor;
 				mitigation = maxMitigation;
-				movementSpeedCap = 5;
+				movementSpeedCap = 2;
 			}
 			yield return new WaitForSeconds (.1f);
 		}

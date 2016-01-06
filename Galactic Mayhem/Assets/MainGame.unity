@@ -1100,9 +1100,10 @@ Prefab:
       objectReference: {fileID: 1642921041}
     - target: {fileID: 151974, guid: bd00aa41a4551014c8bb45e0b4debe82, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11402918, guid: bd00aa41a4551014c8bb45e0b4debe82, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: bd00aa41a4551014c8bb45e0b4debe82, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &769947306
@@ -1555,7 +1556,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11466106, guid: f34b5d6e50a0d0e408e51d27876918e9, type: 2}
       propertyPath: movementSpeedCap
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11466106, guid: f34b5d6e50a0d0e408e51d27876918e9, type: 2}
       propertyPath: armor
@@ -2058,7 +2059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bolt: {fileID: 189882, guid: 9df46fb887e02bc4b9d5feeee064a6fe, type: 2}
   sectorClass: {fileID: 1702976406}
-  poolSize: 2000
+  poolSize: 100
   count: 0
   size: 0
 --- !u!1 &1854971131

@@ -61,16 +61,24 @@ public class PlayerDrag : MonoBehaviour {
 
 
 	}
+	Vector3 curScreenPoint;
+	Vector3 curPosition;
+	Vector3 playerPosition;
+
+
+
 	void OnMouseDrag()
 	{
 		if (playerObject != null) {
-		
-			Vector3 curScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 1);
-		
-			Vector3 curPosition = Camera.main.ScreenToWorldPoint (curScreenPoint);// &#43; offset;
-			Vector3 playerPosition = playerObject.transform.position;
-			if(Vector2.Distance(curPosition,playerPosition) >= 5){
-				dragObject.transform.position = playerPosition+((curPosition - playerPosition).normalized*10);
+			
+			curScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 1);
+			curPosition = Camera.main.ScreenToWorldPoint (curScreenPoint);// &#43; offset;
+			curPosition.z = -2f;
+			Debug.Log(curPosition);
+
+			playerPosition = playerObject.transform.position;
+			if(Vector2.Distance(curPosition,playerPosition) >= 7){
+				dragObject.transform.position = playerPosition+((curPosition - playerPosition).normalized*7);
 			}
 			else{
 				dragObject.transform.position = curPosition;
