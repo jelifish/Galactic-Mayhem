@@ -152,27 +152,27 @@ public class PlayerController : CollisionObject
 		//setBoundary (); /////////////////sets bounds for player movement.
 		sectorClear = false;
 		
-		for (int i=0; i<numOfWeaponSlots; i++) {
-			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, this.GetComponent<Rigidbody>().position, GetComponent<Rigidbody>().rotation);
-			tempSlot.GetComponent<WeaponSystem>().setSlotPosition(i);
-			tempSlot.transform.parent = this.transform;
-			weaponSlots.Enqueue(tempSlot);
-			if(i==0){
-				tempSlot.GetComponent<WeaponSystem>().initWeapon();
-			}
-			if(i==1){
-				tempSlot.GetComponent<WeaponSystem>().initWeapon();
-			}
-			if(i==2){
-				tempSlot.GetComponent<WeaponSystem>().initWeapon();
-			}
-			if(i==3){
-				tempSlot.GetComponent<WeaponSystem>().initWeapon();
-			}
-			if(i==4){
-				tempSlot.GetComponent<WeaponSystem>().initWeapon();
-			}
-		}
+//		for (int i=0; i<numOfWeaponSlots; i++) {
+//			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, this.GetComponent<Rigidbody>().position, GetComponent<Rigidbody>().rotation);
+//			tempSlot.GetComponent<WeaponSystem>().setSlotPosition(i);
+//			tempSlot.transform.parent = this.transform;
+//			weaponSlots.Enqueue(tempSlot);
+//			if(i==0){
+//				tempSlot.GetComponent<WeaponSystem>().initWeapon();
+//			}
+//			if(i==1){
+//				tempSlot.GetComponent<WeaponSystem>().initWeapon();
+//			}
+//			if(i==2){
+//				tempSlot.GetComponent<WeaponSystem>().initWeapon();
+//			}
+//			if(i==3){
+//				tempSlot.GetComponent<WeaponSystem>().initWeapon();
+//			}
+//			if(i==4){
+//				tempSlot.GetComponent<WeaponSystem>().initWeapon();
+//			}
+//		}
 		
 
 	}
