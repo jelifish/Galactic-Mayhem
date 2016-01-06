@@ -6,9 +6,7 @@ public class ProjectileCollision : MonoBehaviour {
 //	[HideInInspector] public float maxShield;
 	public float hull;
 	[HideInInspector] public float maxHull;
-	
-	public float armor = 0;
-	public float maxArmor;
+
 	public bool killed;
 	public GameObject deathParticles;
 

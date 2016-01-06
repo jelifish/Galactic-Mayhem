@@ -89,12 +89,12 @@ public class Skill002Attr : Interactable{
 		yield return new WaitForSeconds (.03f);
 		initialSpeed = 15;
 		while (true) {
-			for(int i=0;i<50;i++){
+			for(int i=0;i<500;i++){
 				//GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
 				GameObject temp = ObjectPool.pool.GetPooledObject();
 				temp.transform.position = this.transform.position;
 				temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f));
-				Skillf.f.AddForce(temp, Skillf.medForce*Random.Range(.9f, 1.1f));
+				Skillf.f.AddForce(temp, Skillf.highForce*Random.Range(.9f, 1.1f));
 				yield return new WaitForSeconds (.03f);
 			}
 			break;
@@ -171,7 +171,81 @@ public class Skill003Attr : Interactable{
 		Destroy (this.gameObject);
 	}
 }
+//=== 004 Cluster Bolt =============================
+public class Skill004 : Skill {
+	public override void init(){
+		skillName = "Cluster Bolt";
+		skillType = SkillType.MaterialType;
+		skillNum = 4;
+	}
+	public override void attachAttributes(){
+		spawn.AddComponent<Skill004Attr> ();
+		
+	}
+	public override void attachSpecialAttributes(){
+	}
+}
+public class Skill004Attr : Interactable{
+	void Start(){
+		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(152/255.0F,203/255.0F,74/255.0F,255f));
+	}
+	public bool mouseUp = false;
+	public override void mouseUpFire(){
+		timeResume ();
+		mouseUp = true;
 
+	}
+	public float timeMultiplier = 1;
+	
+	public override void mouseDownFire(){
+		timeSlow ();
+		stopDestroy ();
+		StartCoroutine (fire ());
+	}
+
+	IEnumerator fire()
+	{
+		List<GameObject> bullets = new List<GameObject>();
+
+		yield return new WaitForSeconds (.03f);
+		initialSpeed = 15;
+		while (true) {
+			for(int i=0;i<25;i++){
+				//GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
+				GameObject temp = ObjectPool.pool.GetPooledObject();
+
+				temp.transform.position = new Vector3(transform.position.x+Random.insideUnitCircle.x, transform.position.y + Random.insideUnitCircle.y,0);
+				temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360));
+				temp.transform.localScale = temp.transform.localScale * 2;
+
+				bullets.Add(temp);
+				//Skillf.f.AddForce(temp, Skillf.highForce*Random.Range(.9f, 1.1f)*2);
+				if(mouseUp){
+					break;
+				}
+				yield return new WaitForSeconds (.05f);
+
+
+			}
+			yield return new WaitForSeconds (.01f);
+			break;
+		}
+		while (true) {
+			if(mouseUp){
+				Skillf.f.ForceTowardsDirection(bullets,this.transform.position,targetPosition, Skillf.highForce*Random.Range(.9f, 1.1f)*2);
+				break;
+			}
+			yield return new WaitForSeconds (.03f);
+
+		}
+
+
+		OnDestroy (); //call at the very end to resume the time
+		this.GetComponent<MeshRenderer> ().enabled = false;
+		yield return new WaitForSeconds (5f);
+		Destroy (this.gameObject);
+	}
+}
 //=== 011 Accelerator =============================
 public class Skill011 : Skill {
 	public override void init(){
@@ -196,17 +270,21 @@ public class Skill011Attr : Interactable{
 	
 	public override void mouseUpFire(){
 		Timef.f.SpeedTime (2f);
-		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
+		Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 5);
+		//Debug.Log (transform.position); //spawn position
+		//Debug.Log (targetPosition); //spawn position
 		//int i = 0;
+
 		foreach (Collider col in hitColliders) {
 			if(col.tag == "Bullet"){
 				bullets.Add(col.gameObject);
 			}
 		}
 		StartCoroutine (Blast ());
-		
 	}
+
 	public override void mouseDownFire(){
+
 		Timef.f.SlowTime (2f);
 		//Time.fixedDeltaTime = 0.02F * Time.timeScale;
 		stopDestroy ();
@@ -310,7 +388,75 @@ public class Skill012Attr : Interactable{
 		
 	}
 }
+//=== 013 Black Hole Explosion =============================
+public class Skill013 : Skill {
+	public override void init(){
+		skillName = "Black Hole";
+		skillType = SkillType.ControlType;
+		skillNum = 13;
+		
+	}
+	public override void attachAttributes(){
+		spawn.AddComponent<Skill013Attr> ();
+	}
+	public override void attachSpecialAttributes(){
 
+	}
+}
+public class Skill013Attr : Interactable{
+	
+	public List<GameObject> bullets = new List<GameObject>();
+	
+	
+	public override void mouseUpFire(){
+		Timef.f.SpeedTime (2f);
+		Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 1000); 
+		//transform.position is the spawn's position
+		//targetPosition is the one we need for black hole
+
+		//int i = 0;
+		foreach (Collider col in hitColliders) {
+			if(col.tag == "Bullet"){
+				bullets.Add(col.gameObject);
+			}
+		}
+		StartCoroutine (Blast ());
+	}
+	
+	public override void mouseDownFire(){
+		Timef.f.SlowTime (2f);
+		//Time.fixedDeltaTime = 0.02F * Time.timeScale;
+		stopDestroy ();
+		
+	}
+	
+	
+	void Start(){
+		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(247/255.0F,216/255.0F,66/255.0F,255f));
+	}
+	
+	IEnumerator Blast()
+	{
+		//yield return new WaitForSeconds (0.2f);
+		
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
+		yield return new WaitForSeconds (0.1f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.medForce);
+		yield return new WaitForSeconds (0.1f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
+		yield return new WaitForSeconds (0.1f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
+
+		yield return new WaitForSeconds (0.5f);
+		Skillf.f.Freeze(bullets);
+		Skillf.f.ExplosiveForceRandom50 (bullets, targetPosition, 10000);
+		
+		yield return new WaitForSeconds (0.5f);
+		Destroy (this.gameObject);
+		yield return new WaitForSeconds (0.1f);
+		//		
+	}
+}
 //=== 031 Missile =============================
 public class Skill031 : Skill {
 	public override void init(){
@@ -421,7 +567,7 @@ public class Skill031Attr : Interactable{
 		
 	}
 	IEnumerator createMissiles(){
-			for (int i=0; i<3; i++) {
+			for (int i=0; i<1; i++) {
 			if(GetComponent<SpawnedWeapon>().towardsObject!=null){
 				GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler (0f, 0.0f, Random.Range (0, 360)));
 				//temp.GetComponent<Mover> ().speed = Random.Range (initialSpeed * .9f, initialSpeed * 1.7f);
@@ -642,16 +788,16 @@ public class SkillSystem: MonoBehaviour {
 //
 //		Debug.Log (equipSkill (blasterSkill));
 
-		GameObject blasterSkill = new GameObject ("BlasterCone");
-		blasterSkill.AddComponent<Skill002> ();
-		blasterSkill.AddComponent<Skill002> ();
-		blasterSkill.AddComponent<Skill002> ();
+		GameObject materialSkill = new GameObject ("Pls Work");
+		materialSkill.AddComponent<Skill004> ();
+		materialSkill.AddComponent<Skill004> ();
+		materialSkill.AddComponent<Skill004> ();
 		//material.GetComponentInChildren<Skill> ().isSpecialOn = true;
 
-		Debug.Log (equipSkill (blasterSkill));
+		Debug.Log (equipSkill (materialSkill));
 
-		GameObject controlSkill = new GameObject ("Accelerator");
-		controlSkill.AddComponent<Skill011> ();
+		GameObject controlSkill = new GameObject ("Black Hole");
+		controlSkill.AddComponent<Skill013> ();
 		equipSkill (controlSkill);
 
 		GameObject assaultSkill = new GameObject ("Missile");

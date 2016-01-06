@@ -8,7 +8,6 @@ public class BlasterWeapon : Weapon {
 
 	public void Start(){ //this overwrites parent
 		gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
-		bolt.GetComponent<Rigidbody> ().drag = blaster.projectileDrag;
 		weaponSlot = this.transform.parent.gameObject; 
 	}
 	

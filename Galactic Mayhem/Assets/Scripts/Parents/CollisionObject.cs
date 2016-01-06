@@ -50,7 +50,8 @@ public class CollisionObject : MonoBehaviour {
 		return hull;
 	}
 	public void takeDamage(float damage){
-		//Debug.Log (damage);
+
+		Debug.Log (damage);
 		shield -= damage;
 		if (shield < 0) {
 			if(armor > (shield*-1))
@@ -85,9 +86,13 @@ public class CollisionObject : MonoBehaviour {
 			other.GetComponent<PlayerController>().takeDamage((getShield()+getHull())/other.GetComponent<PlayerController>().mitigation); //effective damage to player
 			takeDamage (getShield()+getHull());
 		}else if(other.gameObject.tag == "Bullet"||other.gameObject.tag == "TriggeredBullet"){
-			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude);
+
+			float bulletScale = other.transform.localScale.x;
+			float x = bulletScale + .9f;
+
+			float bulletMulti = x * x; 
+			takeDamage (other.gameObject.GetComponent<Rigidbody> ().velocity.magnitude * bulletMulti);
 			other.gameObject.GetComponent<ProjectileCollision>().takeDamage(1);
-			//Destroy(other.gameObject);
 		}
 	}
 	public bool killed;

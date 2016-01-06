@@ -71,14 +71,18 @@ public class ObjectPool : MonoBehaviour {
 		}
 	}
 	//public void
+	public int bulletHull = 1;
 	public void Neutralize(GameObject temp){
 		activeObj.Enqueue (temp);
 
 		temp.transform.rotation = Quaternion.identity;
 		temp.GetComponent<Rigidbody>().velocity = Vector3.zero;
-		temp.GetComponent<ProjectileCollision> ().hull = 3f;
+		temp.GetComponent<ProjectileCollision> ().hull = bulletHull;
 		temp.GetComponent<ProjectileCollision> ().killed = false;
 		temp.GetComponent<ProjectileCollision> ().SetSectorSize (sectorClass.getTotalSectorSize());
+		temp.transform.localScale = new Vector3(.2f, .2f, .2f);
+
+		//.1f = normal 
 		temp.SetActive(true);
 	}
 	public GameObject GetPooledObject(){
