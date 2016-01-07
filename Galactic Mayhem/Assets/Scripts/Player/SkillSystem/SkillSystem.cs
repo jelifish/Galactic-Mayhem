@@ -410,7 +410,7 @@ public class Skill013Attr : Interactable{
 	
 	public override void mouseUpFire(){
 		Timef.f.SpeedTime (2f);
-		Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 1000); 
+		Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 20); 
 		//transform.position is the spawn's position
 		//targetPosition is the one we need for black hole
 
@@ -439,17 +439,29 @@ public class Skill013Attr : Interactable{
 	{
 		//yield return new WaitForSeconds (0.2f);
 		
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
+		yield return new WaitForSeconds (0.5f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
+		yield return new WaitForSeconds (0.5f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
+		yield return new WaitForSeconds (0.5f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.medForce);
+		yield return new WaitForSeconds (0.5f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.medForce);
+		yield return new WaitForSeconds (0.5f); 
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.medForce);
+		yield return new WaitForSeconds (0.2f); 
 		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
 		yield return new WaitForSeconds (0.1f); 
-		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.medForce);
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
 		yield return new WaitForSeconds (0.1f); 
-		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
 		yield return new WaitForSeconds (0.1f); 
-		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
+		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.lowForce);
 
-		yield return new WaitForSeconds (0.5f);
+		yield return new WaitForSeconds (0.1f);
 		Skillf.f.Freeze(bullets);
-		Skillf.f.ExplosiveForceRandom50 (bullets, targetPosition, 10000);
+		Skillf.f.ExplosiveForceRandom50 (bullets, targetPosition, Skillf.highForce*7);
 		
 		yield return new WaitForSeconds (0.5f);
 		Destroy (this.gameObject);
@@ -794,7 +806,7 @@ public class SkillSystem: MonoBehaviour {
 		materialSkill.AddComponent<Skill004> ();
 		//material.GetComponentInChildren<Skill> ().isSpecialOn = true;
 
-		Debug.Log (equipSkill (materialSkill));
+		equipSkill (materialSkill);
 
 		GameObject controlSkill = new GameObject ("Black Hole");
 		controlSkill.AddComponent<Skill013> ();
