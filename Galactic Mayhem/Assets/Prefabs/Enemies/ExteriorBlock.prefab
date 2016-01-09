@@ -108,8 +108,8 @@ MonoBehaviour:
   armor: 0
   maxArmor: 0
   maxShield: 0
-  shield: 100
-  hull: 200
+  shield: 50
+  hull: 75
   maxHull: 0
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
   gc: {fileID: 0}
@@ -133,11 +133,11 @@ Prefab:
       objectReference: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
     - target: {fileID: 0}
       propertyPath: shield
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hull
-      value: 200
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score_value

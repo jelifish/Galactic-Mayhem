@@ -87,6 +87,7 @@
      <Compile Include="Assets\Scripts\Player\PlayerDrag.cs" />
      <Compile Include="Assets\Scripts\Player\ProjectileCollision\ProjectileCollision.cs" />
      <Compile Include="Assets\Scripts\Player\SkillSystem\SkillSystem.cs" />
+     <Compile Include="Assets\Scripts\Player\SkillSystem\SpawnPool.cs" />
      <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialStrike.cs" />
      <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialWeapon.cs" />
      <Compile Include="Assets\Scripts\Player\Weapon.cs" />

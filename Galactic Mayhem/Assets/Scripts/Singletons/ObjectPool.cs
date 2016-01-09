@@ -7,7 +7,7 @@ public class ObjectPool : MonoBehaviour {
 	public GameObject bolt;
 	private List<GameObject> objs;
 	private Queue<GameObject> activeObj;
-	private GameObject container;
+
 	public BoxColSetSectorSize sectorClass;
 	public int poolSize = 1000;
 
@@ -19,14 +19,13 @@ public class ObjectPool : MonoBehaviour {
 	public int count;
 	public int size;
 	void Start(){
-		container = new GameObject("Container");
 		count = 0;
-		containerObject = new GameObject("ObjectPool");
+		containerObject = new GameObject("ProjectilePool");
 		objs = new List<GameObject> ();
 		activeObj = new Queue<GameObject> ();
 		for (int i = 0; i<= poolSize; i++) {
 			GameObject obj = (GameObject)Instantiate(bolt);
-			obj.transform.parent = container.transform;
+			obj.transform.parent = containerObject.transform;
 			obj.SetActive(false);
 			objs.Add(obj);
 			activeObj.Enqueue (obj);
@@ -36,7 +35,7 @@ public class ObjectPool : MonoBehaviour {
 	public void AddObject (){//this code is also used in start but start does not increase poolsize
 		poolSize++;
 		GameObject obj = (GameObject)Instantiate(bolt);
-		obj.transform.parent = container.transform;
+		obj.transform.parent = containerObject.transform;
 		obj.SetActive(false);
 		objs.Add(obj);
 		activeObj.Enqueue (obj);

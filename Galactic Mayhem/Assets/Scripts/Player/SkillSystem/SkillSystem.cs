@@ -17,7 +17,6 @@ public class Skill001 : Skill {
 		spawn.AddComponent<Skill001Attr> ();
 	}
 	public override void attachSpecialAttributes(){
-		spawn.AddComponent<Skill011Attr> ();
 	}
 }
 public class Skill001Attr : Interactable{
@@ -177,6 +176,7 @@ public class Skill004 : Skill {
 		skillName = "Cluster Bolt";
 		skillType = SkillType.MaterialType;
 		skillNum = 4;
+		//coolDown = 3f; //cooldown can be initialized at this time.
 	}
 	public override void attachAttributes(){
 		spawn.AddComponent<Skill004Attr> ();
@@ -314,10 +314,10 @@ public class Skill011Attr : Interactable{
 //		
 	}
 }
-//=== 012 Instant Imploder =============================
+//=== 012 Collapse =============================
 public class Skill012 : Skill {
 	public override void init(){
-		skillName = "Instant Imploder";
+		skillName = "Collapse";
 		skillType = SkillType.ControlType;
 		skillNum = 12;
 		
@@ -618,10 +618,41 @@ public class Skill : MonoBehaviour{
 	public SkillType skillType = SkillType.MaterialType; // this is the type of skill
 	public GameObject projectile = null; //this is the projectile that the skill fires
 	public PlayerController player; // this is the player object
-	public float coolDown; // this is the cooldown of the skill
-	public float minCD = 5f, maxCD = 7f; // min and max CD, randomly generated
+	public float coolDown = 999f; // FLOAT this is the cooldown of the skill. initialized to 999f. if it is still 999 at the end of init process, default values are chosen.
 	public GameObject interactable; //this is the spawned weapon
 
+	//skills exp system
+	public int skillLevel = 0;// skills start out at level 0. probably a good idea not to override this
+	public int rarity = 1; //the level cap. max level can be initialized to something higher. for every skilllevel, majorlevel++
+	public float expInit = 5f;//exp per level is calculated by (expInit * Mathf.Pow(expRatio, x)); where x is the level
+	public float expRatio = 1.618034f; //golden ratio curve. slower curves use a smaller value >1. negative curves use values <1. 
+	protected float exp = 0; //current exp
+	public int calcExpLimit(){
+		return (int)(expInit * Mathf.Pow (expRatio, skillLevel ));
+	}
+	public void addExp(){
+		exp += 1;
+		if (exp > calcExpLimit ()) {//if exp is greater that the current limit levelup()
+			levelUp();
+		} 
+	}
+	public void addExp(int x){
+		for (int i = 0; i<x; i++) {
+			exp += 1;
+			if (exp >= calcExpLimit ()) {//if exp is greater that the current limit levelup()
+				levelUp ();
+			} 
+		}
+	}
+	public virtual void levelUp(){
+		exp = 0; //reset current exp
+		skillLevel += 1;
+
+	
+	}
+	public void rarityUP(){
+		rarity += 1;
+	}
 	
 	public string skillName = "Nul"; //skillname is set in the child
 	public int skillNum = 0;
@@ -653,6 +684,9 @@ public class Skill : MonoBehaviour{
 		} else {
 			attachAttributes ();
 		}
+
+		spawn.GetComponent<Interactable> ().skillType = this.skillType;
+		spawn.GetComponent<Interactable> ().coolDown = this.coolDown;
 	}
 
 	private float x,y;
@@ -667,7 +701,8 @@ public class Skill : MonoBehaviour{
 	}
 
 	void Awake () {
-		coolDown = Random.Range (minCD, maxCD);
+
+
 		if (GameObject.FindWithTag ("Player") != null) {
 			player = GameObject.FindWithTag ("Player").GetComponent<PlayerController> ();
 		} else {
@@ -678,20 +713,32 @@ public class Skill : MonoBehaviour{
 		
 		init ();//anything else we need to do before creating spawns 
 		StartCoroutine (interactableCreator ());//creates spawns at intervals
+		if (coolDown == 999f) {
+			if (this.skillType == SkillType.MaterialType) {
+				coolDown = 3f;
+			} else if (this.skillType == SkillType.ControlType) {
+				coolDown = 7f;
+			} else if (this.skillType == SkillType.GuardType) {
+				coolDown = 7f;
+			} else if (this.skillType == SkillType.AssaultType) {
+				coolDown = 10f;
+			} else if (this.skillType == SkillType.AuraType) {
+				coolDown = 15f;
+			}
+		}
+		Debug.Log(coolDown);
 	}
 }
 //=== Skill Database =============================
 
 public class SkillSystem: MonoBehaviour {
 
-
-
 	public GameObject[] activeSkills;
 
 //	public void UpdateSkillSystem(MonoBehaviour parentMonoBehaviour) {
 ////		skills.ForEach(skill => skill.Update(parentMonoBehaviour));
 //	}
-
+	//logic for skill equipment. used for equipping skills and accessing skills in the storage.
 	public bool equipSkill(GameObject obj){
 		if (obj.GetComponent<Skill>().skillType == SkillType.MaterialType) {
 			if(transform.FindChild("Material").childCount >=1){
@@ -801,8 +848,6 @@ public class SkillSystem: MonoBehaviour {
 //		Debug.Log (equipSkill (blasterSkill));
 
 		GameObject materialSkill = new GameObject ("Pls Work");
-		materialSkill.AddComponent<Skill004> ();
-		materialSkill.AddComponent<Skill004> ();
 		materialSkill.AddComponent<Skill004> ();
 		//material.GetComponentInChildren<Skill> ().isSpecialOn = true;
 

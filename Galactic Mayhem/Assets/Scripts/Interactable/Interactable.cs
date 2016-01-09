@@ -2,8 +2,11 @@
 using System.Collections;
 
 public class Interactable : MonoBehaviour {
-	public GameObject projectile;
+	//these variables are also passed down to the spawn
+	public SkillType skillType;
 	public float coolDown;
+
+	public GameObject projectile;
 	public float minCD = 5f, maxCD = 7f;
 	public PlayerController player;
 	public float initialSpeed;

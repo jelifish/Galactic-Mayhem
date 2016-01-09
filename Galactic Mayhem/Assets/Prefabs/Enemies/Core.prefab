@@ -106,10 +106,12 @@ MonoBehaviour:
   sectorDifficulty: 0
   movementSpeedCap: 5
   mitigation: 0
+  maxMitigation: 0
   armor: 0
+  maxArmor: 0
   maxShield: 0
-  shield: 200
-  hull: 400
+  shield: 50
+  hull: 75
   maxHull: 0
   deathParticles: {fileID: 192746, guid: 6f3faaf5cee2fe748bde6e5b86a8c68c, type: 2}
   gc: {fileID: 0}
@@ -169,11 +171,11 @@ Prefab:
       objectReference: {fileID: 101974, guid: 286fd2dd11fcf444ab5f284cd24530a6, type: 2}
     - target: {fileID: 0}
       propertyPath: shield
-      value: 200
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hull
-      value: 400
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: blaster
