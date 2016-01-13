@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -298,7 +299,8 @@ public class GameController : MonoBehaviour {
 		animColorFade.SetTrigger ("fade");
 		Destroy (GameObject.FindWithTag ("MainMenu"));
 		Destroy (gameObject);
-		Application.LoadLevel(0);
+		//Application.LoadLevel(0);
+		SceneManager.LoadScene(0);
 	}
 
 

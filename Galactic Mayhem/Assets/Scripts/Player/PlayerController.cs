@@ -123,7 +123,7 @@ public class PlayerController : CollisionObject
 
 
 	public GameObject weaponSlot;
-	private Queue<GameObject> weaponSlots = new Queue<GameObject>();
+//	private Queue<GameObject> weaponSlots = new Queue<GameObject>();
 	public int numOfWeaponSlots;
 
 
