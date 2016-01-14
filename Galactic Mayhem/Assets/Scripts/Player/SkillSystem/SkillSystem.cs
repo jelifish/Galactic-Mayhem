@@ -761,9 +761,6 @@ public class SkillSystem: MonoBehaviour {
 	public int assaultLimit = 2;
 	public int auraLimit = 1;
 
-//	public void UpdateSkillSystem(MonoBehaviour parentMonoBehaviour) {
-////		skills.ForEach(skill => skill.Update(parentMonoBehaviour));
-//	}
 	//logic for skill equipment. used for equipping skills and accessing skills in the storage.
 	public bool equipSkill(GameObject obj){
 		if (obj.GetComponent<Skill>().skillType == SkillType.MaterialType) {
