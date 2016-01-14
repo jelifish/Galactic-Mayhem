@@ -3,8 +3,8 @@ using UnityEngine;
 
 class DragTransform : MonoBehaviour
 {
-	public bool limitdrag = true;
-	private bool finished = false;
+	//public bool limitdrag = true;
+//	private bool finished = false;
 	private float distance;
 	public GameObject spawn;
 	public Transform spawnTransform;
@@ -26,8 +26,8 @@ class DragTransform : MonoBehaviour
 	void OnMouseExit()
 	{
 	}
-	
-	void OnMouseDown()
+
+    void OnMouseDown()
 	{
 
 		screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -39,7 +39,9 @@ class DragTransform : MonoBehaviour
 				}
 			}
 	}
-	
+    void OnDisable() {
+        mainCamera.resetFollow();
+    }
 	void OnMouseUp()
 	{
 		mainCamera.resetFollow(); //reset camera view back to player
@@ -51,28 +53,29 @@ class DragTransform : MonoBehaviour
 				inter.mouseUpFire ();
 			}
 		}
-		if(limitdrag){
-			Destroy(this.gameObject);
-		}
+	//	if(limitdrag){
+            //Destroy(this.gameObject);
+            gameObject.SetActive(false);
+	//	}
 
 			
-		
+		 
 
 
 	}
-	private bool setFollow;
+	//private bool setFollow;
 	void OnMouseDrag()
 	{
-		if (spawnTransform!=null && Vector3.Distance (transform.position, spawnTransform.position) > 7 && !setFollow) {
+		if (spawnTransform!=null && Vector3.Distance (transform.position, spawnTransform.position) > 7) {
 			mainCamera.followObject (this.transform); //set camera view to this player
-			setFollow = true;
+			//setFollow = true;
 
 		}
-		if (!finished) {
+	//	if (!finished) {
 			Vector3 curScreenPoint = new Vector3 (Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
 		
 			Vector3 curPosition = Camera.main.ScreenToWorldPoint (curScreenPoint);// &#43; offset;
 			transform.position = curPosition;
-		}
+		//}
 	}
 }

@@ -32,15 +32,14 @@ public class Interactable : MonoBehaviour {
 	}
 	public virtual void OnDestroy() {
 		timeResume ();
+        Debug.Log(skillName);
+        SpawnPool.pool.executeSpawn(this.gameObject);
 	}
 	public virtual void mouseUpFire(){
 
 	}
 	public virtual void mouseDownFire(){
 
-	}
-	public void stopDestroy(){
-		GetComponent<SpawnedWeapon> ().destroyThis = false;
 	}
 
 

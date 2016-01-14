@@ -7,15 +7,24 @@ public class CameraController : MonoBehaviour {
 	public Vector3 Margin;
 	public Vector3 Smoothing;
 	public Camera MainCamera;
+    public Transform player;
 
 	public BoxCollider Bounds;
 
 	//private Vector3 _min,_max;
 	public void resetFollow (){
-		follow = GameObject.Find("Player").transform;
-		Smoothing = new Vector3 (8f, 8f, 0);
+        CancelInvoke();
+        follow = player;
+		Smoothing = new Vector3 (.2f, .2f, 0);
+        Invoke("finalReset", 2);
 	}
-	public void followObject(Transform obj, bool smooth = true){
+    public void finalReset() {
+        follow = player;
+        Smoothing = new Vector3(4f, 4f, 0);
+
+    }
+    public void followObject(Transform obj, bool smooth = true){
+        CancelInvoke();
 		follow = obj;
 		Smoothing = new Vector3 (1.5f, 1.5f, 0);
 	}
@@ -25,10 +34,12 @@ public class CameraController : MonoBehaviour {
 
 	public void Start()
 	{
-		follow = GameObject.Find("Player").transform;
-		//_min = Bounds.bounds.min;
-		//_max = Bounds.bounds.max;
-	}
+      
+        player = GameObject.Find("Player").transform;
+        follow = player;
+        //_min = Bounds.bounds.min;
+        //_max = Bounds.bounds.max;
+    }
 	public void Update()
 	{
 		//_min = Bounds.bounds.min; //////////// DEBUG CODE REMOVE IN FINAL VERSION

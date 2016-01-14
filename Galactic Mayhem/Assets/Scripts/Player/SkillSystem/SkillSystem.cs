@@ -25,7 +25,6 @@ public class Skill001Attr : Interactable{
 	}
 	public override void mouseDownFire(){
 		timeSlow ();
-		stopDestroy ();
 		StartCoroutine (fire ());
 	}
 
@@ -47,7 +46,7 @@ public class Skill001Attr : Interactable{
 			break;
 		}
 		OnDestroy ();
-		this.GetComponent<MeshRenderer> ().enabled = false;
+		//this.GetComponent<MeshRenderer> ().enabled = false;
 		yield return new WaitForSeconds (5f);
 		//Destroy (this.gameObject);
 
@@ -80,7 +79,6 @@ public class Skill002Attr : Interactable{
 
 	public override void mouseDownFire(){
 		timeSlow ();
-		stopDestroy ();
 		StartCoroutine (fire ());
 	}
 	IEnumerator fire()
@@ -88,7 +86,7 @@ public class Skill002Attr : Interactable{
 		yield return new WaitForSeconds (.03f);
 		initialSpeed = 15;
 		while (true) {
-			for(int i=0;i<500;i++){
+			for(int i=0;i<50;i++){
 				//GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
 				GameObject temp = ObjectPool.pool.GetPooledObject();
 				temp.transform.position = this.transform.position;
@@ -99,8 +97,8 @@ public class Skill002Attr : Interactable{
 			break;
 		}
 		OnDestroy (); //call at the very end to resume the time
-		this.GetComponent<MeshRenderer> ().enabled = false;
-		yield return new WaitForSeconds (5f);
+		//this.GetComponent<MeshRenderer> ().enabled = false;
+		yield return new WaitForSeconds (3f);
 		//Destroy (this.gameObject);
 	}
 }
@@ -135,7 +133,6 @@ public class Skill003Attr : Interactable{
 			Time.fixedDeltaTime = 0.02F * Time.timeScale;
 			isTimeSlowed = true;
 		}
-		stopDestroy ();
 		StartCoroutine (fire ());
 	}
 	
@@ -165,7 +162,7 @@ public class Skill003Attr : Interactable{
 			Time.fixedDeltaTime = 0.02F * Time.timeScale;
 			isTimeSlowed = false;
 		}
-		this.GetComponent<MeshRenderer> ().enabled = false;
+		//this.GetComponent<MeshRenderer> ().enabled = false;
 		yield return new WaitForSeconds (5f);
 		//Destroy (this.gameObject);
 	}
@@ -199,7 +196,6 @@ public class Skill004Attr : Interactable{
 	
 	public override void mouseDownFire(){
 		timeSlow ();
-		stopDestroy ();
 		StartCoroutine (fire ());
 	}
 
@@ -241,7 +237,7 @@ public class Skill004Attr : Interactable{
 
 
 		OnDestroy (); //call at the very end to resume the time
-		this.GetComponent<MeshRenderer> ().enabled = false;
+		//this.GetComponent<MeshRenderer> ().enabled = false;
 		yield return new WaitForSeconds (5f);
 		//Destroy (this.gameObject);
 	}
@@ -287,7 +283,6 @@ public class Skill011Attr : Interactable{
 
 		Timef.f.SlowTime (2f);
 		//Time.fixedDeltaTime = 0.02F * Time.timeScale;
-		stopDestroy ();
 
 	}
 	
@@ -338,7 +333,6 @@ public class Skill012Attr : Interactable{
 	public override void mouseUpFire(){
 	}
 	public override void mouseDownFire(){
-		stopDestroy ();
 		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
 		foreach (Collider col in hitColliders) {
 			if(col.tag == "Bullet"){
@@ -426,7 +420,6 @@ public class Skill013Attr : Interactable{
 	public override void mouseDownFire(){
 		Timef.f.SlowTime (2f);
 		//Time.fixedDeltaTime = 0.02F * Time.timeScale;
-		stopDestroy ();
 		
 	}
 	
@@ -464,8 +457,9 @@ public class Skill013Attr : Interactable{
 		Skillf.f.ExplosiveForceRandom50 (bullets, targetPosition, Skillf.highForce*7);
 		
 		yield return new WaitForSeconds (0.5f);
-		//Destroy (this.gameObject);
-		yield return new WaitForSeconds (0.1f);
+        //Destroy (this.gameObject);
+        OnDestroy();
+        yield return new WaitForSeconds (0.1f);
 		//		
 	}
 }
@@ -484,8 +478,8 @@ public class Skill031 : Skill {
 	}
 }
 public class Skill031Attr : Interactable{
-	//public List<GameObject> bullets = new List<GameObject>();
-	public List<GameObject> missiles = new List<GameObject>();
+    //public List<GameObject> bullets = new List<GameObject>();
+    public List<GameObject> missiles; // initialize all global lists -like things in OnEnable
 
 	public GameObject bolt = Resources.Load ("Projectiles/Bolt")as GameObject;
 
@@ -494,15 +488,15 @@ public class Skill031Attr : Interactable{
 	}
 	public override void mouseDownFire(){
 		Timef.f.SlowTime (2f);
-		stopDestroy ();
 		StartCoroutine (fire ());
 	}
 	
 
-	void Start(){
+	void OnEnable(){
 		this.projectile = Resources.Load ("Projectiles/Missile")as GameObject;
 		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(250/255.0F,130/255.0F,40/255.0F,255f));
-	}
+        missiles = new List<GameObject>();
+    }
 
 
 
@@ -515,7 +509,7 @@ public class Skill031Attr : Interactable{
 		
 		//bullets.Add(temp.gameObject);
 		StartCoroutine (createMissiles ());		
-		while(GetComponent<SpawnedWeapon>().towardsObject!=null){
+		while(GetComponent<SpawnedWeapon>().towardsObject.activeSelf){
 			foreach(GameObject missile in missiles)
 			{
 				Vector3 targetVector = (GetComponent<SpawnedWeapon>().towardsObject.transform.position - missile.transform.position).normalized;
@@ -563,8 +557,10 @@ public class Skill031Attr : Interactable{
 			//missile.GetComponent<MeshRenderer> ().enabled = false;
 			StartCoroutine(Blast(missile.transform.position,bullets));
 			yield return new WaitForSeconds (.1f);
-			Destroy(missile);
-			yield return new WaitForSeconds (.01f);
+			
+            //missiles.Remove(missile);
+            Destroy(missile);
+            yield return new WaitForSeconds (.01f);
 		}
 
 
@@ -573,7 +569,7 @@ public class Skill031Attr : Interactable{
 		yield return new WaitForSeconds (1f);
 
 		OnDestroy ();
-		this.GetComponent<MeshRenderer> ().enabled = false;
+		//this.GetComponent<MeshRenderer> ().enabled = false;
 		yield return new WaitForSeconds (5f);
 		//Destroy (this.gameObject);
 		
@@ -706,7 +702,7 @@ public class Skill : MonoBehaviour{
 	}
 
 	void OnEnable(){
-		//initInteractable();
+		initInteractable();
 		SpawnPool.pool.addSpawn (this.spawn);
 
 
@@ -742,7 +738,7 @@ public class Skill : MonoBehaviour{
 			}
 		}
 
-		initInteractable();
+		//initInteractable();
 	}
 }
 //=== Skill Database =============================
@@ -755,6 +751,7 @@ public class SkillSystem: MonoBehaviour {
 	public Queue<GameObject> guardQueue = new Queue<GameObject> ();
 	public Queue<GameObject> assaultQueue = new Queue<GameObject> ();
 	public Queue<GameObject> auraQueue = new Queue<GameObject> ();
+    public List<GameObject> backpack = new List<GameObject>();
 	public int materialLimit = 1;
 	public int controlLimit = 2;
 	public int guardLimit = 2;
@@ -764,24 +761,19 @@ public class SkillSystem: MonoBehaviour {
 	//logic for skill equipment. used for equipping skills and accessing skills in the storage.
 	public bool equipSkill(GameObject obj){
 		if (obj.GetComponent<Skill>().skillType == SkillType.MaterialType) {
-			Debug.Log (materialQueue.Count + " " + materialLimit);
+			//Debug.Log (materialQueue.Count + " " + materialLimit);
 			if(materialQueue.Count >=materialLimit){
 				//Transform[] ts = transform.FindChild("Material").GetComponentsInChildren<Transform>();
 				GameObject temp = materialQueue.Dequeue ();
-				temp.SetActive (false);
-				temp.transform.parent = transform.FindChild("Inactive");
+                temp.transform.parent = transform.FindChild("Inactive");
+                backpack.Add(temp);
+                Debug.Log("skill stored into backpack");
 
-				Debug.Log ("skill stored into backpack");
-//				foreach(Transform t in ts)
-//				{
-//					if(t.GetComponent<Skill>() != null)
-//					{
-//						t.parent = transform.FindChild("Inactive");
-//					}
-//				}
+                //temp.SetActive (false);
+                //SpawnPool.pool.removeSpawn(temp.GetComponent<Interactable>().name);
 
-			}
-			materialQueue.Enqueue (obj);
+            }
+            materialQueue.Enqueue (obj);
 			obj.transform.parent = transform.FindChild("Material");
 			return true;
 		}
@@ -879,8 +871,10 @@ public class SkillSystem: MonoBehaviour {
 
 		GameObject materialSkill1 = new GameObject ("conebolts");
 		materialSkill1.AddComponent<Skill004> ();
-		GameObject materialSkill2 = new GameObject ("i forgot what this was");
+        materialSkill1.name = materialSkill1.GetComponent<Skill>().skillName;
+        GameObject materialSkill2 = new GameObject ("i forgot what this was");
 		materialSkill2.AddComponent<Skill001> ();
+        materialSkill2.name = materialSkill2.GetComponent<Skill>().skillName;
 		//material.GetComponentInChildren<Skill> ().isSpecialOn = true;
 
 		equipSkill (materialSkill1);
@@ -896,8 +890,8 @@ public class SkillSystem: MonoBehaviour {
 		GameObject assaultSkill = new GameObject ("Missile");
 		assaultSkill.AddComponent<Skill031> ();
 		equipSkill (assaultSkill);
-
-
+        //Invoke("addSkills", 5f);
+        //Invoke("swapSkills", 10f);
 
 		//blasterSkill.transform.parent = material.transform.parent;
 
@@ -916,9 +910,19 @@ public class SkillSystem: MonoBehaviour {
 		//		Debug.Log (skills [0].skillName); 
 	}
 
-	public void swapSkills(){
-	
-	}
+	public void addSkills(){
+        GameObject materialSkill1 = new GameObject("third thing");
+        materialSkill1.AddComponent<Skill003>();
+        equipSkill(materialSkill1);
+    }
+    public void swapSkills()
+    {
+        if (backpack[0] != null)
+        {
+            equipSkill(backpack[0]);
+            backpack.Remove(backpack[0]);
+        }
+    }
 }
 
 //=======utility class=================//

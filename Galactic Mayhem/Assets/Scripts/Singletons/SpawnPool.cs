@@ -10,15 +10,25 @@ public class SpawnPool : MonoBehaviour {
 	private GameObject spawnContainer;
 	public BoxColSetSectorSize sectorClass;
 
-	public void executeSpawn(GameObject spawn){
-		spawn.SetActive (false);
-		spawn.GetComponent<SpawnedWeapon> ().touchEvent.SetActive (false);
-		Invoke ("reinitSpawn", spawn.GetComponent<Interactable> ().coolDown);
+    public void executeSpawn(GameObject spawn)
+    {
+        spawn.GetComponent<SpawnedWeapon>().touchEvent.SetActive(false);
+        spawn.SetActive(false);
+        Debug.Log(spawn.GetComponent<Interactable>().coolDown);
+        //Invoke ("reinitSpawn", spawn.GetComponent<Interactable> ().coolDown);
+        StartCoroutine(reinitSpawn(spawn, spawn.GetComponent<Interactable>().coolDown));
+    
 	}
-	public void reinitSpawn(GameObject spawn){
-		spawn.SetActive (true);
-		spawn.GetComponent<SpawnedWeapon> ().touchEvent.SetActive (true);
-	}
+    IEnumerator reinitSpawn(GameObject spawn, float coolDown) {
+        yield return new WaitForSeconds(coolDown);
+        spawn.SetActive(true);
+        placeSpawn(spawn);
+        spawn.GetComponent<SpawnedWeapon>().touchEvent.SetActive(true);
+    }
+	//public void reinitSpawn(GameObject spawn){
+	//	spawn.SetActive (true);
+	//	spawn.GetComponent<SpawnedWeapon> ().touchEvent.SetActive (true);
+	//}
 	protected void placeSpawn(GameObject spawn){
 	//places the spawn in a location near to the player
 
@@ -54,8 +64,8 @@ public class SpawnPool : MonoBehaviour {
 
 		foreach (GameObject obj in objs) {
 			if (obj.GetComponent<Interactable> ().skillName.Equals (skillName)) {
-				Debug.Log ("objfound");
 				objs.Remove (obj);
+                Destroy(obj.GetComponent<SpawnedWeapon>().touchEvent);
 				Destroy (obj);
 				break;
 			}
@@ -67,15 +77,15 @@ public class SpawnPool : MonoBehaviour {
 	}
 	public void spawnChecker(GameObject obj){
 		//checks if one thing was not placed right
-		Debug.Log("reached");
+		//Debug.Log("reached");
 		foreach (GameObject obj1 in objs) {
 			if(obj == obj1 || obj1.activeSelf == false){
-				Debug.Log("these two are the same! or something is inactive");
+			//	Debug.Log("these two are the same! or something is inactive");
 			}
 			else if(Vector2.Distance(obj.transform.position, obj1.transform.position) <3){
 				placeSpawn(obj);
 				spawnChecker(obj);
-				Debug.Log("overlapping spawns! :O");
+				//Debug.Log("overlapping spawns! :O");
 			}
 		}
 	}
