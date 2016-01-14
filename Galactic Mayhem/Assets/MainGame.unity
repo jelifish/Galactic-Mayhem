@@ -1940,6 +1940,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeSkills: []
+  materialLimit: 1
+  controlLimit: 2
+  guardLimit: 2
+  assaultLimit: 2
+  auraLimit: 1
+--- !u!114 &1642921050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1642921041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e46c8c598193e64a9abb1d46f5be8c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objs: []
+  sectorClass: {fileID: 0}
 --- !u!1 &1702976404
 GameObject:
   m_ObjectHideFlags: 0

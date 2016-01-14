@@ -49,7 +49,7 @@ public class Skill001Attr : Interactable{
 		OnDestroy ();
 		this.GetComponent<MeshRenderer> ().enabled = false;
 		yield return new WaitForSeconds (5f);
-		Destroy (this.gameObject);
+		//Destroy (this.gameObject);
 
 	}
 }
@@ -101,7 +101,7 @@ public class Skill002Attr : Interactable{
 		OnDestroy (); //call at the very end to resume the time
 		this.GetComponent<MeshRenderer> ().enabled = false;
 		yield return new WaitForSeconds (5f);
-		Destroy (this.gameObject);
+		//Destroy (this.gameObject);
 	}
 }
 
@@ -167,7 +167,7 @@ public class Skill003Attr : Interactable{
 		}
 		this.GetComponent<MeshRenderer> ().enabled = false;
 		yield return new WaitForSeconds (5f);
-		Destroy (this.gameObject);
+		//Destroy (this.gameObject);
 	}
 }
 //=== 004 Cluster Bolt =============================
@@ -243,7 +243,7 @@ public class Skill004Attr : Interactable{
 		OnDestroy (); //call at the very end to resume the time
 		this.GetComponent<MeshRenderer> ().enabled = false;
 		yield return new WaitForSeconds (5f);
-		Destroy (this.gameObject);
+		//Destroy (this.gameObject);
 	}
 }
 //=== 011 Accelerator =============================
@@ -309,7 +309,7 @@ public class Skill011Attr : Interactable{
 		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
 		yield return new WaitForSeconds (0.1f);
 
-		Destroy (this.gameObject);
+		//Destroy (this.gameObject);
 		yield return new WaitForSeconds (0.1f);
 //		
 	}
@@ -383,7 +383,7 @@ public class Skill012Attr : Interactable{
 				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 100);
 			}
 		}
-		Destroy (this.gameObject);
+		//Destroy (this.gameObject);
 		yield return new WaitForSeconds (0.1f);
 		
 	}
@@ -464,7 +464,7 @@ public class Skill013Attr : Interactable{
 		Skillf.f.ExplosiveForceRandom50 (bullets, targetPosition, Skillf.highForce*7);
 		
 		yield return new WaitForSeconds (0.5f);
-		Destroy (this.gameObject);
+		//Destroy (this.gameObject);
 		yield return new WaitForSeconds (0.1f);
 		//		
 	}
@@ -575,7 +575,7 @@ public class Skill031Attr : Interactable{
 		OnDestroy ();
 		this.GetComponent<MeshRenderer> ().enabled = false;
 		yield return new WaitForSeconds (5f);
-		Destroy (this.gameObject);
+		//Destroy (this.gameObject);
 		
 	}
 	IEnumerator createMissiles(){
@@ -667,17 +667,18 @@ public class Skill : MonoBehaviour{
 		yield return new WaitForSeconds (Random.Range(0f,2f));
 		while(true){
 			yield return new WaitForSeconds (coolDown);
-			spawnInteractable();
+			//spawnInteractable();
 			
 		}
 	}
 	
-	protected GameObject spawn;//do not mess with this
+	public GameObject spawn;//do not mess with this
 	public bool isSpecialOn = false;
 	
-	public void spawnInteractable(){ //spawner instatiation at the correct random coords
+	public void initInteractable(){ //spawner instatiation at the correct random coords
 		genXY ();
 		spawn = (GameObject)Instantiate (interactable, new Vector3 (x, y, 0f), Quaternion.identity);
+
 		if (isSpecialOn) {
 			attachSpecialAttributes ();
 			isSpecialOn = false;
@@ -685,10 +686,14 @@ public class Skill : MonoBehaviour{
 			attachAttributes ();
 		}
 
+
+		//initialize all known variables
 		spawn.GetComponent<Interactable> ().skillType = this.skillType;
 		spawn.GetComponent<Interactable> ().coolDown = this.coolDown;
+		spawn.GetComponent<Interactable> ().skillName = this.skillName;
+		spawn.GetComponent<Interactable> ().player = this.player;
+		Debug.Log (spawn.GetComponent<Interactable> ().skillType);
 	}
-
 	private float x,y;
 	private void genXY(){
 		float playerX = player.transform.position.x;
@@ -698,6 +703,16 @@ public class Skill : MonoBehaviour{
 		if (x < playerX + 3 && x > playerX - 3 && y < playerY + 3 && y > playerY - 3) {
 			genXY ();
 		}
+	}
+
+	void OnEnable(){
+		//initInteractable();
+		SpawnPool.pool.addSpawn (this.spawn);
+
+
+	}
+	void OnDisable(){
+		SpawnPool.pool.removeSpawn (skillName);
 	}
 
 	void Awake () {
@@ -712,7 +727,7 @@ public class Skill : MonoBehaviour{
 		projectile = Resources.Load ("Projectiles/Bolt")as GameObject;
 		
 		init ();//anything else we need to do before creating spawns 
-		StartCoroutine (interactableCreator ());//creates spawns at intervals
+		//StartCoroutine (interactableCreator ());//creates spawns at intervals
 		if (coolDown == 999f) {
 			if (this.skillType == SkillType.MaterialType) {
 				coolDown = 3f;
@@ -726,7 +741,8 @@ public class Skill : MonoBehaviour{
 				coolDown = 15f;
 			}
 		}
-		Debug.Log(coolDown);
+
+		initInteractable();
 	}
 }
 //=== Skill Database =============================
@@ -734,6 +750,16 @@ public class Skill : MonoBehaviour{
 public class SkillSystem: MonoBehaviour {
 
 	public GameObject[] activeSkills;
+	public Queue<GameObject> materialQueue = new Queue<GameObject> ();
+	public Queue<GameObject> controlQueue = new Queue<GameObject> ();
+	public Queue<GameObject> guardQueue = new Queue<GameObject> ();
+	public Queue<GameObject> assaultQueue = new Queue<GameObject> ();
+	public Queue<GameObject> auraQueue = new Queue<GameObject> ();
+	public int materialLimit = 1;
+	public int controlLimit = 2;
+	public int guardLimit = 2;
+	public int assaultLimit = 2;
+	public int auraLimit = 1;
 
 //	public void UpdateSkillSystem(MonoBehaviour parentMonoBehaviour) {
 ////		skills.ForEach(skill => skill.Update(parentMonoBehaviour));
@@ -741,22 +767,29 @@ public class SkillSystem: MonoBehaviour {
 	//logic for skill equipment. used for equipping skills and accessing skills in the storage.
 	public bool equipSkill(GameObject obj){
 		if (obj.GetComponent<Skill>().skillType == SkillType.MaterialType) {
-			if(transform.FindChild("Material").childCount >=1){
-				Transform[] ts = transform.FindChild("Material").GetComponentsInChildren<Transform>();
-				foreach(Transform t in ts)
-				{
-					if(t.GetComponent<Skill>() != null)
-					{
-						t.parent = transform.FindChild("Inactive");
-					}
-				}
+			Debug.Log (materialQueue.Count + " " + materialLimit);
+			if(materialQueue.Count >=materialLimit){
+				//Transform[] ts = transform.FindChild("Material").GetComponentsInChildren<Transform>();
+				GameObject temp = materialQueue.Dequeue ();
+				temp.SetActive (false);
+				temp.transform.parent = transform.FindChild("Inactive");
+
+				Debug.Log ("skill stored into backpack");
+//				foreach(Transform t in ts)
+//				{
+//					if(t.GetComponent<Skill>() != null)
+//					{
+//						t.parent = transform.FindChild("Inactive");
+//					}
+//				}
 
 			}
+			materialQueue.Enqueue (obj);
 			obj.transform.parent = transform.FindChild("Material");
 			return true;
 		}
 		if (obj.GetComponent<Skill>().skillType == SkillType.ControlType) {
-			if(transform.FindChild("Control").childCount >=1){
+			if(transform.FindChild("Control").childCount >=controlLimit){
 				Transform[] ts = transform.FindChild("Control").GetComponentsInChildren<Transform>();
 				foreach(Transform t in ts)
 				{
@@ -847,14 +880,20 @@ public class SkillSystem: MonoBehaviour {
 //
 //		Debug.Log (equipSkill (blasterSkill));
 
-		GameObject materialSkill = new GameObject ("Pls Work");
-		materialSkill.AddComponent<Skill004> ();
+		GameObject materialSkill1 = new GameObject ("conebolts");
+		materialSkill1.AddComponent<Skill004> ();
+		GameObject materialSkill2 = new GameObject ("i forgot what this was");
+		materialSkill2.AddComponent<Skill001> ();
 		//material.GetComponentInChildren<Skill> ().isSpecialOn = true;
 
-		equipSkill (materialSkill);
+		equipSkill (materialSkill1);
+
+
+		equipSkill (materialSkill2);
 
 		GameObject controlSkill = new GameObject ("Black Hole");
 		controlSkill.AddComponent<Skill013> ();
+		equipSkill (controlSkill);
 		equipSkill (controlSkill);
 
 		GameObject assaultSkill = new GameObject ("Missile");
@@ -878,6 +917,10 @@ public class SkillSystem: MonoBehaviour {
 
 		//skills.Add (new Skill001 ().init ());
 		//		Debug.Log (skills [0].skillName); 
+	}
+
+	public void swapSkills(){
+	
 	}
 }
 

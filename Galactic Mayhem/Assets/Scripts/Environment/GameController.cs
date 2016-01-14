@@ -234,9 +234,9 @@ public class GameController : MonoBehaviour {
 		foreach (GameObject junk in GameObject.FindGameObjectsWithTag("Strike")) {
 			Destroy(junk);
 		}
-		foreach (GameObject junk in GameObject.FindGameObjectsWithTag("Interactible")) {
-			Destroy(junk);
-		}
+//		foreach (GameObject junk in GameObject.FindGameObjectsWithTag("Interactible")) {
+//			Destroy(junk);
+//		}
 		player.transform.position = new Vector3 (0, 0, 0);
 		moving = false;
 		UpdateHUD ();

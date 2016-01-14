@@ -20,15 +20,15 @@ public class SpawnedWeapon : RotateTowards {
 		//Destroy (gameObject, 5);
 		//Debug.Log ("hit");
 
-		StartCoroutine (selfDestruct ());
+		//StartCoroutine (selfDestruct ());
 	}
 	public bool destroyThis = true;
 	IEnumerator selfDestruct(){
 		yield return new WaitForSeconds (selfDestructTimer);
 
 		if (destroyThis) {
-			Destroy (gameObject);
-			Destroy (towardsObject);
+		//	Destroy (gameObject);
+			//Destroy (towardsObject);
 		}
 	}
 

@@ -3,13 +3,14 @@ using System.Collections;
 
 public class Interactable : MonoBehaviour {
 	//these variables are also passed down to the spawn
-	public SkillType skillType;
-	public float coolDown;
+	public SkillType skillType = SkillType.MaterialType;
+	public float coolDown = 999f;
+	public string skillName = "Name";
 
 	public GameObject projectile;
 	public float minCD = 5f, maxCD = 7f;
 	public PlayerController player;
-	public float initialSpeed;
+	public float initialSpeed = 1f;
 	protected bool isTimeSlowed = false;
 	public Vector3 targetPosition = Vector3.zero;
 	public float timeMulti = 2f;
