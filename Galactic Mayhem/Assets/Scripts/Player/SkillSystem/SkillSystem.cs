@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 //public enum Activation { Button, Action, Automatic };
-public enum SkillType { MaterialType, ControlType, GuardType, AssaultType, AuraType };
+public enum SkillType { MaterialType, ControlType, GuardType, AdvanceType, AuraType };
 //public enum SkillLevel { Lv1, Lv2, Lv3};
 
 //=== 001 Compressed Bolts =============================
@@ -30,7 +30,6 @@ public class Skill001Attr : Interactable{
 
 	
 	void Start(){
-		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(152/255.0F,203/255.0F,74/255.0F,255f));
 	}
 
 	IEnumerator fire()
@@ -54,7 +53,6 @@ public class Skill001Attr : Interactable{
 
 	}
 }
-
 //=== 002 Cone Bolts =============================
 public class Skill002 : Skill {
 	public override void init(){
@@ -72,7 +70,6 @@ public class Skill002 : Skill {
 }
 public class Skill002Attr : Interactable{
 	void Start(){
-		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(152/255.0F,203/255.0F,74/255.0F,255f));
 	}
 	public override void mouseUpFire(){
 		timeResume ();
@@ -104,7 +101,6 @@ public class Skill002Attr : Interactable{
 		//Destroy (this.gameObject);
 	}
 }
-
 //=== 003 Machine Gun =============================
 public class Skill003 : Skill {
 	public override void init(){
@@ -255,11 +251,8 @@ public class Skill011 : Skill {
 	}
 	public override void attachAttributes(){
 		spawn.AddComponent<Skill011Attr> ();
-		spawn.GetComponent<Skill011Attr> ().projectile = this.projectile;
 	}
 	public override void attachSpecialAttributes(){
-		//spawn.AddComponent<AcceleratorInteractable> ();
-		//spawn.GetComponent<AcceleratorInteractable> ().projectile = this.projectile;
 	}
 }
 public class Skill011Attr : Interactable{
@@ -308,11 +301,9 @@ public class Skill011Attr : Interactable{
 		yield return new WaitForSeconds (0.1f); 
 		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
 		yield return new WaitForSeconds (0.1f);
-
-		//Destroy (this.gameObject);
-		yield return new WaitForSeconds (0.1f);
-//		
-	}
+        
+        OnDestroy();
+    }
 }
 //=== 012 Collapse =============================
 public class Skill012 : Skill {
@@ -324,11 +315,8 @@ public class Skill012 : Skill {
 	}
 	public override void attachAttributes(){
 		spawn.AddComponent<Skill012Attr> ();
-		spawn.GetComponent<Skill012Attr> ().projectile = this.projectile;
 	}
 	public override void attachSpecialAttributes(){
-		//spawn.AddComponent<AcceleratorInteractable> ();
-		//spawn.GetComponent<AcceleratorInteractable> ().projectile = this.projectile;
 	}
 }
 public class Skill012Attr : Interactable{
@@ -340,56 +328,39 @@ public class Skill012Attr : Interactable{
     }
 
     public override void mouseUpFire(){
-	}
+        StartCoroutine(Blast());
+
+    }
 	public override void mouseDownFire(){
-		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
+		Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 5);
 		foreach (Collider col in hitColliders) {
 			if(col.tag == "Bullet"){
-				col.GetComponentInChildren<RotateTowards>().towardsObject = this.gameObject;
 				bullets.Add(col.gameObject);
 			}
 		}
 
-		StartCoroutine (Blast ());
+		//StartCoroutine (Blast ());
 	}
 
 	
 	void Start(){
-		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(247/255.0F,216/255.0F,66/255.0F,255f));
+		
 	}
 	
 	IEnumerator Blast()
 	{
 		yield return new WaitForSeconds (.03f);
-		foreach(GameObject bolt in bullets){
-			if(bolt !=null&&Vector3.Distance(bolt.transform.position, this.transform.position) < 10){
-				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 25);
-				//bolt.GetComponent<Rigidbody>().AddForce(bolt.transform.right * 100);
-				//Debug.Log(bolt.GetComponentInChildren<RotateTowards>().angle);
-			}
-		}
-		yield return new WaitForSeconds (0.1f);
-		foreach(GameObject bolt in bullets){
-			if(bolt !=null&&Vector3.Distance(bolt.transform.position, this.transform.position) < 10){
-				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 50);
-			}
-		}
-		yield return new WaitForSeconds (0.1f);
-		foreach(GameObject bolt in bullets){
-			if(bolt !=null&&Vector3.Distance(bolt.transform.position, this.transform.position) < 10){
-				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 75);
-			}
-		}
-		yield return new WaitForSeconds (0.1f);
-		foreach(GameObject bolt in bullets){
-			if(bolt !=null&&Vector3.Distance(bolt.transform.position, this.transform.position) < 10){
-				bolt.GetComponent<Rigidbody>().AddForce(bolt.GetComponentInChildren<RotateTowards>().targetVector.normalized * 100);
-			}
-		}
-		//Destroy (this.gameObject);
-		yield return new WaitForSeconds (0.1f);
-		
-	}
+        Skillf.f.ForceTowardsPoint(bullets, targetPosition, Skillf.lowForce);
+        yield return new WaitForSeconds (0.1f);
+        Skillf.f.ForceTowardsPoint(bullets, targetPosition, Skillf.lowForce);
+        yield return new WaitForSeconds (0.1f);
+        Skillf.f.ForceTowardsPoint(bullets, targetPosition, Skillf.medForce);
+        yield return new WaitForSeconds (0.1f);
+        Skillf.f.ForceTowardsPoint(bullets, targetPosition, Skillf.highForce);
+        //Destroy (this.gameObject);
+        yield return new WaitForSeconds (0.1f);
+        OnDestroy();
+    }
 }
 //=== 013 Black Hole Explosion =============================
 public class Skill013 : Skill {
@@ -418,10 +389,6 @@ public class Skill013Attr : Interactable{
     public override void mouseUpFire(){
 		Timef.f.SpeedTime (2f);
 		Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 20); 
-		//transform.position is the spawn's position
-		//targetPosition is the one we need for black hole
-
-		//int i = 0;
 		foreach (Collider col in hitColliders) {
 			if(col.tag == "Bullet"){
 				bullets.Add(col.gameObject);
@@ -432,7 +399,6 @@ public class Skill013Attr : Interactable{
 	
 	public override void mouseDownFire(){
 		Timef.f.SlowTime (2f);
-		//Time.fixedDeltaTime = 0.02F * Time.timeScale;
 		
 	}
 	
@@ -443,7 +409,6 @@ public class Skill013Attr : Interactable{
 	
 	IEnumerator Blast()
 	{
-		//yield return new WaitForSeconds (0.2f);
 		
 		Skillf.f.ForceTowardsPoint (bullets,targetPosition,Skillf.highForce);
 		yield return new WaitForSeconds (0.5f); 
@@ -480,7 +445,7 @@ public class Skill013Attr : Interactable{
 public class Skill031 : Skill {
 	public override void init(){
 		skillName = "Missile";
-		skillType = SkillType.AssaultType;
+		skillType = SkillType.AdvanceType;
 		skillNum = 31;
 	}
 	public override void attachAttributes(){
@@ -506,12 +471,10 @@ public class Skill031Attr : Interactable{
 	
 
 	void OnEnable(){
-
         missiles = new List<GameObject>();
     }
     void Start() {
         this.projectile = Resources.Load("Projectiles/Missile") as GameObject;
-        gameObject.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(250 / 255.0F, 130 / 255.0F, 40 / 255.0F, 255f));
     }
 
 
@@ -703,7 +666,31 @@ public class Skill : MonoBehaviour{
 		spawn.GetComponent<Interactable> ().coolDown = this.coolDown;
 		spawn.GetComponent<Interactable> ().skillName = this.skillName;
 		spawn.GetComponent<Interactable> ().player = this.player;
-		Debug.Log (spawn.GetComponent<Interactable> ().skillType);
+
+        if (this.skillType == SkillType.MaterialType)
+        {
+            spawn.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(152 / 255.0F, 203 / 255.0F, 74 / 255.0F, 255f));
+        }
+        else if (this.skillType == SkillType.ControlType)
+        {
+            spawn.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(247 / 255.0F, 216 / 255.0F, 66 / 255.0F, 255f));
+
+        }
+        else if (this.skillType == SkillType.GuardType)
+        {
+
+        }
+        else if (this.skillType == SkillType.AdvanceType)
+        {
+            spawn.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(250 / 255.0F, 130 / 255.0F, 40 / 255.0F, 255f));
+        }
+        else if (this.skillType == SkillType.AuraType)
+        {
+        }
+
+
+
+        Debug.Log (spawn.GetComponent<Interactable> ().skillType);
 	}
 	private float x,y;
 	private void genXY(){
@@ -718,6 +705,7 @@ public class Skill : MonoBehaviour{
 
 	void OnEnable(){
 		initInteractable();
+        
 		SpawnPool.pool.addSpawn (this.spawn);
 
 
@@ -743,10 +731,11 @@ public class Skill : MonoBehaviour{
 			if (this.skillType == SkillType.MaterialType) {
 				coolDown = 3f;
 			} else if (this.skillType == SkillType.ControlType) {
-				coolDown = 7f;
+
+                coolDown = 7f;
 			} else if (this.skillType == SkillType.GuardType) {
 				coolDown = 7f;
-			} else if (this.skillType == SkillType.AssaultType) {
+			} else if (this.skillType == SkillType.AdvanceType) {
 				coolDown = 10f;
 			} else if (this.skillType == SkillType.AuraType) {
 				coolDown = 15f;
@@ -767,104 +756,95 @@ public class SkillSystem: MonoBehaviour {
 	public Queue<GameObject> materialQueue = new Queue<GameObject> ();
 	public Queue<GameObject> controlQueue = new Queue<GameObject> ();
 	public Queue<GameObject> guardQueue = new Queue<GameObject> ();
-	public Queue<GameObject> assaultQueue = new Queue<GameObject> ();
+	public Queue<GameObject> advanceQueue = new Queue<GameObject> ();
 	public Queue<GameObject> auraQueue = new Queue<GameObject> ();
     public List<GameObject> backpack = new List<GameObject>();
-	public int materialLimit = 1;
+	public int materialLimit = 3;
 	public int controlLimit = 2;
 	public int guardLimit = 2;
-	public int assaultLimit = 2;
-	public int auraLimit = 1;
+	public int advanceLimit = 2;
+	public int auraLimit = 2;
 
 	//logic for skill equipment. used for equipping skills and accessing skills in the storage.
-	public bool equipSkill(GameObject obj){
+	public void equipSkill(GameObject obj){
 		if (obj.GetComponent<Skill>().skillType == SkillType.MaterialType) {
-			//Debug.Log (materialQueue.Count + " " + materialLimit);
 			if(materialQueue.Count >=materialLimit){
-				//Transform[] ts = transform.FindChild("Material").GetComponentsInChildren<Transform>();
+
 				GameObject temp = materialQueue.Dequeue ();
                 temp.transform.parent = transform.FindChild("Inactive");
                 backpack.Add(temp);
-                Debug.Log("skill stored into backpack");
-
-                //temp.SetActive (false);
-                //SpawnPool.pool.removeSpawn(temp.GetComponent<Interactable>().name);
 
             }
             materialQueue.Enqueue (obj);
 			obj.transform.parent = transform.FindChild("Material");
-			return true;
+
 		}
-		if (obj.GetComponent<Skill>().skillType == SkillType.ControlType) {
-			if(transform.FindChild("Control").childCount >=controlLimit){
-				Transform[] ts = transform.FindChild("Control").GetComponentsInChildren<Transform>();
-				foreach(Transform t in ts)
-				{
-					if(t.GetComponent<Skill>() != null)
-					{
-						t.parent = transform.FindChild("Inactive");
-					}
-				}
-				
-			}
-			obj.transform.parent = transform.FindChild("Control");
-			return true;
-		}
-		if (obj.GetComponent<Skill>().skillType == SkillType.GuardType) {
-			if(transform.FindChild("Guard").childCount >=1){
-				Transform[] ts = transform.FindChild("Guard").GetComponentsInChildren<Transform>();
-				foreach(Transform t in ts)
-				{
-					if(t.GetComponent<Skill>() != null)
-					{
-						t.parent = transform.FindChild("Inactive");
-					}
-				}
-				
-			}
-			obj.transform.parent = transform.FindChild("Guard");
-			return true;
-		}
-		if (obj.GetComponent<Skill>().skillType == SkillType.AssaultType) {
-			if(transform.FindChild("Assault").childCount >=1){
-				Transform[] ts = transform.FindChild("Assault").GetComponentsInChildren<Transform>();
-				foreach(Transform t in ts)
-				{
-					if(t.GetComponent<Skill>() != null)
-					{
-						t.parent = transform.FindChild("Inactive");
-					}
-				}
-				
-			}
-			obj.transform.parent = transform.FindChild("Assault");
-			return true;
-		}
-		if (obj.GetComponent<Skill>().skillType == SkillType.AuraType) {
-			if(transform.FindChild("Aura").childCount >=1){
-				Transform[] ts = transform.FindChild("Aura").GetComponentsInChildren<Transform>();
-				foreach(Transform t in ts)
-				{
-					if(t.GetComponent<Skill>() != null)
-					{
-						t.parent = transform.FindChild("Inactive");
-					}
-				}
-				
-			}
-			obj.transform.parent = transform.FindChild("Aura");
-			return true;
-		}
-		return false;
+		else if (obj.GetComponent<Skill>().skillType == SkillType.ControlType) {
+
+            if (controlQueue.Count >= controlLimit)
+            {
+
+                GameObject temp = controlQueue.Dequeue();
+                temp.transform.parent = transform.FindChild("Inactive");
+                backpack.Add(temp);
+
+            }
+            controlQueue.Enqueue(obj);
+            obj.transform.parent = transform.FindChild("Control");
+        }
+		else if (obj.GetComponent<Skill>().skillType == SkillType.GuardType) {
+            if (guardQueue.Count >= guardLimit)
+            {
+
+                GameObject temp = guardQueue.Dequeue();
+                temp.transform.parent = transform.FindChild("Inactive");
+                backpack.Add(temp);
+
+            }
+            guardQueue.Enqueue(obj);
+            obj.transform.parent = transform.FindChild("Guard");
+        }
+		else if (obj.GetComponent<Skill>().skillType == SkillType.AdvanceType) {
+            if (advanceQueue.Count >= advanceLimit)
+            {
+
+                GameObject temp = advanceQueue.Dequeue();
+                temp.transform.parent = transform.FindChild("Inactive");
+                backpack.Add(temp);
+
+            }
+            advanceQueue.Enqueue(obj);
+            obj.transform.parent = transform.FindChild("Advance");
+        }
+		else if (obj.GetComponent<Skill>().skillType == SkillType.AuraType) {
+            if (auraQueue.Count >= auraLimit)
+            {
+
+                GameObject temp = auraQueue.Dequeue();
+                temp.transform.parent = transform.FindChild("Inactive");
+                backpack.Add(temp);
+
+            }
+            auraQueue.Enqueue(obj);
+            obj.transform.parent = transform.FindChild("Aura");
+        }
+
 	}
 
-	GameObject material, control, guard, assault, aura, inactive;
+    public GameObject makeSkill(string id) {
+        GameObject skill = new GameObject("conebolts");
+        skill.AddComponent(System.Type.GetType("Skill" + id));
+        skill.name = skill.GetComponent<Skill>().skillName;
+        return skill;
+    }
+
+	GameObject material, control, guard, advance, aura, inactive;
 	public void init(){
 		activeSkills = new GameObject[6];
 		material = new GameObject ("Material");
 		control = new GameObject("Control");
 		guard = new GameObject ("Guard");
-		assault = new GameObject("Assault");
+		advance = new GameObject("Advance");
 		aura = new GameObject("Aura");
 		inactive = new GameObject("Inactive");
 
@@ -874,81 +854,45 @@ public class SkillSystem: MonoBehaviour {
 		activeSkills[1] = control;
 		guard.transform.parent = this.transform;
 		activeSkills[2] = guard;
-		assault.transform.parent = this.transform;
-		activeSkills[3] = assault;
+		advance.transform.parent = this.transform;
+		activeSkills[3] = advance;
 		aura.transform.parent = this.transform;
 		activeSkills[4] = aura;
 		inactive.transform.parent = this.transform;
 		inactive.SetActive (false);
 		activeSkills[5] = inactive;
 
-//		GameObject blasterSkill = new GameObject ("MaterialSkill");
-//		blasterSkill.AddComponent<Skill001> ();
-//
-//		Debug.Log (equipSkill (blasterSkill));
-
-		GameObject materialSkill1 = new GameObject ("conebolts");
-		materialSkill1.AddComponent<Skill004> ();
-        materialSkill1.name = materialSkill1.GetComponent<Skill>().skillName;
-
-        equipSkill(materialSkill1);
-
-        GameObject materialSkill2 = new GameObject ("i forgot what this was");
-		materialSkill2.AddComponent<Skill001> ();
-        materialSkill2.name = materialSkill2.GetComponent<Skill>().skillName;
-		//material.GetComponentInChildren<Skill> ().isSpecialOn = true;
-
-		equipSkill (materialSkill2);
 
 
 
 
+       
+        equipSkill(makeSkill("004"));
 
+		equipSkill (makeSkill("001"));
 
+        equipSkill(makeSkill("012"));
+        equipSkill(makeSkill("011"));
 
-
-        GameObject controlSkill = new GameObject ("Black Hole");
-		controlSkill.AddComponent<Skill013> ();
-		equipSkill (controlSkill);
-		equipSkill (controlSkill);
-
-		GameObject assaultSkill = new GameObject ("Missile");
-		assaultSkill.AddComponent<Skill031> ();
-		equipSkill (assaultSkill);
-        Invoke("addSkills", 5f);
+        equipSkill(makeSkill("031"));
         //Invoke("swapSkills", 10f);
 
-		//blasterSkill.transform.parent = material.transform.parent;
+        //blasterSkill.transform.parent = material.transform.parent;
 
-//		GameObject blasterSkill2 = Instantiate(new GameObject ("MaterialSkill"));;
-//		blasterSkill.AddComponent<Skill001> ();
-		//blasterSkill.transform.parent = material.transform.parent;
+        //		GameObject blasterSkill2 = Instantiate(new GameObject ("MaterialSkill"));;
+        //		blasterSkill.AddComponent<Skill001> ();
+        //blasterSkill.transform.parent = material.transform.parent;
 
-//		equipSkill ((GameObject)Instantiate(blasterSkill2)); 
+        //		equipSkill ((GameObject)Instantiate(blasterSkill2)); 
 
 
 
-		Debug.Log (activeSkills [0].GetComponentInChildren<Skill>().skillName);
+        Debug.Log (activeSkills [0].GetComponentInChildren<Skill>().skillName);
 		//activeSkills [0].AddComponent<Skill001> ();
 
 		//skills.Add (new Skill001 ().init ());
 		//		Debug.Log (skills [0].skillName); 
 	}
-
-	public void addSkills(){
-        GameObject materialSkill = new GameObject("yes");
-        materialSkill.AddComponent<Skill004>();
-        materialSkill.name = materialSkill.GetComponent<Skill>().skillName;
-        equipSkill(materialSkill);
-    }
-    public void swapSkills()
-    {
-        if (backpack[0] != null)
-        {
-            equipSkill(backpack[0]);
-            backpack.Remove(backpack[0]);
-        }
-    }
 }
 
 //=======utility class=================//

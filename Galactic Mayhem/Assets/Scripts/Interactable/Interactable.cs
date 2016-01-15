@@ -16,7 +16,26 @@ public class Interactable : MonoBehaviour {
 	public float timeMulti = 2f;
 	void Awake(){
 		projectile = Resources.Load ("Projectiles/Bolt")as GameObject;
-	}
+        if (this.skillType == SkillType.MaterialType)
+        {
+
+        }
+        else if (this.skillType == SkillType.ControlType)
+        {
+            gameObject.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(247 / 255.0F, 216 / 255.0F, 66 / 255.0F, 255f));
+
+        }
+        else if (this.skillType == SkillType.GuardType)
+        {
+
+        }
+        else if (this.skillType == SkillType.AdvanceType)
+        {
+        }
+        else if (this.skillType == SkillType.AuraType)
+        {
+        }
+    }
 
 	public virtual void timeSlow(){
 		if (!isTimeSlowed) {	
