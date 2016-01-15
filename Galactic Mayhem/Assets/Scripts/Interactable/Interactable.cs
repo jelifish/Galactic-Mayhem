@@ -30,11 +30,12 @@ public class Interactable : MonoBehaviour {
 			isTimeSlowed = false;
 		}
 	}
-	public virtual void OnDestroy() {
-		timeResume ();
+    public virtual void OnDestroy()
+    {
+        timeResume();
         Debug.Log(skillName);
         SpawnPool.pool.executeSpawn(this.gameObject);
-	}
+    }
 	public virtual void mouseUpFire(){
 
 	}

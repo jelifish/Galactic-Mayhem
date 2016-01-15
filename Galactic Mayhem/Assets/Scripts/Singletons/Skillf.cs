@@ -15,14 +15,14 @@ public class Skillf : MonoBehaviour{
 		f = this;
 	}
 	public void AddForce (GameObject obj, float force = 250){
-		obj.GetComponent<Rigidbody>().AddForce((obj.transform.right * force));
+		obj.GetComponent<Rigidbody>().AddForce((obj.transform.right * force *Random.Range(.9f, 1.1f)));
 	}
 
 	public void ExplosiveForce (List<GameObject> objs,Vector3 pos,float force = 250,float radius = 0)
 	{
 		foreach(GameObject obj in objs){
 			if(obj !=null){
-				obj.GetComponent<Rigidbody>().AddExplosionForce(force, pos, radius);
+				obj.GetComponent<Rigidbody>().AddExplosionForce(force * Random.Range(.9f, 1.1f), pos, radius);
 			}
 		}
 	}
@@ -30,14 +30,14 @@ public class Skillf : MonoBehaviour{
 	{
 		foreach(GameObject obj in objs){
 			if(obj !=null){
-				obj.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(force*.5f, force), pos, radius);
+				obj.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(force*0.5f, force), pos, radius);
 			}
 		}
 	}
 	public void ExplosiveForce (GameObject obj,Vector3 pos,float force = 250,float radius = 0)
 	{
 			if(obj !=null){
-				obj.GetComponent<Rigidbody>().AddExplosionForce(force, pos, radius);
+				obj.GetComponent<Rigidbody>().AddExplosionForce(force * Random.Range(.9f, 1.1f), pos, radius);
 			}
 
 	}

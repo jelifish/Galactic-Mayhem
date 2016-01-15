@@ -39,8 +39,10 @@ public class Skill001Attr : Interactable{
 		initialSpeed = 5;
 		while (true) {
 			for(int i=0;i<35;i++){
-				GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
-				Skillf.f.AddForce(temp, Skillf.lowForce);
+                GameObject temp = ObjectPool.pool.GetPooledObject();
+                temp.transform.position = this.transform.position;
+                temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f));
+                Skillf.f.AddForce(temp, Skillf.lowForce);
 				yield return new WaitForSeconds (.01f);
 			}
 			break;
@@ -91,7 +93,7 @@ public class Skill002Attr : Interactable{
 				GameObject temp = ObjectPool.pool.GetPooledObject();
 				temp.transform.position = this.transform.position;
 				temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f));
-				Skillf.f.AddForce(temp, Skillf.highForce*Random.Range(.9f, 1.1f));
+				Skillf.f.AddForce(temp, Skillf.highForce);
 				yield return new WaitForSeconds (.03f);
 			}
 			break;
@@ -217,7 +219,7 @@ public class Skill004Attr : Interactable{
 				bullets.Add(temp);
 				//Skillf.f.AddForce(temp, Skillf.highForce*Random.Range(.9f, 1.1f)*2);
 				if(mouseUp){
-					break;
+                    break;
 				}
 				yield return new WaitForSeconds (.05f);
 
@@ -228,7 +230,8 @@ public class Skill004Attr : Interactable{
 		}
 		while (true) {
 			if(mouseUp){
-				Skillf.f.ForceTowardsDirection(bullets,this.transform.position,targetPosition, Skillf.highForce*Random.Range(.9f, 1.1f)*2);
+                mouseUp = false;
+                Skillf.f.ForceTowardsDirection(bullets,this.transform.position,targetPosition, Skillf.highForce*Random.Range(.9f, 1.1f)*2);
 				break;
 			}
 			yield return new WaitForSeconds (.03f);
@@ -285,8 +288,10 @@ public class Skill011Attr : Interactable{
 		//Time.fixedDeltaTime = 0.02F * Time.timeScale;
 
 	}
-	
 
+    void OnEnable() {
+        bullets = new List<GameObject>();
+    }
 	void Start(){
 		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(247/255.0F,216/255.0F,66/255.0F,255f));
 	}
@@ -329,8 +334,12 @@ public class Skill012 : Skill {
 public class Skill012Attr : Interactable{
 	
 	public List<GameObject> bullets = new List<GameObject>();
-	
-	public override void mouseUpFire(){
+    void OnEnable()
+    {
+        bullets = new List<GameObject>();
+    }
+
+    public override void mouseUpFire(){
 	}
 	public override void mouseDownFire(){
 		Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
@@ -400,9 +409,13 @@ public class Skill013 : Skill {
 public class Skill013Attr : Interactable{
 	
 	public List<GameObject> bullets = new List<GameObject>();
-	
-	
-	public override void mouseUpFire(){
+    void OnEnable()
+    {
+        bullets = new List<GameObject>();
+    }
+
+
+    public override void mouseUpFire(){
 		Timef.f.SpeedTime (2f);
 		Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 20); 
 		//transform.position is the spawn's position
@@ -493,11 +506,13 @@ public class Skill031Attr : Interactable{
 	
 
 	void OnEnable(){
-		this.projectile = Resources.Load ("Projectiles/Missile")as GameObject;
-		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(250/255.0F,130/255.0F,40/255.0F,255f));
+
         missiles = new List<GameObject>();
     }
-
+    void Start() {
+        this.projectile = Resources.Load("Projectiles/Missile") as GameObject;
+        gameObject.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(250 / 255.0F, 130 / 255.0F, 40 / 255.0F, 255f));
+    }
 
 
 	IEnumerator fire()
@@ -526,7 +541,7 @@ public class Skill031Attr : Interactable{
 		yield return new WaitForSeconds (.01f);
 		
 		while (true) {
-			for(int i=0;i<200;i++){
+			for(int i=0;i<700;i++){
 				foreach(GameObject missile in missiles)
 				{
 					//GameObject bolty= (GameObject)Instantiate (bolt, new Vector3(missile.transform.position.x+Random.insideUnitCircle.x, missile.transform.position.y+Random.insideUnitCircle.y,0), this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
@@ -745,7 +760,10 @@ public class Skill : MonoBehaviour{
 
 public class SkillSystem: MonoBehaviour {
 
-	public GameObject[] activeSkills;
+    public static SkillSystem f = null;
+
+
+    public GameObject[] activeSkills;
 	public Queue<GameObject> materialQueue = new Queue<GameObject> ();
 	public Queue<GameObject> controlQueue = new Queue<GameObject> ();
 	public Queue<GameObject> guardQueue = new Queue<GameObject> ();
@@ -872,17 +890,24 @@ public class SkillSystem: MonoBehaviour {
 		GameObject materialSkill1 = new GameObject ("conebolts");
 		materialSkill1.AddComponent<Skill004> ();
         materialSkill1.name = materialSkill1.GetComponent<Skill>().skillName;
+
+        equipSkill(materialSkill1);
+
         GameObject materialSkill2 = new GameObject ("i forgot what this was");
 		materialSkill2.AddComponent<Skill001> ();
         materialSkill2.name = materialSkill2.GetComponent<Skill>().skillName;
 		//material.GetComponentInChildren<Skill> ().isSpecialOn = true;
 
-		equipSkill (materialSkill1);
-
-
 		equipSkill (materialSkill2);
 
-		GameObject controlSkill = new GameObject ("Black Hole");
+
+
+
+
+
+
+
+        GameObject controlSkill = new GameObject ("Black Hole");
 		controlSkill.AddComponent<Skill013> ();
 		equipSkill (controlSkill);
 		equipSkill (controlSkill);
@@ -890,7 +915,7 @@ public class SkillSystem: MonoBehaviour {
 		GameObject assaultSkill = new GameObject ("Missile");
 		assaultSkill.AddComponent<Skill031> ();
 		equipSkill (assaultSkill);
-        //Invoke("addSkills", 5f);
+        Invoke("addSkills", 5f);
         //Invoke("swapSkills", 10f);
 
 		//blasterSkill.transform.parent = material.transform.parent;
@@ -911,9 +936,10 @@ public class SkillSystem: MonoBehaviour {
 	}
 
 	public void addSkills(){
-        GameObject materialSkill1 = new GameObject("third thing");
-        materialSkill1.AddComponent<Skill003>();
-        equipSkill(materialSkill1);
+        GameObject materialSkill = new GameObject("yes");
+        materialSkill.AddComponent<Skill004>();
+        materialSkill.name = materialSkill.GetComponent<Skill>().skillName;
+        equipSkill(materialSkill);
     }
     public void swapSkills()
     {

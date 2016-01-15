@@ -79,7 +79,7 @@ public class ObjectPool : MonoBehaviour {
 		temp.GetComponent<ProjectileCollision> ().hull = bulletHull;
 		temp.GetComponent<ProjectileCollision> ().killed = false;
 		temp.GetComponent<ProjectileCollision> ().SetSectorSize (sectorClass.getTotalSectorSize());
-		temp.transform.localScale = new Vector3(.2f, .2f, .2f);
+		temp.transform.localScale = new Vector3(.4f, .4f,.4f);
 
 		//.1f = normal 
 		temp.SetActive(true);
