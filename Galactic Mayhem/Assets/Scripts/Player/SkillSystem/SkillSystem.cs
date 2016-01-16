@@ -6,12 +6,13 @@ using System.Collections.Generic;
 public enum SkillType { MaterialType, ControlType, BarrierType, BarrageType, AuraType };
 //public enum SkillLevel { Lv1, Lv2, Lv3};
 
-//=== 001 Compressed Bolts =============================
+//=== 001 Compressed Energy =============================
 public class Skill001 : Skill
 {
     public override void init()
     {
-        skillName = "Compressed Bolts";
+        skillName = "Compressed Energy";
+        skillDesc = "Fires a tight ball of stars. When nudged the right way can be very damaging.";
         skillType = SkillType.MaterialType;
         skillNum = 1;
     }
@@ -61,12 +62,14 @@ public class Skill001Attr : Interactable
 
     }
 }
-//=== 002 Cone Bolts =============================
+//=== 002 Conical Spurt=============================
 public class Skill002 : Skill
 {
     public override void init()
     {
-        skillName = "Cone Bolts";
+        skillName = "Conical Spurt";
+        skillDesc = "Blast your enemies with your spurt. Just kidding. I'm being conical.";
+
         skillType = SkillType.MaterialType;
         skillNum = 2;
     }
@@ -125,6 +128,7 @@ public class Skill003 : Skill
     public override void init()
     {
         skillName = "Machine Gun";
+        skillDesc = "A fast shooting stream of deadly stars will overwhelm your foes.";
         skillType = SkillType.MaterialType;
         skillNum = 3;
     }
@@ -202,7 +206,6 @@ public class Skill004Attr : Interactable
     void Start()
     {
     }
-    public bool mouseUp = false;
     public override void mouseUpFire()
     {
         timeResume();
@@ -311,7 +314,7 @@ public class Skill005Attr : Interactable
                 yield return new WaitForSeconds(1f);
                 GameObject temp = ObjectPool.pool.GetPooledObject();
                 temp.transform.position = spawnPosition;
-                Vector3 relativePos = targetPosition - spawnPosition;
+                //Vector3 relativePos = targetPosition - spawnPosition;
                 temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, 0.0f);
                 //temp.GetComponent<SphereCollider>().radius *= 2;
                 temp.transform.localScale = temp.transform.localScale * 1.5f;
@@ -326,6 +329,74 @@ public class Skill005Attr : Interactable
 
     }
 }
+//=== 006 Triple Tap Stream=============================
+public class Skill006 : Skill
+{
+    public override void init()
+    {
+        skillName = "Triple Tap";
+        skillDesc = "Hold your fire to unleash three streams of deadly stars.";
+        skillType = SkillType.MaterialType;
+        skillNum = 6;
+    }
+    public override void attachAttributes()
+    {
+        spawn.AddComponent<Skill006Attr>(); ///edit this
+    }
+    public override void attachSpecialAttributes()
+    {
+    }
+}
+public class Skill006Attr : Interactable
+{
+    public override void mouseUpFire()
+    {
+        timeResume();
+    }
+    public override void mouseDownFire()
+    {
+        timeSlow();
+        StartCoroutine(fire());
+    }
+
+
+    void Start()
+    {
+    }
+
+    IEnumerator fire()
+    {
+        yield return new WaitForSeconds(.03f);
+        initialSpeed = 5;
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            for (int j = 0; j < 3; j++)
+            {
+                Debug.Log("bullets firing");
+                for (int i = 0; i < 20; i++)
+                {
+                    GameObject temp = ObjectPool.pool.GetPooledObject();
+                    temp.transform.position = spawnPosition;
+                    temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f));
+                    Skillf.f.AddForce(temp, Skillf.highForce);
+                    yield return new WaitForSeconds(.001f);
+                }
+                if (mouseUp) {
+                    Debug.Log("wut");
+                    break;
+                }
+                yield return new WaitForSeconds(1f);
+            }
+            
+            break;
+        }
+        OnDestroy();
+        yield return new WaitForSeconds(5f);
+
+    }
+}
+
 //=== 011 Accelerator =============================
 public class Skill011 : Skill
 {
@@ -727,6 +798,10 @@ public class Skill031Attr : Interactable
 public class Skill : MonoBehaviour
 {
     public SkillType skillType = SkillType.MaterialType; // this is the type of skill
+    public string skillDesc = "Nul";
+    public string skillName = "Nul"; //skillname is set in the child
+    public int skillNum = 0;
+
     public GameObject projectile = null; //this is the projectile that the skill fires
     public PlayerController player; // this is the player object
     public float coolDown = 999f; // FLOAT this is the cooldown of the skill. initialized to 999f. if it is still 999 at the end of init process, default values are chosen.
@@ -773,8 +848,6 @@ public class Skill : MonoBehaviour
         rarity += 1;
     }
 
-    public string skillName = "Nul"; //skillname is set in the child
-    public int skillNum = 0;
     public virtual void init()
     {// called before initialization of spawner
     }
@@ -818,6 +891,7 @@ public class Skill : MonoBehaviour
         spawn.GetComponent<Interactable>().skillType = this.skillType;
         spawn.GetComponent<Interactable>().coolDown = this.coolDown;
         spawn.GetComponent<Interactable>().skillName = this.skillName;
+        spawn.GetComponent<Interactable>().skillName = this.skillDesc;
         spawn.GetComponent<Interactable>().player = this.player;
 
         if (this.skillType == SkillType.MaterialType)
@@ -1049,7 +1123,7 @@ public class SkillSystem : MonoBehaviour
 
 
 
-        equipSkill(makeSkill("005"));
+        equipSkill(makeSkill("006"));
 
         equipSkill(makeSkill(1));
 

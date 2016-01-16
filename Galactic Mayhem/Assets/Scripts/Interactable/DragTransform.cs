@@ -40,7 +40,10 @@ class DragTransform : MonoBehaviour
 				}
 			}
 	}
+    void OnEnable() {
+    }
     void OnDisable() {
+        Input.ResetInputAxes();
         mainCamera.resetFollow();
     }
 	void OnMouseUp()
@@ -51,7 +54,8 @@ class DragTransform : MonoBehaviour
 			interArr = spawn.GetComponents<Interactable> ();
 			foreach (Interactable inter in interArr) {
 				inter.targetPosition = this.transform.position;
-				inter.mouseUpFire ();
+                inter.preMouseUp();
+                inter.mouseUpFire ();
 			}
 		}
 	//	if(limitdrag){
@@ -77,6 +81,8 @@ class DragTransform : MonoBehaviour
 		
 			Vector3 curPosition = Camera.main.ScreenToWorldPoint (curScreenPoint);// &#43; offset;
 			transform.position = curPosition;
-		//}
+        //}
+        //this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        
 	}
 }
