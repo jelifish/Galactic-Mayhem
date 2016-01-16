@@ -10,6 +10,39 @@ public class SpawnPool : MonoBehaviour {
 	private GameObject spawnContainer;
 	public BoxColSetSectorSize sectorClass;
 
+    public void addSpawn(GameObject spawn)
+    {//add a spawn into the list
+     //		Debug.Log("reached");
+        objs.Add(spawn);
+        placeSpawn(spawn);
+        spawnChecker(spawn);
+        spawn.SetActive(true);
+    }
+
+    protected void placeSpawn(GameObject spawn)
+    {
+        //places the spawn in a location near to the player
+
+        float x, y;
+        float playerX = pc.transform.position.x;
+        float playerY = pc.transform.position.y;
+
+        while (true)
+        {
+            x = Random.Range(playerX - 10, playerX + 10);
+            y = Random.Range(playerY - 10, playerY + 10);
+            if (x < playerX + 3 && x > playerX - 3 && y < playerY + 3 && y > playerY - 3)
+            {
+            }
+            else {
+                break;
+            }
+        }
+        spawn.transform.position = new Vector3(x, y, 0);
+        spawn.GetComponent<SpawnedWeapon>().touchEvent.transform.position = new Vector3(x, y, spawn.GetComponent<SpawnedWeapon>().touchEvent.transform.position.z);
+        spawnChecker(spawn);
+    }
+
     public void executeSpawn(GameObject spawn)
     {
         //if (ReferenceEquals(spawn, null))
@@ -32,32 +65,8 @@ public class SpawnPool : MonoBehaviour {
 	//	spawn.SetActive (true);
 	//	spawn.GetComponent<SpawnedWeapon> ().touchEvent.SetActive (true);
 	//}
-	protected void placeSpawn(GameObject spawn){
-	//places the spawn in a location near to the player
 
-		float x, y;
-		float playerX = pc.transform.position.x;
-		float playerY = pc.transform.position.y;
 
-		while (true) {
-			x = Random.Range (playerX - 10, playerX + 10);
-			y = Random.Range (playerY - 10, playerY + 10);
-			if (x < playerX + 3 && x > playerX - 3 && y < playerY + 3 && y > playerY - 3) {
-			} else {
-				break;
-			}
-		}
-		spawn.transform.position = new Vector3 (x,y,0);
-		spawn.GetComponent<SpawnedWeapon> ().touchEvent.transform.position = new Vector3(x,y, spawn.GetComponent<SpawnedWeapon> ().touchEvent.transform.position.z);
-		spawnChecker (spawn);
-	}
-	public void addSpawn(GameObject spawn){//add a spawn into the list
-//		Debug.Log("reached");
-		objs.Add(spawn);
-		placeSpawn(spawn);
-		spawnChecker (spawn);
-        spawn.SetActive(true);
-	}
 	public void removeSpawn (SkillType type){//MaterialType, ControlType, GuardType, AssaultType, AuraType
 	//remove all spawns with the typename from the list
 
@@ -75,9 +84,6 @@ public class SpawnPool : MonoBehaviour {
 			}
 
 		}
-	}
-	public void neutralizeSpawn(GameObject spawn){
-	
 	}
 	public void spawnChecker(GameObject obj){
 		//checks if one thing was not placed right
@@ -124,7 +130,7 @@ public class SpawnPool : MonoBehaviour {
 	}
 	public void distanceChecker (){
 		foreach (GameObject obj in objs) {
-			if (Vector2.Distance (obj.transform.position, pc.gameObject.transform.position) > 20 && obj.activeSelf) {
+			if (Vector2.Distance (obj.transform.position, pc.gameObject.transform.position) > 18 && obj.activeSelf && !obj.GetComponent<Interactable>().inUse) {
 				placeSpawn (obj);
 			}
 		}

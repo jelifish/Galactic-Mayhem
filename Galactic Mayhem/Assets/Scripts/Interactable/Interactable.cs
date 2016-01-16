@@ -16,6 +16,8 @@ public class Interactable : MonoBehaviour {
     public Vector3 spawnPosition = Vector3.zero;
     public Quaternion spawnRotation = Quaternion.identity;
 	public float timeMulti = 2f;
+
+    public bool inUse;
 	void Awake(){
 		projectile = Resources.Load ("Projectiles/Bolt")as GameObject;
         
@@ -39,7 +41,7 @@ public class Interactable : MonoBehaviour {
     }
     void OnEnable() {
         onEnable();
-       
+        inUse = false;
     }
     public virtual void OnDestroy()
     {
@@ -51,6 +53,7 @@ public class Interactable : MonoBehaviour {
 	}
     public void preCalc() {
         //pre-mouse down calculations
+        inUse = true;
         spawnPosition = this.gameObject.transform.position; //get spawner position
     }
 

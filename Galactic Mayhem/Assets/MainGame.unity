@@ -9815,8 +9815,8 @@ MonoBehaviour:
   backpack: []
   materialLimit: 3
   controlLimit: 2
-  guardLimit: 2
-  advanceLimit: 2
+  barrierLimit: 2
+  barrageLimit: 2
   auraLimit: 1
 --- !u!114 &1642921050
 MonoBehaviour:
@@ -10492,7 +10492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f7fed4ccf213df4fb22fc1066741277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bolt: {fileID: 189882, guid: 9df46fb887e02bc4b9d5feeee064a6fe, type: 2}
+  bolt: {fileID: 148542, guid: 9df46fb887e02bc4b9d5feeee064a6fe, type: 2}
   sectorClass: {fileID: 1702976406}
   poolSize: 1000
   count: 0

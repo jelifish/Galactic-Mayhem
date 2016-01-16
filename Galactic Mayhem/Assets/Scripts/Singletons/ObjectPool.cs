@@ -80,9 +80,9 @@ public class ObjectPool : MonoBehaviour {
 		temp.GetComponent<ProjectileCollision> ().killed = false;
 		temp.GetComponent<ProjectileCollision> ().SetSectorSize (sectorClass.getTotalSectorSize());
 		temp.transform.localScale = new Vector3(.4f, .4f,.4f);
-
-		//.1f = normal 
-		temp.SetActive(true);
+        //temp.GetComponent<SphereCollider>().radius = .6f;
+        //.1f = normal 
+        temp.SetActive(true);
 	}
 	public GameObject GetPooledObject(){
 		GameObject temp = null;
