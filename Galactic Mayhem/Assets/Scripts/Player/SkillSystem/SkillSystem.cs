@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 //public enum Activation { Button, Action, Automatic };
-public enum SkillType { MaterialType, ControlType, GuardType, AdvanceType, AuraType };
+public enum SkillType { MaterialType, ControlType, BarrierType, BarrageType, AuraType };
 //public enum SkillLevel { Lv1, Lv2, Lv3};
 
 //=== 001 Compressed Bolts =============================
@@ -37,12 +37,12 @@ public class Skill001Attr : Interactable{
 		yield return new WaitForSeconds (.03f);
 		initialSpeed = 5;
 		while (true) {
-			for(int i=0;i<35;i++){
+			for(int i=0;i<50;i++){
                 GameObject temp = ObjectPool.pool.GetPooledObject();
-                temp.transform.position = this.transform.position;
+                temp.transform.position = spawnPosition;
                 temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f));
-                Skillf.f.AddForce(temp, Skillf.lowForce);
-				yield return new WaitForSeconds (.01f);
+                Skillf.f.AddForce(temp, Skillf.lowForce*1.3f);
+				yield return new WaitForSeconds (.05f);
 			}
 			break;
 		}
@@ -165,10 +165,10 @@ public class Skill003Attr : Interactable{
 		//Destroy (this.gameObject);
 	}
 }
-//=== 004 Cluster Bolt =============================
+//=== 004 Charge Cluster =============================
 public class Skill004 : Skill {
 	public override void init(){
-		skillName = "Cluster Bolt";
+		skillName = "Charge Cluster";
 		skillType = SkillType.MaterialType;
 		skillNum = 4;
 		//coolDown = 3f; //cooldown can be initialized at this time.
@@ -182,7 +182,6 @@ public class Skill004 : Skill {
 }
 public class Skill004Attr : Interactable{
 	void Start(){
-		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(152/255.0F,203/255.0F,74/255.0F,255f));
 	}
 	public bool mouseUp = false;
 	public override void mouseUpFire(){
@@ -262,7 +261,7 @@ public class Skill011Attr : Interactable{
 	
 	public override void mouseUpFire(){
 		Timef.f.SpeedTime (2f);
-		Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 5);
+		Collider[] hitColliders = Physics.OverlapSphere(spawnPosition, 5);
 		//Debug.Log (transform.position); //spawn position
 		//Debug.Log (targetPosition); //spawn position
 		//int i = 0;
@@ -282,11 +281,11 @@ public class Skill011Attr : Interactable{
 
 	}
 
-    void OnEnable() {
+    public override void onEnable() {
+        Debug.Log("hit child");
         bullets = new List<GameObject>();
     }
 	void Start(){
-		gameObject.GetComponent<Renderer> ().material.SetColor ("_TintColor", new Color(247/255.0F,216/255.0F,66/255.0F,255f));
 	}
 	
 	IEnumerator Blast()
@@ -322,23 +321,27 @@ public class Skill012 : Skill {
 public class Skill012Attr : Interactable{
 	
 	public List<GameObject> bullets = new List<GameObject>();
-    void OnEnable()
+    public override void onEnable()
     {
         bullets = new List<GameObject>();
     }
 
+
     public override void mouseUpFire(){
+        Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 15);
+        foreach (Collider col in hitColliders)
+        {
+            if (col.tag == "Bullet")
+            {
+                bullets.Add(col.gameObject);
+            }
+        }
+
         StartCoroutine(Blast());
 
     }
 	public override void mouseDownFire(){
-		Collider[] hitColliders = Physics.OverlapSphere(targetPosition, 5);
-		foreach (Collider col in hitColliders) {
-			if(col.tag == "Bullet"){
-				bullets.Add(col.gameObject);
-			}
-		}
-
+		
 		//StartCoroutine (Blast ());
 	}
 
@@ -350,7 +353,7 @@ public class Skill012Attr : Interactable{
 	IEnumerator Blast()
 	{
 		yield return new WaitForSeconds (.03f);
-        Skillf.f.ForceTowardsPoint(bullets, targetPosition, Skillf.lowForce);
+        Skillf.f.ForceTowardsPoint(bullets, targetPosition, Skillf.highForce);
         yield return new WaitForSeconds (0.1f);
         Skillf.f.ForceTowardsPoint(bullets, targetPosition, Skillf.lowForce);
         yield return new WaitForSeconds (0.1f);
@@ -362,7 +365,7 @@ public class Skill012Attr : Interactable{
         OnDestroy();
     }
 }
-//=== 013 Black Hole Explosion =============================
+//=== 013 Void Explosion =============================
 public class Skill013 : Skill {
 	public override void init(){
 		skillName = "Black Hole";
@@ -380,7 +383,7 @@ public class Skill013 : Skill {
 public class Skill013Attr : Interactable{
 	
 	public List<GameObject> bullets = new List<GameObject>();
-    void OnEnable()
+    public override void onEnable()
     {
         bullets = new List<GameObject>();
     }
@@ -445,7 +448,7 @@ public class Skill013Attr : Interactable{
 public class Skill031 : Skill {
 	public override void init(){
 		skillName = "Missile";
-		skillType = SkillType.AdvanceType;
+		skillType = SkillType.BarrageType;
 		skillNum = 31;
 	}
 	public override void attachAttributes(){
@@ -470,7 +473,7 @@ public class Skill031Attr : Interactable{
 	}
 	
 
-	void OnEnable(){
+    public override void onEnable(){
         missiles = new List<GameObject>();
     }
     void Start() {
@@ -650,8 +653,9 @@ public class Skill : MonoBehaviour{
 	public bool isSpecialOn = false;
 	
 	public void initInteractable(){ //spawner instatiation at the correct random coords
-		genXY ();
-		spawn = (GameObject)Instantiate (interactable, new Vector3 (x, y, 0f), Quaternion.identity);
+		//genXY ();
+        spawn = new GameObject();
+		spawn = (GameObject)Instantiate (interactable);
 
 		if (isSpecialOn) {
 			attachSpecialAttributes ();
@@ -676,11 +680,11 @@ public class Skill : MonoBehaviour{
             spawn.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(247 / 255.0F, 216 / 255.0F, 66 / 255.0F, 255f));
 
         }
-        else if (this.skillType == SkillType.GuardType)
+        else if (this.skillType == SkillType.BarrierType)
         {
 
         }
-        else if (this.skillType == SkillType.AdvanceType)
+        else if (this.skillType == SkillType.BarrageType)
         {
             spawn.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(250 / 255.0F, 130 / 255.0F, 40 / 255.0F, 255f));
         }
@@ -690,20 +694,10 @@ public class Skill : MonoBehaviour{
 
 
 
-        Debug.Log (spawn.GetComponent<Interactable> ().skillType);
-	}
-	private float x,y;
-	private void genXY(){
-		float playerX = player.transform.position.x;
-		float playerY = player.transform.position.y;
-		x = Random.Range (playerX - 10, playerX + 10);
-		y = Random.Range (playerY - 10, playerY + 10);
-		if (x < playerX + 3 && x > playerX - 3 && y < playerY + 3 && y > playerY - 3) {
-			genXY ();
-		}
+        //Debug.Log (spawn.GetComponent<Interactable> ().skillType);
 	}
 
-	void OnEnable(){
+    void OnEnable(){
 		initInteractable();
         
 		SpawnPool.pool.addSpawn (this.spawn);
@@ -733,9 +727,9 @@ public class Skill : MonoBehaviour{
 			} else if (this.skillType == SkillType.ControlType) {
 
                 coolDown = 7f;
-			} else if (this.skillType == SkillType.GuardType) {
+			} else if (this.skillType == SkillType.BarrierType) {
 				coolDown = 7f;
-			} else if (this.skillType == SkillType.AdvanceType) {
+			} else if (this.skillType == SkillType.BarrageType) {
 				coolDown = 10f;
 			} else if (this.skillType == SkillType.AuraType) {
 				coolDown = 15f;
@@ -755,14 +749,14 @@ public class SkillSystem: MonoBehaviour {
     public GameObject[] activeSkills;
 	public Queue<GameObject> materialQueue = new Queue<GameObject> ();
 	public Queue<GameObject> controlQueue = new Queue<GameObject> ();
-	public Queue<GameObject> guardQueue = new Queue<GameObject> ();
-	public Queue<GameObject> advanceQueue = new Queue<GameObject> ();
+	public Queue<GameObject> barrierQueue = new Queue<GameObject> ();
+	public Queue<GameObject> barrageQueue = new Queue<GameObject> ();
 	public Queue<GameObject> auraQueue = new Queue<GameObject> ();
     public List<GameObject> backpack = new List<GameObject>();
 	public int materialLimit = 3;
 	public int controlLimit = 2;
-	public int guardLimit = 2;
-	public int advanceLimit = 2;
+	public int barrierLimit = 2;
+	public int barrageLimit = 2;
 	public int auraLimit = 2;
 
 	//logic for skill equipment. used for equipping skills and accessing skills in the storage.
@@ -792,28 +786,28 @@ public class SkillSystem: MonoBehaviour {
             controlQueue.Enqueue(obj);
             obj.transform.parent = transform.FindChild("Control");
         }
-		else if (obj.GetComponent<Skill>().skillType == SkillType.GuardType) {
-            if (guardQueue.Count >= guardLimit)
+		else if (obj.GetComponent<Skill>().skillType == SkillType.BarrierType) {
+            if (barrierQueue.Count >= barrierLimit)
             {
 
-                GameObject temp = guardQueue.Dequeue();
+                GameObject temp = barrierQueue.Dequeue();
                 temp.transform.parent = transform.FindChild("Inactive");
                 backpack.Add(temp);
 
             }
-            guardQueue.Enqueue(obj);
+            barrierQueue.Enqueue(obj);
             obj.transform.parent = transform.FindChild("Guard");
         }
-		else if (obj.GetComponent<Skill>().skillType == SkillType.AdvanceType) {
-            if (advanceQueue.Count >= advanceLimit)
+		else if (obj.GetComponent<Skill>().skillType == SkillType.BarrageType) {
+            if (barrageQueue.Count >= barrageLimit)
             {
 
-                GameObject temp = advanceQueue.Dequeue();
+                GameObject temp = barrageQueue.Dequeue();
                 temp.transform.parent = transform.FindChild("Inactive");
                 backpack.Add(temp);
 
             }
-            advanceQueue.Enqueue(obj);
+            barrageQueue.Enqueue(obj);
             obj.transform.parent = transform.FindChild("Advance");
         }
 		else if (obj.GetComponent<Skill>().skillType == SkillType.AuraType) {
@@ -832,19 +826,30 @@ public class SkillSystem: MonoBehaviour {
 	}
 
     public GameObject makeSkill(string id) {
-        GameObject skill = new GameObject("conebolts");
+        GameObject skill = new GameObject();
+        //skill.SetActive(false);
         skill.AddComponent(System.Type.GetType("Skill" + id));
         skill.name = skill.GetComponent<Skill>().skillName;
         return skill;
     }
+    public GameObject makeSkill(int id) {
+        string skillid = id.ToString();
+        if (id < 10) {
+            skillid = "0" + skillid;
+        }
+        if (id < 100) {
+            skillid = "0" + skillid;
+        }
+        return makeSkill(skillid);
+    }
 
-	GameObject material, control, guard, advance, aura, inactive;
+	GameObject material, control, guard, barrage, aura, inactive;
 	public void init(){
 		activeSkills = new GameObject[6];
 		material = new GameObject ("Material");
 		control = new GameObject("Control");
-		guard = new GameObject ("Guard");
-		advance = new GameObject("Advance");
+		guard = new GameObject ("Barrier");
+        barrage = new GameObject("Barrage");
 		aura = new GameObject("Aura");
 		inactive = new GameObject("Inactive");
 
@@ -854,8 +859,8 @@ public class SkillSystem: MonoBehaviour {
 		activeSkills[1] = control;
 		guard.transform.parent = this.transform;
 		activeSkills[2] = guard;
-		advance.transform.parent = this.transform;
-		activeSkills[3] = advance;
+        barrage.transform.parent = this.transform;
+		activeSkills[3] = barrage;
 		aura.transform.parent = this.transform;
 		activeSkills[4] = aura;
 		inactive.transform.parent = this.transform;
@@ -869,10 +874,10 @@ public class SkillSystem: MonoBehaviour {
        
         equipSkill(makeSkill("004"));
 
-		equipSkill (makeSkill("001"));
+		equipSkill (makeSkill(1));
 
-        equipSkill(makeSkill("012"));
-        equipSkill(makeSkill("011"));
+        equipSkill(makeSkill(12));
+        //equipSkill(makeSkill("011"));
 
         equipSkill(makeSkill("031"));
         //Invoke("swapSkills", 10f);
@@ -887,7 +892,7 @@ public class SkillSystem: MonoBehaviour {
 
 
 
-        Debug.Log (activeSkills [0].GetComponentInChildren<Skill>().skillName);
+        //Debug.Log (activeSkills [0].GetComponentInChildren<Skill>().skillName);
 		//activeSkills [0].AddComponent<Skill001> ();
 
 		//skills.Add (new Skill001 ().init ());

@@ -13,28 +13,12 @@ public class Interactable : MonoBehaviour {
 	public float initialSpeed = 1f;
 	protected bool isTimeSlowed = false;
 	public Vector3 targetPosition = Vector3.zero;
+    public Vector3 spawnPosition = Vector3.zero;
+    public Quaternion spawnRotation = Quaternion.identity;
 	public float timeMulti = 2f;
 	void Awake(){
 		projectile = Resources.Load ("Projectiles/Bolt")as GameObject;
-        if (this.skillType == SkillType.MaterialType)
-        {
-
-        }
-        else if (this.skillType == SkillType.ControlType)
-        {
-            gameObject.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(247 / 255.0F, 216 / 255.0F, 66 / 255.0F, 255f));
-
-        }
-        else if (this.skillType == SkillType.GuardType)
-        {
-
-        }
-        else if (this.skillType == SkillType.AdvanceType)
-        {
-        }
-        else if (this.skillType == SkillType.AuraType)
-        {
-        }
+        
     }
 
 	public virtual void timeSlow(){
@@ -49,16 +33,28 @@ public class Interactable : MonoBehaviour {
 			isTimeSlowed = false;
 		}
 	}
+    public virtual void onEnable() {
+
+
+    }
+    void OnEnable() {
+        onEnable();
+       
+    }
     public virtual void OnDestroy()
     {
         timeResume();
-        Debug.Log(skillName);
         SpawnPool.pool.executeSpawn(this.gameObject);
     }
 	public virtual void mouseUpFire(){
 
 	}
-	public virtual void mouseDownFire(){
+    public void preCalc() {
+        //pre-mouse down calculations
+        spawnPosition = this.gameObject.transform.position; //get spawner position
+    }
+
+    public virtual void mouseDownFire(){
 
 	}
 

@@ -53,7 +53,7 @@ public class ObjectPool : MonoBehaviour {
 	public void FlushObjects(){//this method returns all queue objects back to the gameobject list and deactivates.
 		GameObject temp = null;
 		int counter = 0;
-		while (counter < poolSize) { //do for all objects in pool
+		while (counter <= poolSize) { //do for all objects in pool
 
 			temp =activeObj.Dequeue();
 			if (temp == null)

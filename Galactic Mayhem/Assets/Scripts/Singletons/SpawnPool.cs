@@ -12,17 +12,20 @@ public class SpawnPool : MonoBehaviour {
 
     public void executeSpawn(GameObject spawn)
     {
-        spawn.GetComponent<SpawnedWeapon>().touchEvent.SetActive(false);
-        spawn.SetActive(false);
-        Debug.Log(spawn.GetComponent<Interactable>().coolDown);
-        //Invoke ("reinitSpawn", spawn.GetComponent<Interactable> ().coolDown);
-        StartCoroutine(reinitSpawn(spawn, spawn.GetComponent<Interactable>().coolDown));
-    
+        //if (ReferenceEquals(spawn, null))
+        //{
+            spawn.GetComponent<SpawnedWeapon>().touchEvent.SetActive(false);
+
+            spawn.SetActive(false);
+            //Invoke ("reinitSpawn", spawn.GetComponent<Interactable> ().coolDown);
+            StartCoroutine(reinitSpawn(spawn, spawn.GetComponent<Interactable>().coolDown));
+        //}
 	}
     IEnumerator reinitSpawn(GameObject spawn, float coolDown) {
         yield return new WaitForSeconds(coolDown);
-        spawn.SetActive(true);
+        
         placeSpawn(spawn);
+        spawn.SetActive(true);
         spawn.GetComponent<SpawnedWeapon>().touchEvent.SetActive(true);
     }
 	//public void reinitSpawn(GameObject spawn){
@@ -53,6 +56,7 @@ public class SpawnPool : MonoBehaviour {
 		objs.Add(spawn);
 		placeSpawn(spawn);
 		spawnChecker (spawn);
+        spawn.SetActive(true);
 	}
 	public void removeSpawn (SkillType type){//MaterialType, ControlType, GuardType, AssaultType, AuraType
 	//remove all spawns with the typename from the list

@@ -35,7 +35,8 @@ class DragTransform : MonoBehaviour
 		if (spawn != null) {
 				interArr = spawn.GetComponents<Interactable> ();
 				foreach (Interactable inter in interArr) {
-				inter.mouseDownFire ();
+                inter.preCalc();
+                inter.mouseDownFire ();
 				}
 			}
 	}

@@ -13,11 +13,15 @@ public class CameraController : MonoBehaviour {
 
 	//private Vector3 _min,_max;
 	public void resetFollow (){
-        CancelInvoke();
-        follow = player;
+        //if (gameObject != null&&!ReferenceEquals(this.gameObject, null))
+       // {
+            CancelInvoke();
+           
+          follow = player;
 		Smoothing = new Vector3 (.2f, .2f, 0);
         Invoke("finalReset", 2);
-	}
+        //}
+    }
     public void finalReset() {
         follow = player;
         Smoothing = new Vector3(4f, 4f, 0);
