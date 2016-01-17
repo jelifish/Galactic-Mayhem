@@ -72,11 +72,11 @@ public class SpawnPool : MonoBehaviour {
 
 
 	}
-	public void removeSpawn (string skillName){//1,2,3...
+	public void removeSpawn (GameObject skillObj){//1,2,3...
 		//remove one spawn with this name from the list
 
 		foreach (GameObject obj in objs) {
-			if (obj.GetComponent<Interactable> ().skillName.Equals (skillName)) {
+            if (obj.GetComponent<Interactable> ().skillObject.Equals(skillObj)) {
 				objs.Remove (obj);
                 Destroy(obj.GetComponent<SpawnedWeapon>().touchEvent);
 				Destroy (obj);
@@ -85,6 +85,7 @@ public class SpawnPool : MonoBehaviour {
 
 		}
 	}
+
 	public void spawnChecker(GameObject obj){
 		//checks if one thing was not placed right
 		//Debug.Log("reached");

@@ -81,8 +81,14 @@ class DragTransform : MonoBehaviour
 		
 			Vector3 curPosition = Camera.main.ScreenToWorldPoint (curScreenPoint);// &#43; offset;
 			transform.position = curPosition;
+        Interactable[] interArr;
+        interArr = spawn.GetComponents<Interactable>();
+        foreach (Interactable inter in interArr)
+        {
+            inter.targetPosition = this.transform.position;
+        }
         //}
         //this.gameObject.GetComponent<BoxCollider>().enabled = false;
-        
-	}
+
+    }
 }

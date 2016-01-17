@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -62,7 +63,7 @@ public class Skill001Attr : Interactable
 
     }
 }
-//=== 002 Conical Spurt=============================
+//=== 002 Conical Spurt =============================
 public class Skill002 : Skill
 {
     public override void init()
@@ -181,7 +182,6 @@ public class Skill003Attr : Interactable
 
     }
 }
-
 //=== 004 Charge Cluster =============================
 public class Skill004 : Skill
 {
@@ -269,7 +269,7 @@ public class Skill004Attr : Interactable
         //Destroy (this.gameObject);
     }
 }
-//=== 003 Sniper Rounds =============================
+//=== 005 Sniper Rounds =============================
 public class Skill005 : Skill
 {
     public override void init()
@@ -329,13 +329,13 @@ public class Skill005Attr : Interactable
 
     }
 }
-//=== 006 Triple Tap Stream=============================
+//=== 006 Triple Tap Stream =============================
 public class Skill006 : Skill
 {
     public override void init()
     {
         skillName = "Triple Tap";
-        skillDesc = "Hold your fire to unleash three streams of deadly stars.";
+        skillDesc = "Hold your fire to unleash three puffs of stars.";
         skillType = SkillType.MaterialType;
         skillNum = 6;
     }
@@ -382,13 +382,14 @@ public class Skill006Attr : Interactable
                     Skillf.f.AddForce(temp, Skillf.highForce);
                     yield return new WaitForSeconds(.001f);
                 }
-                if (mouseUp) {
+                if (mouseUp)
+                {
                     Debug.Log("wut");
                     break;
                 }
                 yield return new WaitForSeconds(1f);
             }
-            
+
             break;
         }
         OnDestroy();
@@ -396,7 +397,6 @@ public class Skill006Attr : Interactable
 
     }
 }
-
 //=== 011 Accelerator =============================
 public class Skill011 : Skill
 {
@@ -630,6 +630,109 @@ public class Skill013Attr : Interactable
         //		
     }
 }
+//=== 014 Flow =============================
+public class Skill014 : Skill
+{
+    public override void init()
+    {
+        skillName = "Flow";
+        skillType = SkillType.ControlType;
+        skillNum = 14;
+
+    }
+    public override void attachAttributes()
+    {
+        spawn.AddComponent<Skill014Attr>();
+    }
+    public override void attachSpecialAttributes()
+    {
+    }
+}
+public class Skill014Attr : Interactable
+{
+
+    public List<GameObject> bullets = new List<GameObject>();
+    public override void onEnable()
+    {
+        bullets = new List<GameObject>();
+    }
+
+
+    public override void mouseUpFire()
+    {
+
+
+        //StartCoroutine(Blast());
+
+    }
+    public override void mouseDownFire()
+    {
+
+        StartCoroutine(Blast());
+    }
+
+
+    void Start()
+    {
+
+    }
+
+    IEnumerator Blast()
+    {
+        List<GameObject> tempList = new List<GameObject>();
+        float area = 5;
+        while (true)
+        {
+
+
+            yield return new WaitForSeconds(.05f);
+            Collider[] hitColliders = Physics.OverlapSphere(targetPosition, area);
+            foreach (Collider col in hitColliders)
+            {
+                if (col.tag == "Bullet")
+                {
+                    if (!bullets.Contains(col.gameObject))
+                    {
+                        bullets.Add(col.gameObject);
+                    }
+
+
+                }
+            }
+
+            tempList = new List<GameObject>(bullets);
+            foreach (GameObject bullet in bullets)
+            {
+                //Debug.Log(Vector3.Distance(bullet.transform.position, targetPosition));
+                if (Vector3.Distance(bullet.transform.position, targetPosition) >= area * 3)
+                {
+
+                    if (tempList.Contains(bullet))
+                    {
+                        tempList.Remove(bullet);
+                    }
+                }
+
+            }
+            Skillf.f.ForceTowardsPoint(tempList, targetPosition, Skillf.lowForce / 2);
+
+            //bullets = tempList;
+
+            if (mouseUp)
+            {
+                //Skillf.f.ForceTowardsPoint(tempList, targetPosition, Skillf.lowForce / 2);
+                Skillf.f.ExplosiveForceRandom50(tempList, targetPosition, Skillf.highForce * 5);
+                break;
+            }
+            bullets = new List<GameObject>(tempList);
+            tempList.Clear();
+
+        }
+        yield return new WaitForSeconds(0.3f);
+        OnDestroy();
+    }
+}
+
 //=== 031 Missile =============================
 public class Skill031 : Skill
 {
@@ -645,7 +748,6 @@ public class Skill031 : Skill
     }
     public override void attachSpecialAttributes()
     {
-        spawn.AddComponent<Skill011Attr>();
     }
 }
 public class Skill031Attr : Interactable
@@ -711,7 +813,7 @@ public class Skill031Attr : Interactable
                     //GameObject bolty= (GameObject)Instantiate (bolt, new Vector3(missile.transform.position.x+Random.insideUnitCircle.x, missile.transform.position.y+Random.insideUnitCircle.y,0), this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
                     GameObject temp = ObjectPool.pool.GetPooledObject();
                     temp.transform.position = new Vector3(missile.transform.position.x + Random.insideUnitCircle.x, missile.transform.position.y + Random.insideUnitCircle.y, 0);
-                    temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360));
+                    temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f));
                     //Skillf.f.ExplosiveForce (bolty,missile.transform.position);
                     //bolty.GetComponent<ProjectileCollision>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
 
@@ -762,7 +864,7 @@ public class Skill031Attr : Interactable
         {
             if (GetComponent<SpawnedWeapon>().towardsObject != null)
             {
-                GameObject temp = (GameObject)Instantiate(projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
+                GameObject temp = (GameObject)Instantiate(projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f)));
                 //temp.GetComponent<Mover> ().speed = Random.Range (initialSpeed * .9f, initialSpeed * 1.7f);
 
                 missiles.Add(temp);
@@ -801,6 +903,7 @@ public class Skill : MonoBehaviour
     public string skillDesc = "Nul";
     public string skillName = "Nul"; //skillname is set in the child
     public int skillNum = 0;
+    public Sprite sprite = Resources.Load<Sprite>("Skills/003Accelerator");
 
     public GameObject projectile = null; //this is the projectile that the skill fires
     public PlayerController player; // this is the player object
@@ -877,6 +980,8 @@ public class Skill : MonoBehaviour
       //spawn = new GameObject();
         spawn = (GameObject)Instantiate(interactable);
 
+
+
         if (isSpecialOn)
         {
             attachSpecialAttributes();
@@ -891,7 +996,8 @@ public class Skill : MonoBehaviour
         spawn.GetComponent<Interactable>().skillType = this.skillType;
         spawn.GetComponent<Interactable>().coolDown = this.coolDown;
         spawn.GetComponent<Interactable>().skillName = this.skillName;
-        spawn.GetComponent<Interactable>().skillName = this.skillDesc;
+        spawn.GetComponent<Interactable>().skillObject = this.gameObject;
+        //spawn.GetComponent<Interactable>().skillDesc = this.skillDesc; //do not really need
         spawn.GetComponent<Interactable>().player = this.player;
 
         if (this.skillType == SkillType.MaterialType)
@@ -922,6 +1028,8 @@ public class Skill : MonoBehaviour
 
     void OnEnable()
     {
+
+        Debug.Log(this.skillName);
         initInteractable();
 
         SpawnPool.pool.addSpawn(this.spawn);
@@ -930,7 +1038,7 @@ public class Skill : MonoBehaviour
     }
     void OnDisable()
     {
-        SpawnPool.pool.removeSpawn(skillName);
+        SpawnPool.pool.removeSpawn(this.gameObject);
     }
 
     void Awake()
@@ -946,6 +1054,7 @@ public class Skill : MonoBehaviour
         }
         interactable = Resources.Load("SpawnedWeapon") as GameObject;
         projectile = Resources.Load("Projectiles/Bolt") as GameObject;
+        sprite = Resources.Load<Sprite>("Skills/003Accelerator");
 
         init();//anything else we need to do before creating spawns 
                //StartCoroutine (interactableCreator ());//creates spawns at intervals
@@ -957,7 +1066,6 @@ public class Skill : MonoBehaviour
             }
             else if (this.skillType == SkillType.ControlType)
             {
-
                 coolDown = 7f;
             }
             else if (this.skillType == SkillType.BarrierType)
@@ -981,9 +1089,114 @@ public class Skill : MonoBehaviour
 
 public class SkillSystem : MonoBehaviour
 {
+    SkillType currentPanelSkillType;
+    int currentPage;
+    public GameObject skillMenu; //inventorypanel, skillequipmenu
+    GameObject panels;
+    public GameObject materialSlots; //slotPanel
+
+    public GameObject skillSlot; //inventoryslot
+    public GameObject skill; //inventoryitem
+
+    int slotAmount;
+
+    public List<GameObject> backpack = new List<GameObject>();
+    public List<GameObject> slots = new List<GameObject>();
+
+    void Start()
+    {
+
+        currentPage = 0; //first page is 0
+        currentPanelSkillType = SkillType.BarrageType;
+        slotAmount = 25;
+
+        materialLimit = 1;
+        controlLimit = 2;
+        barrierLimit = 2;
+        barrageLimit = 2;
+        auraLimit = 2;
+
+        //skillMenu = GameObject.Find("SkillEquip Menu");
+        //materialSlots = GameObject.Find("MaterialSlots");
+        //skillMenu.SetActive(true);
+        for (int i = 0; i < slotAmount; i++)
+        {
+
+            slots.Add(Instantiate(skillSlot));
+            slots[i].transform.SetParent(materialSlots.transform);
+            slots[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        }
+
+        //skillMenu.SetActive(false);
+    }
+    public void clearPanels() {
+        var children = new List<GameObject>();
+        foreach (RectTransform singleSlot in materialSlots.GetComponent<RectTransform>()) {
+
+            foreach (RectTransform singleSkill in singleSlot.GetComponent<RectTransform>())
+            {
+
+                children.Add(singleSkill.gameObject);
+
+            }
+        }
+        //Debug.Log(children.ToArray());
+        children.ForEach(child => Destroy(child));
+
+    }
+    public void refreshPanel()
+    {
+        clearPanels();
+        List<GameObject> currentBackpack = new List<GameObject>();
+        foreach (GameObject obj in backpack)
+        {
+            if (obj.GetComponent<Skill>().skillType == currentPanelSkillType)
+            {
+                
+                currentBackpack.Add(obj);
+                
+            }
+        }
+        List<GameObject> currentPageSkills = new List<GameObject>();
+        int j = 0;
+        foreach (GameObject obj in currentBackpack)
+        {
+            if (j >= currentPage * slotAmount && j < (currentPage + 1) * slotAmount)
+            {
+                //Debug.Log("current page: " + currentPage);
+                //Debug.Log("slotamout: " +slotAmount);
+                //Debug.Log("j " +j);
+                currentPageSkills.Add(obj);
+                
+            }
+            j += 1;
+        }
+
+        for (int i = currentPage * slotAmount; i < currentPageSkills.Count && i < slotAmount; i++)
+        {
+            GameObject itemObj = Instantiate(skill);
+            itemObj.transform.SetParent(slots[i].transform);
+            itemObj.transform.position = slots[i].transform.position;
+            
+            itemObj.GetComponent<Image>().sprite = currentPageSkills[i].GetComponent<Skill>().sprite;
+            itemObj.name = currentPageSkills[i].GetComponent<Skill>().skillName;
+            
+            //Debug.Log(slots[i].name);
+
+        }
+    }
+
+
+
+
+
+
+
+
+
 
     public static SkillSystem f = null;
-
+    void Awake() { f = this; }
 
     public GameObject[] activeSkills;
     public Queue<GameObject> materialQueue = new Queue<GameObject>();
@@ -991,12 +1204,26 @@ public class SkillSystem : MonoBehaviour
     public Queue<GameObject> barrierQueue = new Queue<GameObject>();
     public Queue<GameObject> barrageQueue = new Queue<GameObject>();
     public Queue<GameObject> auraQueue = new Queue<GameObject>();
-    public List<GameObject> backpack = new List<GameObject>();
-    public int materialLimit = 3;
-    public int controlLimit = 2;
-    public int barrierLimit = 2;
-    public int barrageLimit = 2;
-    public int auraLimit = 2;
+
+    public int materialLimit;
+    public int controlLimit;
+    public int barrierLimit;
+    public int barrageLimit;
+    public int auraLimit;
+
+
+    public List<GameObject> getEquipped(SkillType type)
+    {
+        List<GameObject> list = new List<GameObject>();
+        if (type == SkillType.MaterialType)
+        {
+            foreach (GameObject obj in materialQueue)
+            {
+                list.Add(obj);
+            }
+        }
+        return list;
+    }
 
     //logic for skill equipment. used for equipping skills and accessing skills in the storage.
     public void equipSkill(GameObject obj)
@@ -1008,7 +1235,6 @@ public class SkillSystem : MonoBehaviour
 
                 GameObject temp = materialQueue.Dequeue();
                 temp.transform.parent = transform.FindChild("Inactive");
-                backpack.Add(temp);
 
             }
             materialQueue.Enqueue(obj);
@@ -1023,7 +1249,6 @@ public class SkillSystem : MonoBehaviour
 
                 GameObject temp = controlQueue.Dequeue();
                 temp.transform.parent = transform.FindChild("Inactive");
-                backpack.Add(temp);
 
             }
             controlQueue.Enqueue(obj);
@@ -1036,11 +1261,10 @@ public class SkillSystem : MonoBehaviour
 
                 GameObject temp = barrierQueue.Dequeue();
                 temp.transform.parent = transform.FindChild("Inactive");
-                backpack.Add(temp);
 
             }
             barrierQueue.Enqueue(obj);
-            obj.transform.parent = transform.FindChild("Guard");
+            obj.transform.parent = transform.FindChild("Barrier");
         }
         else if (obj.GetComponent<Skill>().skillType == SkillType.BarrageType)
         {
@@ -1049,11 +1273,10 @@ public class SkillSystem : MonoBehaviour
 
                 GameObject temp = barrageQueue.Dequeue();
                 temp.transform.parent = transform.FindChild("Inactive");
-                backpack.Add(temp);
 
             }
             barrageQueue.Enqueue(obj);
-            obj.transform.parent = transform.FindChild("Advance");
+            obj.transform.parent = transform.FindChild("Barrage");
         }
         else if (obj.GetComponent<Skill>().skillType == SkillType.AuraType)
         {
@@ -1062,7 +1285,6 @@ public class SkillSystem : MonoBehaviour
 
                 GameObject temp = auraQueue.Dequeue();
                 temp.transform.parent = transform.FindChild("Inactive");
-                backpack.Add(temp);
 
             }
             auraQueue.Enqueue(obj);
@@ -1070,17 +1292,23 @@ public class SkillSystem : MonoBehaviour
         }
 
     }
-
+    public void addSkill(GameObject obj)
+    {
+        backpack.Add(obj);
+        refreshPanel();
+    }
     public GameObject makeSkill(string id)
     {
-        GameObject skill = new GameObject();
+        GameObject tempSkill = new GameObject();
         //skill.SetActive(false);
-        skill.AddComponent(System.Type.GetType("Skill" + id));
-        skill.name = skill.GetComponent<Skill>().skillName;
-        return skill;
+        tempSkill.AddComponent(System.Type.GetType("Skill" + id));
+        tempSkill.name = tempSkill.GetComponent<Skill>().skillName;
+        addSkill(tempSkill);
+        return tempSkill;
     }
     public GameObject makeSkill(int id)
     {
+
         string skillid = id.ToString();
         if (id < 10)
         {
@@ -1127,27 +1355,10 @@ public class SkillSystem : MonoBehaviour
 
         equipSkill(makeSkill(1));
 
-        equipSkill(makeSkill(12));
-        //equipSkill(makeSkill("011"));
+        equipSkill(makeSkill(14));
 
         equipSkill(makeSkill("031"));
-        //Invoke("swapSkills", 10f);
 
-        //blasterSkill.transform.parent = material.transform.parent;
-
-        //		GameObject blasterSkill2 = Instantiate(new GameObject ("MaterialSkill"));;
-        //		blasterSkill.AddComponent<Skill001> ();
-        //blasterSkill.transform.parent = material.transform.parent;
-
-        //		equipSkill ((GameObject)Instantiate(blasterSkill2)); 
-
-
-
-        //Debug.Log (activeSkills [0].GetComponentInChildren<Skill>().skillName);
-        //activeSkills [0].AddComponent<Skill001> ();
-
-        //skills.Add (new Skill001 ().init ());
-        //		Debug.Log (skills [0].skillName); 
     }
 }
 

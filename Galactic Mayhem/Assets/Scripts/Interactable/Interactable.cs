@@ -6,9 +6,9 @@ public class Interactable : MonoBehaviour {
 	public SkillType skillType = SkillType.MaterialType;
 	public float coolDown = 999f;
 	public string skillName = "Name";
+    public GameObject skillObject;
 
-
-	public GameObject projectile;
+    public GameObject projectile;
 	public float minCD = 5f, maxCD = 7f;
 	public PlayerController player;
 	public float initialSpeed = 1f;
@@ -43,7 +43,7 @@ public class Interactable : MonoBehaviour {
     }
     void OnEnable() {
         onEnable();
-        inUse = false;
+        inUse = false; //this lets us not relocate the object if it is in use.
     }
     public virtual void OnDestroy()
     {
