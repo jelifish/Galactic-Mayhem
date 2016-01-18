@@ -159,40 +159,42 @@ public class GameController : MonoBehaviour {
 	public void moveNorth(){
 		if (!moving) {
 			ySector++;
-			animColorFade.SetTrigger ("fade");
-			Invoke ("newSector", 3f);
+            GetComponent<Fading>().BeginFade(1);
+			Invoke ("newSector", .8f);
 			moving = true;
 		}
 	}
 	public void moveSouth(){
 		if (!moving) {
 			ySector--;
-			animColorFade.SetTrigger ("fade");
-			Invoke ("newSector", 3f);
-			moving = true;
+            GetComponent<Fading>().BeginFade(1);
+            Invoke("newSector", .8f);
+            moving = true;
 		}
 	}
 	public void moveEast(){
 		if (!moving) {
 			xSector++;
-			animColorFade.SetTrigger ("fade");
-			Invoke ("newSector", 3f);
-			moving = true;
+            GetComponent<Fading>().BeginFade(1);
+            Invoke("newSector", .8f);
+            moving = true;
 		}
 	}
 	public void moveWest(){
 		if (!moving) {
 			xSector--;
-			animColorFade.SetTrigger ("fade");
-			Invoke ("newSector", 3f);
-			moving = true;
+            GetComponent<Fading>().BeginFade(1);
+            Invoke("newSector", .8f);
+            moving = true;
 		}
 	}
-
-	public Animator animColorFade; 
+    void restoreFade() {
+        this.gameObject.GetComponent<Fading>().BeginFade(-1);
+    }
 	private bool visitedSector = false;
 	public void newSector(){
-		setDifficulty ();
+        Invoke("restoreFade", 1f);
+        setDifficulty ();
 		generateSectorSize();
 		setBounds ();
 		waveCurrent = 0;
@@ -296,7 +298,6 @@ public class GameController : MonoBehaviour {
 		Invoke ("destroyAndCreate", 5);
 	}
 	public void destroyAndCreate(){
-		animColorFade.SetTrigger ("fade");
 		Destroy (GameObject.FindWithTag ("MainMenu"));
 		Destroy (gameObject);
 		//Application.LoadLevel(0);

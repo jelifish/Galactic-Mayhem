@@ -680,7 +680,7 @@ public class Skill014Attr : Interactable
     IEnumerator Blast()
     {
         List<GameObject> tempList = new List<GameObject>();
-        float area = 5;
+        float area = 3;
         while (true)
         {
 
@@ -707,7 +707,15 @@ public class Skill014Attr : Interactable
                 if (Vector3.Distance(bullet.transform.position, targetPosition) >= area * 3)
                 {
 
-                    if (tempList.Contains(bullet))
+                    if (tempList.Contains(bullet)&&Random.value>.99f)
+                    {
+                        tempList.Remove(bullet);
+                    }
+                }
+                if (Vector3.Distance(bullet.transform.position, targetPosition) >= 25)
+                {
+
+                    if (tempList.Contains(bullet) && Random.value > .1f)
                     {
                         tempList.Remove(bullet);
                     }
@@ -715,13 +723,13 @@ public class Skill014Attr : Interactable
 
             }
             Skillf.f.ForceTowardsPoint(tempList, targetPosition, Skillf.lowForce / 2);
-
+            Skillf.f.ExplosiveForceRandom50(tempList, new Vector3(targetPosition.x + (Random.insideUnitCircle * 2).x, targetPosition.y + (Random.insideUnitCircle * 2).y, 0), Skillf.lowForce, area);
             //bullets = tempList;
 
             if (mouseUp)
             {
                 //Skillf.f.ForceTowardsPoint(tempList, targetPosition, Skillf.lowForce / 2);
-                Skillf.f.ExplosiveForceRandom50(tempList, targetPosition, Skillf.highForce * 5);
+                Skillf.f.ExplosiveForceRandom50(tempList, targetPosition, Skillf.highForce * 2);
                 break;
             }
             bullets = new List<GameObject>(tempList);
@@ -806,7 +814,7 @@ public class Skill031Attr : Interactable
 
         while (true)
         {
-            for (int i = 0; i < 700; i++)
+            for (int i = 0; i < 150; i++)
             {
                 foreach (GameObject missile in missiles)
                 {
@@ -1090,7 +1098,7 @@ public class Skill : MonoBehaviour
 public class SkillSystem : MonoBehaviour
 {
     SkillType currentPanelSkillType;
-    int currentPage;
+    [Range(0, 10)] public int currentPage;
     public GameObject skillMenu; //inventorypanel, skillequipmenu
     GameObject panels;
     public GameObject materialSlots; //slotPanel
@@ -1105,7 +1113,7 @@ public class SkillSystem : MonoBehaviour
 
     void Start()
     {
-
+        
         currentPage = 0; //first page is 0
         currentPanelSkillType = SkillType.BarrageType;
         slotAmount = 25;
@@ -1177,7 +1185,7 @@ public class SkillSystem : MonoBehaviour
             GameObject itemObj = Instantiate(skill);
             itemObj.transform.SetParent(slots[i].transform);
             itemObj.transform.position = slots[i].transform.position;
-            
+            itemObj.GetComponent<SkillData>().skill = currentPageSkills[i].GetComponent<Skill>();  
             itemObj.GetComponent<Image>().sprite = currentPageSkills[i].GetComponent<Skill>().sprite;
             itemObj.name = currentPageSkills[i].GetComponent<Skill>().skillName;
             
@@ -1353,7 +1361,7 @@ public class SkillSystem : MonoBehaviour
 
         equipSkill(makeSkill("006"));
 
-        equipSkill(makeSkill(1));
+        //equipSkill(makeSkill(1));
 
         equipSkill(makeSkill(14));
 

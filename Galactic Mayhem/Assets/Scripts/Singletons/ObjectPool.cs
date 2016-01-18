@@ -35,6 +35,7 @@ public class ObjectPool : MonoBehaviour {
 	public void AddObject (){//this code is also used in start but start does not increase poolsize
 		poolSize++;
 		GameObject obj = (GameObject)Instantiate(bolt);
+
 		obj.transform.parent = containerObject.transform;
 		obj.SetActive(false);
 		objs.Add(obj);
@@ -78,7 +79,9 @@ public class ObjectPool : MonoBehaviour {
 		temp.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		temp.GetComponent<ProjectileCollision> ().hull = bulletHull;
 		temp.GetComponent<ProjectileCollision> ().killed = false;
-		temp.GetComponent<ProjectileCollision> ().SetSectorSize (sectorClass.getTotalSectorSize());
+
+        temp.GetComponent<ProjectileCollision>().mirrorRate = 0;
+        temp.GetComponent<ProjectileCollision> ().SetSectorSize (sectorClass.getTotalSectorSize());
 		temp.transform.localScale = new Vector3(.4f, .4f,.4f);
         //temp.GetComponent<SphereCollider>().radius = .6f;
         //.1f = normal 

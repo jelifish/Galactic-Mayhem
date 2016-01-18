@@ -44,6 +44,7 @@ public class ProjectileCollision : MonoBehaviour {
 	private Transform originalObject;
 	public int mirrorRate = 0;
 	public float totalSectorSize;
+
 	void Start()
 	{
 		//GetComponent<Rigidbody>().velocity =transform.right.normalized*speed;
@@ -67,8 +68,20 @@ public class ProjectileCollision : MonoBehaviour {
 		}
 		sizeSet = true;
 	}
+    public virtual void OnTriggerEnter(Collider other)
+    {
+        if (this.GetComponent<Rigidbody>().velocity.magnitude<1&& other.GetComponent<Rigidbody>().velocity.magnitude < 1 && (other.gameObject.tag == "Bullet" || other.gameObject.tag == "TriggeredBullet"))
+        {
+            Debug.Log("trigger");
+            //float bulletScale = other.transform.localScale.x;
+            //float x = bulletScale + .9f;
 
-	void FixedUpdate()
+            //float bulletMulti = x * x;
+            //takeDamage(other.gameObject.GetComponent<Rigidbody>().velocity.magnitude * bulletMulti);
+            //other.gameObject.GetComponent<ProjectileCollision>().takeDamage(1);
+        }
+    }
+    void FixedUpdate()
 	{
 		if (mirrorRate >= 10) {
 			mirrorRate = 0;
