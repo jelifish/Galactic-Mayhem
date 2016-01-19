@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 //public enum Activation { Button, Action, Automatic };
 public enum SkillType { MaterialType, ControlType, BarrierType, BarrageType, AuraType };
+public enum Rarity {Common, Rare, Legendary}
+public enum SubType { Blaster, Repeater, Cannon,         Force, Flow, Control,       Bulwark, Melee ,Siege,         Missile, Beam, Elemental,       Buff, Debuff, Misc, Turret, Auto };
 //public enum SkillLevel { Lv1, Lv2, Lv3};
 
 //=== 001 Compressed Energy =============================
@@ -276,6 +278,7 @@ public class Skill005 : Skill
     {
         skillName = "Sniper Rounds";
         skillType = SkillType.MaterialType;
+        skillDesc = "Fires a few but superpowered rounds of hot plasma. Aim for greater accuracy. Autofire Enabled.";
         skillNum = 5;
     }
     public override void attachAttributes()
@@ -312,6 +315,25 @@ public class Skill005Attr : Interactable
             for (int i = 0; i < 5; i++)
             {
                 yield return new WaitForSeconds(1f);
+
+                Skillf.f.ExplosiveForceRandom50(this.transform.position, Skillf.lowForce / 2, 5);
+                for (int j = 0; j < 5; j++)
+                {
+                    //GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
+                    GameObject tamp = ObjectPool.pool.GetPooledObject();
+                    tamp.transform.position = new Vector3(transform.position.x + Random.insideUnitCircle.x, transform.position.y + Random.insideUnitCircle.y, 0);
+                    tamp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(160, 200));
+
+                   
+                    Skillf.f.AddForce(tamp, Skillf.lowForce/4);
+                    tamp.transform.localScale = tamp.transform.localScale;
+                    
+
+                }
+
+
+
+
                 GameObject temp = ObjectPool.pool.GetPooledObject();
                 temp.transform.position = spawnPosition;
                 //Vector3 relativePos = targetPosition - spawnPosition;
@@ -322,6 +344,17 @@ public class Skill005Attr : Interactable
                 Skillf.f.AddForce(temp, Skillf.highForce * 6f);
                 yield return new WaitForSeconds(.03f);
             }
+
+
+            
+
+
+
+
+
+
+
+
             break;
         }
         OnDestroy();
@@ -335,7 +368,7 @@ public class Skill006 : Skill
     public override void init()
     {
         skillName = "Triple Tap";
-        skillDesc = "Hold your fire to unleash three puffs of stars.";
+        skillDesc = "Hold your fire to pulse three puffs of stars.";
         skillType = SkillType.MaterialType;
         skillNum = 6;
     }
@@ -403,6 +436,7 @@ public class Skill011 : Skill
     public override void init()
     {
         skillName = "Accelerator";
+        skillDesc = "Pulls surrounding stars towards target location. Aim Well.";
         skillType = SkillType.ControlType;
         skillNum = 11;
 
@@ -424,7 +458,7 @@ public class Skill011Attr : Interactable
     public override void mouseUpFire()
     {
         Timef.f.SpeedTime(2f);
-        Collider[] hitColliders = Physics.OverlapSphere(spawnPosition, 5);
+        Collider[] hitColliders = Physics.OverlapSphere(spawnPosition, 7);
         //Debug.Log (transform.position); //spawn position
         //Debug.Log (targetPosition); //spawn position
         //int i = 0;
@@ -478,6 +512,7 @@ public class Skill012 : Skill
     public override void init()
     {
         skillName = "Collapse";
+        skillName = "Warps space to pull in all nearby stars at a location. Fast executing skill.";
         skillType = SkillType.ControlType;
         skillNum = 12;
 
@@ -546,7 +581,8 @@ public class Skill013 : Skill
 {
     public override void init()
     {
-        skillName = "Black Hole";
+        skillName = "Void Explosion";
+        skillDesc = "Pulls in, then violently explodes.";
         skillType = SkillType.ControlType;
         skillNum = 13;
 
@@ -636,6 +672,7 @@ public class Skill014 : Skill
     public override void init()
     {
         skillName = "Flow";
+        skillDesc = "Manipulate a constant torrent of stars. Small blast at the end.";
         skillType = SkillType.ControlType;
         skillNum = 14;
 
@@ -1118,7 +1155,7 @@ public class SkillSystem : MonoBehaviour
         currentPanelSkillType = SkillType.BarrageType;
         slotAmount = 25;
 
-        materialLimit = 1;
+        materialLimit = 3;
         controlLimit = 2;
         barrierLimit = 2;
         barrageLimit = 2;
@@ -1182,8 +1219,10 @@ public class SkillSystem : MonoBehaviour
 
         for (int i = currentPage * slotAmount; i < currentPageSkills.Count && i < slotAmount; i++)
         {
+
             GameObject itemObj = Instantiate(skill);
             itemObj.transform.SetParent(slots[i].transform);
+            itemObj.GetComponent<RectTransform>().localScale = new Vector3(.8f, .8f, .8f);
             itemObj.transform.position = slots[i].transform.position;
             itemObj.GetComponent<SkillData>().skill = currentPageSkills[i].GetComponent<Skill>();  
             itemObj.GetComponent<Image>().sprite = currentPageSkills[i].GetComponent<Skill>().sprite;
@@ -1359,11 +1398,11 @@ public class SkillSystem : MonoBehaviour
 
 
 
-        equipSkill(makeSkill("006"));
-
+        equipSkill(makeSkill("005"));
+        equipSkill(makeSkill("005"));
         //equipSkill(makeSkill(1));
 
-        equipSkill(makeSkill(14));
+        equipSkill(makeSkill(11));
 
         equipSkill(makeSkill("031"));
 

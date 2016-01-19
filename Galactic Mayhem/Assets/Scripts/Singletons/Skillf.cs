@@ -14,11 +14,17 @@ public class Skillf : MonoBehaviour{
 	{
 		f = this;
 	}
+    public Vector3 nearestEnemyPosition() {
+        Vector3 vec = new Vector3(0f, 0f, 0f);
+        return vec;
+    }
+
+
 	public void AddForce (GameObject obj, float force = 250){
 		obj.GetComponent<Rigidbody>().AddForce((obj.transform.right * force *Random.Range(.9f, 1.1f)));
 	}
 
-	public void ExplosiveForce (List<GameObject> objs,Vector3 pos,float force = 250,float radius = 0)
+	public void ExplosiveForce (List<GameObject> objs,Vector3 pos,float force = 250,float radius = 10)
 	{
 		foreach(GameObject obj in objs){
 			if(obj !=null){
@@ -26,7 +32,7 @@ public class Skillf : MonoBehaviour{
 			}
 		}
 	}
-	public void ExplosiveForceRandom50 (List<GameObject> objs,Vector3 pos,float force = 250,float radius = 0)
+	public void ExplosiveForceRandom50 (List<GameObject> objs,Vector3 pos,float force = 250,float radius = 10)
 	{
 		foreach(GameObject obj in objs){
 			if(obj !=null){
@@ -34,7 +40,33 @@ public class Skillf : MonoBehaviour{
 			}
 		}
 	}
-	public void ExplosiveForce (GameObject obj,Vector3 pos,float force = 250,float radius = 0)
+    public void ExplosiveForceRandom50(Vector3 pos, float force = 250, float radius = 10)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(pos, radius);
+        //Debug.Log(missile.transform.position);
+        List<GameObject> objs = new List<GameObject>();
+        foreach (Collider col in hitColliders)
+        {
+            if (col.tag == "Bullet")
+            {
+
+                //col.GetComponentInChildren<RotateTowards> ().towardsObject = this.gameObject;
+                objs.Add(col.gameObject);
+
+            }
+        }
+
+
+
+        foreach (GameObject obj in objs)
+        {
+            if (obj != null)
+            {
+                obj.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(force * 0.5f, force), pos, radius);
+            }
+        }
+    }
+    public void ExplosiveForce (GameObject obj,Vector3 pos,float force = 250,float radius = 10)
 	{
 			if(obj !=null){
 				obj.GetComponent<Rigidbody>().AddExplosionForce(force * Random.Range(.9f, 1.1f), pos, radius);
