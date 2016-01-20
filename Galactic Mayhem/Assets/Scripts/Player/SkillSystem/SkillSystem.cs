@@ -1170,7 +1170,11 @@ public class SkillSystem : MonoBehaviour
             slots.Add(Instantiate(skillSlot));
             slots[i].transform.SetParent(materialSlots.transform);
             slots[i].GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+
         }
+
+        materialSlots.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (((int)(slotAmount - 20) / 4) + Mathf.Ceil(slotAmount % 4)) * 84);
+
 
         //skillMenu.SetActive(false);
     }
@@ -1232,6 +1236,7 @@ public class SkillSystem : MonoBehaviour
             //Debug.Log(slots[i].name);
 
         }
+       
         materialSlots.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (((int)(slotAmount - 20)/ 4)+Mathf.Ceil(slotAmount % 4)) * 84);
     }
 
