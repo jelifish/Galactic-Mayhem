@@ -1153,7 +1153,7 @@ public class SkillSystem : MonoBehaviour
         
         currentPage = 0; //first page is 0
         currentPanelSkillType = SkillType.BarrageType;
-        slotAmount = 25;
+        slotAmount = 101;
 
         materialLimit = 3;
         controlLimit = 2;
@@ -1228,9 +1228,11 @@ public class SkillSystem : MonoBehaviour
             itemObj.GetComponent<Image>().sprite = currentPageSkills[i].GetComponent<Skill>().sprite;
             itemObj.name = currentPageSkills[i].GetComponent<Skill>().skillName;
             
+
             //Debug.Log(slots[i].name);
 
         }
+        materialSlots.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (((int)(slotAmount - 20)/ 4)+Mathf.Ceil(slotAmount % 4)) * 84);
     }
 
 
