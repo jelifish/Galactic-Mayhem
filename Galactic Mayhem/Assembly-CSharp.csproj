@@ -91,6 +91,7 @@
      <Compile Include="Assets\Scripts\UI\SkillData.cs" />
      <Compile Include="Assets\Scripts\misc\ShieldScript.cs" />
      <Compile Include="Assets\Scripts\misc\SpawnedWeapon.cs" />
+     <Compile Include="Assets\SkillMenuController.cs" />
      <Compile Include="Assets\TrailFix.cs" />
      <Compile Include="Assets\UI\Game Jam Menu Template\Scripts\DontDestroy.cs" />
      <Compile Include="Assets\UI\Game Jam Menu Template\Scripts\EventSystemChecker.cs" />

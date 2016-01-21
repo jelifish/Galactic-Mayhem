@@ -1135,7 +1135,6 @@ public class Skill : MonoBehaviour
 public class SkillSystem : MonoBehaviour
 {
     SkillType currentPanelSkillType;
-    [Range(0, 10)] public int currentPage;
     public GameObject skillMenu; //inventorypanel, skillequipmenu
     GameObject panels;
     public GameObject materialSlots; //slotPanel
@@ -1150,10 +1149,8 @@ public class SkillSystem : MonoBehaviour
 
     void Start()
     {
-        
-        currentPage = 0; //first page is 0
-        currentPanelSkillType = SkillType.BarrageType;
-        slotAmount = 101;
+        currentPanelSkillType = SkillType.MaterialType;
+        slotAmount = 20;
 
         materialLimit = 3;
         controlLimit = 2;
@@ -1206,31 +1203,16 @@ public class SkillSystem : MonoBehaviour
                 
             }
         }
-        List<GameObject> currentPageSkills = new List<GameObject>();
-        int j = 0;
-        foreach (GameObject obj in currentBackpack)
-        {
-            if (j >= currentPage * slotAmount && j < (currentPage + 1) * slotAmount)
-            {
-                //Debug.Log("current page: " + currentPage);
-                //Debug.Log("slotamout: " +slotAmount);
-                //Debug.Log("j " +j);
-                currentPageSkills.Add(obj);
-                
-            }
-            j += 1;
-        }
-
-        for (int i = currentPage * slotAmount; i < currentPageSkills.Count && i < slotAmount; i++)
+        for (int i=0; i < currentBackpack.Count && i < slotAmount; i++)
         {
 
             GameObject itemObj = Instantiate(skill);
             itemObj.transform.SetParent(slots[i].transform);
             itemObj.GetComponent<RectTransform>().localScale = new Vector3(.8f, .8f, .8f);
             itemObj.transform.position = slots[i].transform.position;
-            itemObj.GetComponent<SkillData>().skill = currentPageSkills[i].GetComponent<Skill>();  
-            itemObj.GetComponent<Image>().sprite = currentPageSkills[i].GetComponent<Skill>().sprite;
-            itemObj.name = currentPageSkills[i].GetComponent<Skill>().skillName;
+            itemObj.GetComponent<SkillData>().skill = currentBackpack[i].GetComponent<Skill>();  
+            itemObj.GetComponent<Image>().sprite = currentBackpack[i].GetComponent<Skill>().sprite;
+            itemObj.name = currentBackpack[i].GetComponent<Skill>().skillName;
             
 
             //Debug.Log(slots[i].name);
