@@ -298,11 +298,14 @@ public class GameController : MonoBehaviour {
 		Invoke ("destroyAndCreate", 5);
 	}
 	public void destroyAndCreate(){
-		Destroy (GameObject.FindWithTag ("MainMenu"));
-		Destroy (gameObject);
+		
+		
 		//Application.LoadLevel(0);
 		SceneManager.LoadScene(0);
-	}
+        Destroy(GameObject.FindWithTag("MainMenu"));
+        Destroy(gameObject);
+    }
+
 
 
 }
