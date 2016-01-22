@@ -3,8 +3,9 @@ using UnityEngine;
 
 class DragTransform : MonoBehaviour
 {
-	//public bool limitdrag = true;
-//	private bool finished = false;
+    //public bool limitdrag = true;
+    //	private bool finished = false;
+    public bool deactivatewhendone = true;
 	private float distance;
 	public GameObject spawn;
 	public Transform spawnTransform;
@@ -58,10 +59,11 @@ class DragTransform : MonoBehaviour
                 inter.mouseUpFire ();
 			}
 		}
-	//	if(limitdrag){
-            //Destroy(this.gameObject);
+        //	if(limitdrag){
+        //Destroy(this.gameObject);
+        if (deactivatewhendone) { 
             gameObject.SetActive(false);
-	//	}
+	}
 
 			
 		 

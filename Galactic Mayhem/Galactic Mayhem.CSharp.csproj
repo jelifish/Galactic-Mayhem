@@ -120,6 +120,8 @@
     <Compile Include="Assets\Scripts\UI\SkillData.cs" />
     <Compile Include="Assets\Scripts\misc\ShieldScript.cs" />
     <Compile Include="Assets\Scripts\misc\SpawnedWeapon.cs" />
+    <Compile Include="Assets\ShieldEffect.cs" />
+    <Compile Include="Assets\SkillMenuController.cs" />
     <Compile Include="Assets\TrailFix.cs" />
     <Compile Include="Assets\UI\Game Jam Menu Template\Scripts\DontDestroy.cs" />
     <Compile Include="Assets\UI\Game Jam Menu Template\Scripts\EventSystemChecker.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="Assets\UI\Game Jam Menu Template\Scripts\StartOptions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Shield.shader" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />

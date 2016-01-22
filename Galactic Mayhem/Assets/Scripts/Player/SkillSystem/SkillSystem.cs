@@ -71,7 +71,7 @@ public class Skill002 : Skill
     public override void init()
     {
         skillName = "Conical Spurt";
-        skillDesc = "Blast your enemies with your spurt. Just kidding. I'm being conical.";
+        skillDesc = "Blast away your foes with a shower of fire.";
 
         skillType = SkillType.MaterialType;
         skillNum = 2;
@@ -305,7 +305,8 @@ public class Skill005Attr : Interactable
     void Start()
     {
     }
-
+    //IEnumerator boost() {
+    //}
     IEnumerator fire()
     {
         yield return new WaitForSeconds(.03f);
@@ -341,7 +342,7 @@ public class Skill005Attr : Interactable
                 //temp.GetComponent<SphereCollider>().radius *= 2;
                 temp.transform.localScale = temp.transform.localScale * 1.5f;
                 temp.GetComponent<ProjectileCollision>().hull = 3;
-                Skillf.f.AddForce(temp, Skillf.highForce * 6f);
+                Skillf.f.AddForce(temp, Skillf.highForce * 4f);
                 yield return new WaitForSeconds(.03f);
             }
 
@@ -851,7 +852,7 @@ public class Skill031Attr : Interactable
 
         while (true)
         {
-            for (int i = 0; i < 150; i++)
+            for (int i = 0; i < 150; i++)//150
             {
                 foreach (GameObject missile in missiles)
                 {

@@ -132,5 +132,15 @@ public class Skillf : MonoBehaviour{
 			}
 
 	}
-	
+
+    public void continuousBoost(GameObject obj, float force = 250) {
+        //find direction vector normalized 
+        //ienumerate the force over an amount of time, given the obj is still active. if inactive exit out.
+        //
+    }
+
+
+
+
+
 }

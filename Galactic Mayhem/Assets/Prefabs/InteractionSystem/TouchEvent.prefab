@@ -87,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3bea141d092bf498ba3fb94d9708f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deactivatewhendone: 1
   spawn: {fileID: 0}
   spawnTransform: {fileID: 0}
   mainCamera: {fileID: 0}
@@ -136,18 +137,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 31cec3c855ff780409eae7b20dc218fa, type: 2}
+      objectReference: {fileID: 2100000, guid: 696e1429d7563fb47875698038b7cd94, type: 2}
     - target: {fileID: 0}
       propertyPath: m_Colors.m_Color[0].rgba
       value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_EndWidth
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Time
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_StartWidth
