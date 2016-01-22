@@ -8,15 +8,6 @@ public class PlayerDrag : MonoBehaviour {
 	private float distance;
 	//private Vector3 screenPoint;
 	//private Vector3 offset;
-	void OnMouseEnter()
-	{
-	}
-	
-	void OnMouseExit()
-	{
-		//use onmouseup instead
-	}
-	
 	void OnMouseDown()
 	{
 		//screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -26,10 +17,7 @@ public class PlayerDrag : MonoBehaviour {
 	void OnMouseUp()
 	{
 		if (playerObject != null) {
-			if ((dragObject.transform.position.x - playerObject.transform.position.x < 1 &&
-				dragObject.transform.position.x - playerObject.transform.position.x > -1) &&
-				((dragObject.transform.position.y - playerObject.transform.position.y < 1) &&
-				dragObject.transform.position.y - playerObject.transform.position.y > -1)
+			if (Vector2.Distance(playerObject.transform.position,dragObject.transform.position)<=1
 		   ) {
 				playerObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;
 

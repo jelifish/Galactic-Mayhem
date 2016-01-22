@@ -1135,6 +1135,9 @@ public class Skill : MonoBehaviour
 
 public class SkillSystem : MonoBehaviour
 {
+
+    public SkillMenuController mc;
+
     SkillType currentPanelSkillType;
     public GameObject skillMenu; //inventorypanel, skillequipmenu
     GameObject panels;
@@ -1211,12 +1214,12 @@ public class SkillSystem : MonoBehaviour
             itemObj.transform.SetParent(slots[i].transform);
             itemObj.GetComponent<RectTransform>().localScale = new Vector3(.8f, .8f, .8f);
             itemObj.transform.position = slots[i].transform.position;
-            itemObj.GetComponent<SkillData>().skill = currentBackpack[i].GetComponent<Skill>();  
+            itemObj.GetComponent<SkillData>().skill = currentBackpack[i].GetComponent<Skill>();
+            itemObj.GetComponent<SkillData>().mc = this.mc;
             itemObj.GetComponent<Image>().sprite = currentBackpack[i].GetComponent<Skill>().sprite;
             itemObj.name = currentBackpack[i].GetComponent<Skill>().skillName;
             
-
-            //Debug.Log(slots[i].name);
+            
 
         }
        
@@ -1347,14 +1350,15 @@ public class SkillSystem : MonoBehaviour
     {
 
         string skillid = id.ToString();
-        if (id < 10)
-        {
-            skillid = "0" + skillid;
-        }
         if (id < 100)
         {
             skillid = "0" + skillid;
         }
+        if (id < 10)
+        {
+            skillid = "00" + skillid;
+        }
+       
         return makeSkill(skillid);
     }
 
@@ -1388,7 +1392,7 @@ public class SkillSystem : MonoBehaviour
 
 
 
-        equipSkill(makeSkill("005"));
+        equipSkill(makeSkill("003"));
         equipSkill(makeSkill("005"));
         //equipSkill(makeSkill(1));
 

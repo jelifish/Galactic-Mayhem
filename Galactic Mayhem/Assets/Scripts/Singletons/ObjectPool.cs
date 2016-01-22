@@ -82,7 +82,7 @@ public class ObjectPool : MonoBehaviour {
 
         temp.GetComponent<ProjectileCollision>().mirrorRate = 0;
         temp.GetComponent<ProjectileCollision> ().SetSectorSize (sectorClass.getTotalSectorSize());
-		temp.transform.localScale = new Vector3(.3f, .3f,1f);
+		temp.transform.localScale = new Vector3(.4f, .4f,1f);
         //temp.GetComponent<SphereCollider>().radius = .6f;
         //.1f = normal 
         temp.SetActive(true);

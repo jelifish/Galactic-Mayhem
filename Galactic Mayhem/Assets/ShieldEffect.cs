@@ -59,7 +59,7 @@ public class ShieldEffect : MonoBehaviour {
             if (!node.free)
             {
                 node.Step(Time.deltaTime);
-
+                
                 meshR.material.SetVector("_Position" + i.ToString(), new Vector4(node.pos.x, node.pos.y, node.pos.z, node.radius));
                 meshR.material.SetFloat("_Intensity" + i.ToString(), node.intensity);
             }

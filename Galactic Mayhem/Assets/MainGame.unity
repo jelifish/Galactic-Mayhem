@@ -9570,9 +9570,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5eb70a5949e7454fa9bfdf117725c9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillSystem: {fileID: 0}
-  currentSkill: {fileID: 0}
-  SkillNum: {fileID: 0}
+  skillSystem: {fileID: 1642921049}
+  skillNum: {fileID: 224327809}
+  skillName: {fileID: 1623275161}
+  expCurrentMax: {fileID: 1754725570}
+  levelLegendary: {fileID: 806134412}
+  subtype: {fileID: 1760604226}
+  cooldown: {fileID: 1545701253}
+  description: {fileID: 1391360633}
+  affinity: {fileID: 1093160857}
 --- !u!1 &1521685234
 GameObject:
   m_ObjectHideFlags: 0
@@ -10122,7 +10128,7 @@ GameObject:
   - 222: {fileID: 1623275162}
   - 114: {fileID: 1623275161}
   m_Layer: 5
-  m_Name: SkillName2 -- Leave Blank
+  m_Name: SkillName2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10203,6 +10209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e76f2846e1e3a9e4d80e1e85c539f428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mc: {fileID: 1467659529}
   skillMenu: {fileID: 1467659525}
   materialSlots: {fileID: 1521685234}
   skillSlot: {fileID: 185730, guid: 19ab2c3f3715a20439592be501d9c256, type: 2}
