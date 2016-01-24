@@ -175,7 +175,7 @@ public class SkillMenuController : MonoBehaviour {
 
     public bool canBeEquipped(Skill skill)
     {
-        Debug.Log(checkIfSkillTypeDuplicatesExists(skill.subType));
+        //Debug.Log(checkIfSkillTypeDuplicatesExists(skill.subType));
         if (checkIfSkillAlreadyExists(skill) || checkIfSkillTypeDuplicatesExists(skill.subType)) return false;
         return true;
     }
@@ -193,9 +193,14 @@ public class SkillMenuController : MonoBehaviour {
         {
             foreach (Skill skill in skillSystem.getSlots())
             {
-                skillSlots[i].GetComponent<SkillData>().skill = skill;
-                skillSlots[i].text = skill.skillName;
-                i++;
+               
+                if (skill!=null)
+                {
+                    //Debug.Log(skill.skillName);
+                    skillSlots[i].GetComponent<SkillData>().skill = skill;
+                    skillSlots[i].text = skill.skillName;
+                }
+                    i++;
             }
         }
 

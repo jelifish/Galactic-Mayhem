@@ -51,13 +51,19 @@ public class CollisionObject : MonoBehaviour {
 	}
 	public void takeDamage(float damage){
 
-		Debug.Log (damage);
+		Debug.Log (this.name + " " + damage + "damage");
 		shield -= damage;
 		if (shield < 0) {
 			if(armor > (shield*-1))
 			{
 			}else{
-				hull += shield+armor;}
+                if (Mathf.Abs(shield) < armor) {}
+                else {
+                    //Debug.Log(hull); Debug.Log(shield); Debug.Log(armor);
+                    hull = hull + shield + armor;
+                    //Debug.Log(hull); Debug.Log(shield); Debug.Log(armor);
+                }
+				}
 			shield = 0f;
 		}
 		if (hull <= 0.0f) {

@@ -45,7 +45,7 @@ class DragTransform : MonoBehaviour
     }
     void OnDisable() {
         Input.ResetInputAxes();
-        mainCamera.resetFollow();
+        if (mainCamera != null) { mainCamera.resetFollow(); }
     }
 	void OnMouseUp()
 	{

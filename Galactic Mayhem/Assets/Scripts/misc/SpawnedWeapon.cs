@@ -16,7 +16,7 @@ public class SpawnedWeapon : RotateTowards {//this will rotate to mouse
 	}
 	void Start(){
 	}
-	public bool destroyThis = true;
+	public bool destroyThis = false;
 
 
 

@@ -47,11 +47,16 @@ public class SpawnPool : MonoBehaviour {
     {
         //if (ReferenceEquals(spawn, null))
         //{
+        if (spawn.GetComponent<SpawnedWeapon>().touchEvent != null)
+        {
             spawn.GetComponent<SpawnedWeapon>().touchEvent.SetActive(false);
-
-            spawn.SetActive(false);
-            //Invoke ("reinitSpawn", spawn.GetComponent<Interactable> ().coolDown);
-            StartCoroutine(reinitSpawn(spawn, spawn.GetComponent<Interactable>().coolDown));
+        }
+        spawn.SetActive(false);
+        //Invoke ("reinitSpawn", spawn.GetComponent<Interactable> ().coolDown);
+        //if(spawn.)
+        //if (spawn.GetComponent<SpawnedWeapon>().destroyThis == false) { 
+        StartCoroutine(reinitSpawn(spawn, spawn.GetComponent<Interactable>().coolDown));
+    //}
         //}
 	}
     IEnumerator reinitSpawn(GameObject spawn, float coolDown) {
@@ -76,8 +81,9 @@ public class SpawnPool : MonoBehaviour {
 		//remove one spawn with this name from the list
 
 		foreach (GameObject obj in objs) {
-            if (obj.GetComponent<Interactable> ().skillObject.Equals(skillObj)) {
+            if (obj !=null &&obj.GetComponent<Interactable> ().skillObject.Equals(skillObj)) {
 				objs.Remove (obj);
+                obj.GetComponent<SpawnedWeapon>().destroyThis = true;
                 Destroy(obj.GetComponent<SpawnedWeapon>().touchEvent);
 				Destroy (obj);
 				break;

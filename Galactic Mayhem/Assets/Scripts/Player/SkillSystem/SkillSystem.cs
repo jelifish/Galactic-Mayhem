@@ -491,7 +491,6 @@ public class Skill011Attr : Interactable
 
     public override void onEnable()
     {
-        Debug.Log("hit child");
         bullets = new List<GameObject>();
     }
     void Start()
@@ -795,6 +794,7 @@ public class Skill031 : Skill
     public override void init()
     {
         skillName = "Missile";
+        skillDesc = "Fires a missile that explodes into shards of hot plasma.";
         skillType = SkillType.BarrageType;
         subType = SubType.Missile;
         skillNum = 31;
@@ -965,6 +965,7 @@ public class Skill : MonoBehaviour
     public Rarity rarity = Rarity.Common;
     public string skillDesc = "Nul";
     public string skillName = "Nul"; //skillname is set in the child
+    public string slotAffinityDescription = "Nul";
     public int skillNum = 0;
     public int slotAffinity = 0; //randomized 0 1 2 3. slot positions. 
     public int slotPosition = 0;
@@ -1099,7 +1100,7 @@ public class Skill : MonoBehaviour
     void OnEnable()
     {
 
-        Debug.Log(this.skillName);
+        Debug.Log("Created Skill: "+ this.skillName);
         initInteractable();
 
         SpawnPool.pool.addSpawn(this.spawn);
