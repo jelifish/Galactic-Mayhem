@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 //public enum Activation { Button, Action, Automatic };
 public enum SkillType { MaterialType, ControlType, BarrierType, BarrageType, AuraType };
-public enum Rarity {Common, Rare, Legendary}
-public enum SubType { Blaster, Repeater, Cannon,         Force, Flow, Control,       Bulwark, Melee ,Siege,         Missile, Beam, Elemental,       Buff, Debuff, Misc, Turret, Auto };
+public enum Rarity { Common, Rare, Legendary, Godly }
+public enum SubType { Blaster, Repeater, Cannon, Force, Flow, Control, Bulwark, Melee, Siege, Missile, Beam, Elemental, Buff, Debuff, Misc, Turret, Auto };
 //public enum SkillLevel { Lv1, Lv2, Lv3};
 
 //=== 001 Compressed Energy =============================
@@ -17,6 +17,7 @@ public class Skill001 : Skill
         skillName = "Compressed Energy";
         skillDesc = "Fires a tight ball of stars. When nudged the right way can be very damaging.";
         skillType = SkillType.MaterialType;
+        subType = SubType.Blaster;
         skillNum = 1;
     }
     public override void attachAttributes()
@@ -74,6 +75,7 @@ public class Skill002 : Skill
         skillDesc = "Blast away your foes with a shower of fire.";
 
         skillType = SkillType.MaterialType;
+        subType = SubType.Blaster;
         skillNum = 2;
     }
     public override void attachAttributes()
@@ -133,6 +135,7 @@ public class Skill003 : Skill
         skillName = "Machine Gun";
         skillDesc = "A fast shooting stream of deadly stars will overwhelm your foes.";
         skillType = SkillType.MaterialType;
+        subType = SubType.Repeater;
         skillNum = 3;
     }
     public override void attachAttributes()
@@ -191,6 +194,7 @@ public class Skill004 : Skill
     {
         skillName = "Charge Cluster";
         skillType = SkillType.MaterialType;
+        subType = SubType.Cannon;
         skillNum = 4;
         //coolDown = 3f; //cooldown can be initialized at this time.
     }
@@ -278,6 +282,7 @@ public class Skill005 : Skill
     {
         skillName = "Sniper Rounds";
         skillType = SkillType.MaterialType;
+        subType = SubType.Cannon;
         skillDesc = "Fires a few but superpowered rounds of hot plasma. Aim for greater accuracy. Autofire Enabled.";
         skillNum = 5;
     }
@@ -325,10 +330,10 @@ public class Skill005Attr : Interactable
                     tamp.transform.position = new Vector3(transform.position.x + Random.insideUnitCircle.x, transform.position.y + Random.insideUnitCircle.y, 0);
                     tamp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(160, 200));
 
-                   
-                    Skillf.f.AddForce(tamp, Skillf.lowForce/4);
+
+                    Skillf.f.AddForce(tamp, Skillf.lowForce / 4);
                     tamp.transform.localScale = tamp.transform.localScale;
-                    
+
 
                 }
 
@@ -347,7 +352,7 @@ public class Skill005Attr : Interactable
             }
 
 
-            
+
 
 
 
@@ -371,6 +376,7 @@ public class Skill006 : Skill
         skillName = "Triple Tap";
         skillDesc = "Hold your fire to pulse three puffs of stars.";
         skillType = SkillType.MaterialType;
+        subType = SubType.Repeater;
         skillNum = 6;
     }
     public override void attachAttributes()
@@ -439,6 +445,7 @@ public class Skill011 : Skill
         skillName = "Accelerator";
         skillDesc = "Pulls surrounding stars towards target location. Aim Well.";
         skillType = SkillType.ControlType;
+        subType = SubType.Force;
         skillNum = 11;
 
     }
@@ -515,6 +522,7 @@ public class Skill012 : Skill
         skillName = "Collapse";
         skillName = "Warps space to pull in all nearby stars at a location. Fast executing skill.";
         skillType = SkillType.ControlType;
+        subType = SubType.Force;
         skillNum = 12;
 
     }
@@ -585,6 +593,7 @@ public class Skill013 : Skill
         skillName = "Void Explosion";
         skillDesc = "Pulls in, then violently explodes.";
         skillType = SkillType.ControlType;
+        subType = SubType.Force;
         skillNum = 13;
 
     }
@@ -675,6 +684,7 @@ public class Skill014 : Skill
         skillName = "Flow";
         skillDesc = "Manipulate a constant torrent of stars. Small blast at the end.";
         skillType = SkillType.ControlType;
+        subType = SubType.Flow;
         skillNum = 14;
 
     }
@@ -745,7 +755,7 @@ public class Skill014Attr : Interactable
                 if (Vector3.Distance(bullet.transform.position, targetPosition) >= area * 3)
                 {
 
-                    if (tempList.Contains(bullet)&&Random.value>.99f)
+                    if (tempList.Contains(bullet) && Random.value > .99f)
                     {
                         tempList.Remove(bullet);
                     }
@@ -786,6 +796,7 @@ public class Skill031 : Skill
     {
         skillName = "Missile";
         skillType = SkillType.BarrageType;
+        subType = SubType.Missile;
         skillNum = 31;
     }
     public override void attachAttributes()
@@ -858,7 +869,8 @@ public class Skill031Attr : Interactable
                 {
                     //GameObject bolty= (GameObject)Instantiate (bolt, new Vector3(missile.transform.position.x+Random.insideUnitCircle.x, missile.transform.position.y+Random.insideUnitCircle.y,0), this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0, 360)));
                     GameObject temp = ObjectPool.pool.GetPooledObject();
-                    temp.transform.position = new Vector3(missile.transform.position.x + Random.insideUnitCircle.x, missile.transform.position.y + Random.insideUnitCircle.y, 0);
+                    Vector3 randomcircle = Random.insideUnitCircle;
+                    temp.transform.position = new Vector3(missile.transform.position.x + (randomcircle.x * 2), missile.transform.position.y + (randomcircle.y * 2), 0);
                     temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(0f, 360f));
                     //Skillf.f.ExplosiveForce (bolty,missile.transform.position);
                     //bolty.GetComponent<ProjectileCollision>().speed = Random.Range(initialSpeed*.9f, initialSpeed*1.1f);
@@ -906,6 +918,7 @@ public class Skill031Attr : Interactable
     }
     IEnumerator createMissiles()
     {
+
         for (int i = 0; i < 1; i++)
         {
             if (GetComponent<SpawnedWeapon>().towardsObject != null)
@@ -914,7 +927,9 @@ public class Skill031Attr : Interactable
                 //temp.GetComponent<Mover> ().speed = Random.Range (initialSpeed * .9f, initialSpeed * 1.7f);
 
                 missiles.Add(temp);
+
             }
+
             yield return new WaitForSeconds(1f);
         }
 
@@ -946,10 +961,19 @@ public class Skill031Attr : Interactable
 public class Skill : MonoBehaviour
 {
     public SkillType skillType = SkillType.MaterialType; // this is the type of skill
+    public SubType subType = SubType.Repeater;
+    public Rarity rarity = Rarity.Common;
     public string skillDesc = "Nul";
     public string skillName = "Nul"; //skillname is set in the child
     public int skillNum = 0;
-    public Sprite sprite = Resources.Load<Sprite>("Skills/003Accelerator");
+    public int slotAffinity = 0; //randomized 0 1 2 3. slot positions. 
+    public int slotPosition = 0;
+
+    public float strength = 0;
+    public float wisdom = 0;
+    public float agility = 0;
+
+    public Sprite sprite = Resources.Load<Sprite>("Skills/000Default");
 
     public GameObject projectile = null; //this is the projectile that the skill fires
     public PlayerController player; // this is the player object
@@ -958,7 +982,7 @@ public class Skill : MonoBehaviour
 
     //skills exp system
     public int skillLevel = 0;// skills start out at level 0. probably a good idea not to override this
-    public int rarity = 1; //the level cap. max level can be initialized to something higher. for every skilllevel, majorlevel++
+    public int levelCap = 1; //the level cap. max level can be initialized to something higher. for every skilllevel, majorlevel++
     public float expInit = 5f;//exp per level is calculated by (expInit * Mathf.Pow(expRatio, x)); where x is the level
     public float expRatio = 1.618034f; //golden ratio curve. slower curves use a smaller value >1. negative curves use values <1. 
     protected float exp = 0; //current exp
@@ -1079,6 +1103,25 @@ public class Skill : MonoBehaviour
         initInteractable();
 
         SpawnPool.pool.addSpawn(this.spawn);
+        //Texture texture = new Texture;
+        GameObject touchEvent = spawn.GetComponent<SpawnedWeapon>().touchEvent;
+        if (slotPosition == 0)
+        {
+            touchEvent.transform.eulerAngles = new Vector3(touchEvent.transform.rotation.eulerAngles.x, touchEvent.transform.rotation.eulerAngles.y, 0);
+        }
+        else if (slotPosition == 1)
+        {
+            touchEvent.transform.eulerAngles = new Vector3(touchEvent.transform.rotation.eulerAngles.x, touchEvent.transform.rotation.eulerAngles.y, 270);
+        }
+        else if (slotPosition == 2)
+        {
+            touchEvent.transform.eulerAngles = new Vector3(touchEvent.transform.rotation.eulerAngles.x, touchEvent.transform.rotation.eulerAngles.y, 90);
+        }
+        else if (slotPosition == 3)
+        {
+            touchEvent.transform.eulerAngles = new Vector3(touchEvent.transform.rotation.eulerAngles.x, touchEvent.transform.rotation.eulerAngles.y, 180);
+        }
+        //spawn.GetComponent<SpawnedWeapon>().touchEvent.GetComponent<Material>().mainTexture = texture
 
 
     }
@@ -1140,31 +1183,196 @@ public class SkillSystem : MonoBehaviour
 
     SkillType currentPanelSkillType;
     public GameObject skillMenu; //inventorypanel, skillequipmenu
-    GameObject panels;
+    private GameObject panels;
     public GameObject materialSlots; //slotPanel
 
     public GameObject skillSlot; //inventoryslot
     public GameObject skill; //inventoryitem
 
-    int slotAmount;
+    private int slotAmount;
 
     public List<GameObject> backpack = new List<GameObject>();
     public List<GameObject> slots = new List<GameObject>();
 
-    void Start()
+    public void setCurrentPanelSkillType(int i)
     {
-        currentPanelSkillType = SkillType.MaterialType;
-        slotAmount = 20;
+        saveSlots();
+        if (i == 0)
+        {
+            currentPanelSkillType = SkillType.MaterialType;
+            mc.changeCurrentSkillType(SkillType.MaterialType);
+            slotAmount = materialSlotCapacity;
+        }
+        else if (i == 1)
+        {
+            currentPanelSkillType = SkillType.ControlType;
+            mc.changeCurrentSkillType(SkillType.ControlType);
+            slotAmount = controlSlotCapacity;
+        }
+        else if (i == 2)
+        {
+            currentPanelSkillType = SkillType.BarrierType;
+            mc.changeCurrentSkillType(SkillType.BarrierType);
+            slotAmount = barrierSlotCapacity;
+        }
+        else if (i == 3)
+        {
+            currentPanelSkillType = SkillType.BarrageType;
+            mc.changeCurrentSkillType(SkillType.BarrageType);
+            slotAmount = barrageSlotCapacity;
+        }
+        else if (i == 4)
+        {
+            currentPanelSkillType = SkillType.AuraType;
+            mc.changeCurrentSkillType(SkillType.AuraType);
+            slotAmount = auraSlotCapacity;
+        }
+        refreshPanel();
+        mc.clearInformation();
+        mc.populateSlots();
+        //  currentPanelSkillType = type;
+        
+    }
 
-        materialLimit = 3;
-        controlLimit = 2;
-        barrierLimit = 2;
-        barrageLimit = 2;
-        auraLimit = 2;
 
-        //skillMenu = GameObject.Find("SkillEquip Menu");
-        //materialSlots = GameObject.Find("MaterialSlots");
-        //skillMenu.SetActive(true);
+    //public Queue<GameObject> materialQueue = new Queue<GameObject>();
+    //public Queue<GameObject> controlQueue = new Queue<GameObject>();
+    //public Queue<GameObject> barrierQueue = new Queue<GameObject>();
+    //public Queue<GameObject> barrageQueue = new Queue<GameObject>();
+    //public Queue<GameObject> auraQueue = new Queue<GameObject>();
+    public List<Skill> materialList = new List<Skill>();
+    public List<Skill> controlList = new List<Skill>();
+    public List<Skill> barrierList = new List<Skill>();
+    public List<Skill> barrageList = new List<Skill>();
+    public List<Skill> auraList = new List<Skill>();
+
+
+    public void saveSlots()
+    {
+        wipeSlot();
+        if (currentPanelSkillType == SkillType.MaterialType)
+        {
+            if (mc.skillSlots.Count >= 1)
+            {
+                foreach (Text skilltext in mc.skillSlots)
+                {
+                    materialList.Add(skilltext.GetComponent<SkillData>().skill);
+                }
+            }
+        }
+        else if (currentPanelSkillType == SkillType.ControlType)
+        {
+            if (mc.skillSlots.Count >= 1)
+            {
+                foreach (Text skilltext in mc.skillSlots)
+                {
+                    controlList.Add(skilltext.GetComponent<SkillData>().skill);
+                }
+            }
+        }
+        else if (currentPanelSkillType == SkillType.BarrierType)
+        {
+            if (mc.skillSlots.Count >= 1)
+            {
+                foreach (Text skilltext in mc.skillSlots)
+                {
+                    barrierList.Add(skilltext.GetComponent<SkillData>().skill);
+                }
+            }
+        }
+        else if (currentPanelSkillType == SkillType.BarrageType)
+        {
+            if (mc.skillSlots.Count >= 1)
+            {
+                foreach (Text skilltext in mc.skillSlots)
+                {
+                    barrageList.Add(skilltext.GetComponent<SkillData>().skill);
+                }
+            }
+        }
+        else if (currentPanelSkillType == SkillType.AuraType)
+        {
+            if (mc.skillSlots.Count >= 1)
+            {
+                foreach (Text skilltext in mc.skillSlots)
+                {
+                    auraList.Add(skilltext.GetComponent<SkillData>().skill);
+                }
+            }
+        }
+
+    }
+    public void wipeSlot() {
+        if (currentPanelSkillType == SkillType.MaterialType)
+        {
+
+            materialList.Clear();
+
+        }
+        else if (currentPanelSkillType == SkillType.ControlType)
+        {
+
+            controlList.Clear();
+
+        }
+        else if (currentPanelSkillType == SkillType.BarrierType)
+        {
+
+             barrierList.Clear();
+
+        }
+        else if (currentPanelSkillType == SkillType.BarrageType)
+        {
+
+             barrageList.Clear();
+
+        }
+        else if (currentPanelSkillType == SkillType.AuraType)
+        {
+
+             auraList.Clear();
+
+        }
+    }
+
+    public List<Skill> getSlots()
+    {
+        if (currentPanelSkillType == SkillType.MaterialType)
+        {
+
+            return materialList;
+
+        }
+        else if (currentPanelSkillType == SkillType.ControlType)
+        {
+
+            return controlList;
+
+        }
+        else if (currentPanelSkillType == SkillType.BarrierType)
+        {
+
+            return barrierList;
+
+        }
+        else if (currentPanelSkillType == SkillType.BarrageType)
+        {
+
+            return barrageList;
+
+        }
+        else if (currentPanelSkillType == SkillType.AuraType)
+        {
+
+            return auraList;
+
+        }
+        else return null;
+    }
+
+    void createSlots()
+    {
+
         for (int i = 0; i < slotAmount; i++)
         {
 
@@ -1174,14 +1382,32 @@ public class SkillSystem : MonoBehaviour
 
         }
 
+    }
+    void Start()
+    {
+
+        materialLimit = 3;
+        materialSlotCapacity = 20;
+        controlLimit = 2;
+        controlSlotCapacity = 8;
+        barrierLimit = 2;
+        barrierSlotCapacity = 4;
+        barrageLimit = 2;
+        barrageSlotCapacity = 4;
+        auraLimit = 2;
+        auraSlotCapacity = 2;
+        setCurrentPanelSkillType(0);
+        createSlots();
         materialSlots.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (((int)(slotAmount - 20) / 4) + Mathf.Ceil(slotAmount % 4)) * 84);
 
 
         //skillMenu.SetActive(false);
     }
-    public void clearPanels() {
+    public void clearPanels()
+    {
         var children = new List<GameObject>();
-        foreach (RectTransform singleSlot in materialSlots.GetComponent<RectTransform>()) {
+        foreach (RectTransform singleSlot in materialSlots.GetComponent<RectTransform>())
+        {
 
             foreach (RectTransform singleSkill in singleSlot.GetComponent<RectTransform>())
             {
@@ -1202,12 +1428,12 @@ public class SkillSystem : MonoBehaviour
         {
             if (obj.GetComponent<Skill>().skillType == currentPanelSkillType)
             {
-                
+
                 currentBackpack.Add(obj);
-                
+
             }
         }
-        for (int i=0; i < currentBackpack.Count && i < slotAmount; i++)
+        for (int i = 0; i < currentBackpack.Count && i < slotAmount; i++)
         {
 
             GameObject itemObj = Instantiate(skill);
@@ -1218,12 +1444,12 @@ public class SkillSystem : MonoBehaviour
             itemObj.GetComponent<SkillData>().mc = this.mc;
             itemObj.GetComponent<Image>().sprite = currentBackpack[i].GetComponent<Skill>().sprite;
             itemObj.name = currentBackpack[i].GetComponent<Skill>().skillName;
-            
-            
+
+
 
         }
-       
-        materialSlots.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (((int)(slotAmount - 20)/ 4)+Mathf.Ceil(slotAmount % 4)) * 84);
+
+        materialSlots.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (((int)(slotAmount - 20) / 4) + Mathf.Ceil(slotAmount % 4)) * 84);
     }
 
 
@@ -1235,106 +1461,154 @@ public class SkillSystem : MonoBehaviour
 
 
 
-    public static SkillSystem f = null;
-    void Awake() { f = this; }
+    //public static SkillSystem f = null;
+    //void Awake() { f = this; }
 
-    public GameObject[] activeSkills;
-    public Queue<GameObject> materialQueue = new Queue<GameObject>();
-    public Queue<GameObject> controlQueue = new Queue<GameObject>();
-    public Queue<GameObject> barrierQueue = new Queue<GameObject>();
-    public Queue<GameObject> barrageQueue = new Queue<GameObject>();
-    public Queue<GameObject> auraQueue = new Queue<GameObject>();
+    ////public GameObject[] activeSkills;
+    //public Queue<GameObject> materialQueue = new Queue<GameObject>();
+    //public Queue<GameObject> controlQueue = new Queue<GameObject>();
+    //public Queue<GameObject> barrierQueue = new Queue<GameObject>();
+    //public Queue<GameObject> barrageQueue = new Queue<GameObject>();
+    //public Queue<GameObject> auraQueue = new Queue<GameObject>();
 
     public int materialLimit;
+    public int materialSlotCapacity;
     public int controlLimit;
+    public int controlSlotCapacity;
     public int barrierLimit;
+    public int barrierSlotCapacity;
     public int barrageLimit;
+    public int barrageSlotCapacity;
     public int auraLimit;
+    public int auraSlotCapacity;
 
+    public List<GameObject> activeSkills = new List<GameObject>();
 
-    public List<GameObject> getEquipped(SkillType type)
+    public void equipSkills(GameObject skill)
     {
-        List<GameObject> list = new List<GameObject>();
-        if (type == SkillType.MaterialType)
+        saveSlots();
+
+        activeSkills.Add(skill);
+        skill.transform.parent = this.transform;
+
+
+
+
+    }
+    public void equipSkills(List<GameObject> skills)
+    {
+        saveSlots();
+        if (skills.Count >= 1)
         {
-            foreach (GameObject obj in materialQueue)
+            foreach (GameObject skill in skills)
             {
-                list.Add(obj);
+                activeSkills.Add(skill);
+                skill.transform.parent = this.transform;
             }
         }
-        return list;
+
+
     }
+
+    public void removeSkills(SkillType type)
+    {
+        if (activeSkills.Count >= 1)
+        {
+            foreach (GameObject obj in activeSkills)
+            {
+                if (obj.GetComponent<Skill>().skillType == type)
+                {
+                    obj.transform.parent = transform.FindChild("Inactive");
+                }
+            }
+        }
+    }
+
+
+    //public List<GameObject> getEquipped(SkillType type)
+    //{
+    //    List<GameObject> list = new List<GameObject>();
+    //    if (type == SkillType.MaterialType)
+    //    {
+    //        foreach (GameObject obj in materialQueue)
+    //        {
+    //            list.Add(obj);
+    //        }
+    //    }
+    //    return list;
+    //}
 
     //logic for skill equipment. used for equipping skills and accessing skills in the storage.
-    public void equipSkill(GameObject obj)
-    {
-        if (obj.GetComponent<Skill>().skillType == SkillType.MaterialType)
-        {
-            if (materialQueue.Count >= materialLimit)
-            {
+    //public void equipSkill(GameObject obj)
+    //{
+    //    if (obj.GetComponent<Skill>().skillType == SkillType.MaterialType)
+    //    {
+    //        if (materialQueue.Count >= materialLimit)
+    //        {
 
-                GameObject temp = materialQueue.Dequeue();
-                temp.transform.parent = transform.FindChild("Inactive");
+    //            GameObject temp = materialQueue.Dequeue();
+    //            temp.transform.parent = transform.FindChild("Inactive");
 
-            }
-            materialQueue.Enqueue(obj);
-            obj.transform.parent = transform.FindChild("Material");
+    //        }
+    //        materialQueue.Enqueue(obj);
+    //        obj.transform.parent = transform.FindChild("Material");
 
-        }
-        else if (obj.GetComponent<Skill>().skillType == SkillType.ControlType)
-        {
+    //    }
+    //    else if (obj.GetComponent<Skill>().skillType == SkillType.ControlType)
+    //    {
 
-            if (controlQueue.Count >= controlLimit)
-            {
+    //        if (controlQueue.Count >= controlLimit)
+    //        {
 
-                GameObject temp = controlQueue.Dequeue();
-                temp.transform.parent = transform.FindChild("Inactive");
+    //            GameObject temp = controlQueue.Dequeue();
+    //            temp.transform.parent = transform.FindChild("Inactive");
 
-            }
-            controlQueue.Enqueue(obj);
-            obj.transform.parent = transform.FindChild("Control");
-        }
-        else if (obj.GetComponent<Skill>().skillType == SkillType.BarrierType)
-        {
-            if (barrierQueue.Count >= barrierLimit)
-            {
+    //        }
+    //        controlQueue.Enqueue(obj);
+    //        obj.transform.parent = transform.FindChild("Control");
+    //    }
+    //    else if (obj.GetComponent<Skill>().skillType == SkillType.BarrierType)
+    //    {
+    //        if (barrierQueue.Count >= barrierLimit)
+    //        {
 
-                GameObject temp = barrierQueue.Dequeue();
-                temp.transform.parent = transform.FindChild("Inactive");
+    //            GameObject temp = barrierQueue.Dequeue();
+    //            temp.transform.parent = transform.FindChild("Inactive");
 
-            }
-            barrierQueue.Enqueue(obj);
-            obj.transform.parent = transform.FindChild("Barrier");
-        }
-        else if (obj.GetComponent<Skill>().skillType == SkillType.BarrageType)
-        {
-            if (barrageQueue.Count >= barrageLimit)
-            {
+    //        }
+    //        barrierQueue.Enqueue(obj);
+    //        obj.transform.parent = transform.FindChild("Barrier");
+    //    }
+    //    else if (obj.GetComponent<Skill>().skillType == SkillType.BarrageType)
+    //    {
+    //        if (barrageQueue.Count >= barrageLimit)
+    //        {
 
-                GameObject temp = barrageQueue.Dequeue();
-                temp.transform.parent = transform.FindChild("Inactive");
+    //            GameObject temp = barrageQueue.Dequeue();
+    //            temp.transform.parent = transform.FindChild("Inactive");
 
-            }
-            barrageQueue.Enqueue(obj);
-            obj.transform.parent = transform.FindChild("Barrage");
-        }
-        else if (obj.GetComponent<Skill>().skillType == SkillType.AuraType)
-        {
-            if (auraQueue.Count >= auraLimit)
-            {
+    //        }
+    //        barrageQueue.Enqueue(obj);
+    //        obj.transform.parent = transform.FindChild("Barrage");
+    //    }
+    //    else if (obj.GetComponent<Skill>().skillType == SkillType.AuraType)
+    //    {
+    //        if (auraQueue.Count >= auraLimit)
+    //        {
 
-                GameObject temp = auraQueue.Dequeue();
-                temp.transform.parent = transform.FindChild("Inactive");
+    //            GameObject temp = auraQueue.Dequeue();
+    //            temp.transform.parent = transform.FindChild("Inactive");
 
-            }
-            auraQueue.Enqueue(obj);
-            obj.transform.parent = transform.FindChild("Aura");
-        }
+    //        }
+    //        auraQueue.Enqueue(obj);
+    //        obj.transform.parent = transform.FindChild("Aura");
+    //    }
 
-    }
+    //}
     public void addSkill(GameObject obj)
     {
         backpack.Add(obj);
+        obj.transform.parent = transform.FindChild("Inactive");
         refreshPanel();
     }
     public GameObject makeSkill(string id)
@@ -1358,14 +1632,14 @@ public class SkillSystem : MonoBehaviour
         {
             skillid = "00" + skillid;
         }
-       
+
         return makeSkill(skillid);
     }
 
     GameObject material, control, guard, barrage, aura, inactive;
     public void init()
     {
-        activeSkills = new GameObject[6];
+        //activeSkills = new GameObject[6];
         material = new GameObject("Material");
         control = new GameObject("Control");
         guard = new GameObject("Barrier");
@@ -1374,31 +1648,31 @@ public class SkillSystem : MonoBehaviour
         inactive = new GameObject("Inactive");
 
         material.transform.parent = this.transform;
-        activeSkills[0] = material;
+        //activeSkills[0] = material;
         control.transform.parent = this.transform;
-        activeSkills[1] = control;
+        //activeSkills[1] = control;
         guard.transform.parent = this.transform;
-        activeSkills[2] = guard;
+        //activeSkills[2] = guard;
         barrage.transform.parent = this.transform;
-        activeSkills[3] = barrage;
+        //activeSkills[3] = barrage;
         aura.transform.parent = this.transform;
-        activeSkills[4] = aura;
+        //activeSkills[4] = aura;
         inactive.transform.parent = this.transform;
         inactive.SetActive(false);
-        activeSkills[5] = inactive;
+        //activeSkills[5] = inactive;
 
 
 
 
 
 
-        equipSkill(makeSkill("003"));
-        equipSkill(makeSkill("005"));
+        makeSkill("003");
+        makeSkill("005");
         //equipSkill(makeSkill(1));
 
-        equipSkill(makeSkill(11));
+        makeSkill(11);
 
-        equipSkill(makeSkill("031"));
+        makeSkill("031");
 
     }
 }

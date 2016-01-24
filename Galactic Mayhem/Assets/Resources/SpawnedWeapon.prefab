@@ -90,7 +90,6 @@ MonoBehaviour:
   towardsObject: {fileID: 0}
   targetVector: {x: 0, y: 0, z: 0}
   touchEvent: {fileID: 100598, guid: e4643c293d0a11f4bab2ba2cec4d19f7, type: 2}
-  SpecialWeapon: {fileID: 0}
   destroyThis: 1
 --- !u!1001 &100100000
 Prefab:
@@ -166,6 +165,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.x
       value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: destroyThis
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

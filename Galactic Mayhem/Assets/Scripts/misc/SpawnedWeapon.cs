@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SpawnedWeapon : RotateTowards {
+public class SpawnedWeapon : RotateTowards {//this will rotate to mouse
 	public GameObject touchEvent;
-	public SpecialWeapon SpecialWeapon;
 	void Awake(){
 		towardsObject = (GameObject)Instantiate (touchEvent, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 3), this.transform.rotation);
 		touchEvent = towardsObject;
@@ -16,10 +15,6 @@ public class SpawnedWeapon : RotateTowards {
 		transform.rotation = Quaternion.Euler(0, 0, angleofFire);
 	}
 	void Start(){
-		//Destroy (gameObject, 5);
-		//Debug.Log ("hit");
-
-		//StartCoroutine (selfDestruct ());
 	}
 	public bool destroyThis = true;
 
