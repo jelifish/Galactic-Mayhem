@@ -76,11 +76,12 @@ void Start()
         float lastv = 0f;
         yield return new WaitForSeconds(.03f);
         while (true) {
-            float v = GetVolume(1500f, 2000f);
-            if (Mathf.Abs(lastv - v) > (lastv / 3))
+            float v = GetVolume(100f, 120f);
+            if (Mathf.Abs(lastv - v) > (lastv/5))
             {
                // Debug.Log(1000 * v);
                 this.transform.localScale = new Vector3(1.5f + (1000 * v) , 1.5f + (1000 * v) , this.transform.localScale.z);
+                lastv = v;
 
             }
 
