@@ -4629,7 +4629,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &866423769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10653,6 +10653,18 @@ CanvasRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 134518, guid: f34b5d6e50a0d0e408e51d27876918e9, type: 2}
   m_PrefabInternal: {fileID: 1193744214}
+--- !u!114 &1642921042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1642921041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69bf4780d91e89d449330f4c26dfb421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 1716910070}
 --- !u!4 &1642921048 stripped
 Transform:
   m_PrefabParentObject: {fileID: 458422, guid: f34b5d6e50a0d0e408e51d27876918e9, type: 2}
@@ -11207,7 +11219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicClips:
-  - {fileID: 8300000, guid: 7db0c87ec4fdb0e48af04349c4f14df9, type: 3}
+  - {fileID: 8300000, guid: 28c186a8736d6324cb035ece137795a7, type: 3}
   - {fileID: 8300000, guid: c57f240c0109ffc429314d0596cdea28, type: 3}
   - {fileID: 8300000, guid: 60a69606baed22743b3e8973995c67aa, type: 3}
   - {fileID: 8300000, guid: 2d860e5f2087df24c87f011b72467691, type: 3}
@@ -11224,7 +11236,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24324684, guid: 0ac7fb39e445048d89688f69c2a1839a,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 7db0c87ec4fdb0e48af04349c4f14df9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 28c186a8736d6324cb035ece137795a7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.29
   m_Pitch: 1
