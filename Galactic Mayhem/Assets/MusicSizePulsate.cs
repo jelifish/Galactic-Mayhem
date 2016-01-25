@@ -13,7 +13,7 @@ public class MusicSizePulsate : MonoBehaviour {
 
 
     private float[] freqData;
- private int nSamples = 4096;
+ private int nSamples = 1024;
     private float fMax;
  
 private float[] samples; // audio samples
@@ -76,7 +76,7 @@ void Start()
         float lastv = 0f;
         yield return new WaitForSeconds(.03f);
         while (true) {
-            float v = GetVolume(100f, 120f);
+            float v = GetVolume(2500f, 4500f);
             if (Mathf.Abs(lastv - v) > (lastv/5))
             {
                // Debug.Log(1000 * v);
