@@ -48,7 +48,10 @@ public class Interactable : MonoBehaviour {
     public virtual void OnDestroy()
     {
         timeResume();
-        SpawnPool.pool.executeSpawn(this.gameObject);
+        if (SpawnPool.pool != null)
+        {
+            SpawnPool.pool.executeSpawn(this.gameObject);
+        }
     }
     
     public void preMouseUp() {

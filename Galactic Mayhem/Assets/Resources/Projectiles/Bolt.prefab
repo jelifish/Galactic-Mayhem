@@ -125,7 +125,7 @@ MonoBehaviour:
   maxHull: 0
   killed: 0
   deathParticles: {fileID: 104386, guid: f108801a581eb9843983eeb0db6997b1, type: 2}
-  trail: {fileID: 0}
+  trail: {fileID: 100112}
   mirrorRate: 0
   totalSectorSize: 0
   sizeSet: 0
@@ -148,7 +148,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100112}
   serializedVersion: 2
-  lengthInSec: 0.5
+  lengthInSec: 0.25
   startDelay:
     scalar: 0
     maxCurve:
@@ -195,7 +195,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 0.5
+      scalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -268,10 +268,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4294967295
+          rgba: 1694498815
         key1:
           serializedVersion: 2
-          rgba: 4294967295
+          rgba: 1694498815
         key2:
           serializedVersion: 2
           rgba: 0
@@ -356,10 +356,10 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4294967295
-      minMaxState: 0
+        rgba: 4294951693
+      minMaxState: 1
     startSize:
-      scalar: 0.4
+      scalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -527,7 +527,7 @@ ParticleSystem:
     serializedVersion: 2
     m_Type: 0
     rate:
-      scalar: 100
+      scalar: 120
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -725,10 +725,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4290815046
+          rgba: 1694498815
         key1:
           serializedVersion: 2
-          rgba: 4294967295
+          rgba: 1119921222
         key2:
           serializedVersion: 2
           rgba: 0
@@ -755,7 +755,7 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 0
+        atime0: 14649
         atime1: 65535
         atime2: 0
         atime3: 0
@@ -1650,7 +1650,7 @@ ParticleSystemRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 2dccaf452654e2645aacd8e30dde251d, type: 2}
+  - {fileID: 2100000, guid: 31cec3c855ff780409eae7b20dc218fa, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1694,7 +1694,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: lengthInSec
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: moveWithTransform
@@ -1702,11 +1702,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: EmissionModule.rate.scalar
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSpeed.scalar
@@ -1714,7 +1714,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.4
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ShapeModule.radius
@@ -1727,7 +1727,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2dccaf452654e2645aacd8e30dde251d, type: 2}
+      objectReference: {fileID: 2100000, guid: 31cec3c855ff780409eae7b20dc218fa, type: 2}
     - target: {fileID: 0}
       propertyPath: SizeModule.enabled
       value: 1
@@ -1754,7 +1754,43 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.key0.rgba
-      value: 4290815046
+      value: 1694498815
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: trail
+      value: 
+      objectReference: {fileID: 100112}
+    - target: {fileID: 0}
+      propertyPath: ColorModule.gradient.maxGradient.key1.rgba
+      value: 1119921222
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ColorModule.gradient.maxGradient.atime0
+      value: 14649
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startColor.maxColor.rgba
+      value: 4294951693
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startColor.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startColor.maxGradient.key1.rgba
+      value: 1694498815
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startColor.maxGradient.key0.rgba
+      value: 1694498815
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

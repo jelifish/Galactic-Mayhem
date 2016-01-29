@@ -193,6 +193,7 @@ public class Skill004 : Skill
     public override void init()
     {
         skillName = "Charge Cluster";
+        skillDesc = "Hold down to charge energy. Then release.";
         skillType = SkillType.MaterialType;
         subType = SubType.Cannon;
         skillNum = 4;
@@ -249,7 +250,7 @@ public class Skill004Attr : Interactable
                 {
                     break;
                 }
-                yield return new WaitForSeconds(.05f);
+                yield return new WaitForSeconds(.1f);
 
 
             }
@@ -275,12 +276,12 @@ public class Skill004Attr : Interactable
         //Destroy (this.gameObject);
     }
 }
-//=== 005 Sniper Rounds =============================
+//=== 005 Shooting Star =============================
 public class Skill005 : Skill
 {
     public override void init()
     {
-        skillName = "Sniper Rounds";
+        skillName = "Shooting Star";
         skillType = SkillType.MaterialType;
         subType = SubType.Cannon;
         skillDesc = "Fires a few but superpowered rounds of hot plasma. Aim for greater accuracy. Autofire Enabled.";
@@ -413,7 +414,6 @@ public class Skill006Attr : Interactable
             yield return new WaitForSeconds(1f);
             for (int j = 0; j < 3; j++)
             {
-                Debug.Log("bullets firing");
                 for (int i = 0; i < 20; i++)
                 {
                     GameObject temp = ObjectPool.pool.GetPooledObject();
@@ -424,7 +424,6 @@ public class Skill006Attr : Interactable
                 }
                 if (mouseUp)
                 {
-                    Debug.Log("wut");
                     break;
                 }
                 yield return new WaitForSeconds(1f);
@@ -675,12 +674,12 @@ public class Skill013Attr : Interactable
         //		
     }
 }
-//=== 014 Flow =============================
+//=== 014 Ebb and Flow =============================
 public class Skill014 : Skill
 {
     public override void init()
     {
-        skillName = "Flow";
+        skillName = "Ebb and Flow";
         skillDesc = "Manipulate a constant torrent of stars. Small blast at the end.";
         skillType = SkillType.ControlType;
         subType = SubType.Flow;
@@ -1211,7 +1210,10 @@ public class Skill : MonoBehaviour
     }
     void OnDisable()
     {
-        SpawnPool.pool.removeSpawn(this.gameObject);
+        if (SpawnPool.pool != null)
+        {
+            SpawnPool.pool.removeSpawn(this.gameObject);
+        }
     }
 
     void Awake()

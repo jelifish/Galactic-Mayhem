@@ -45,13 +45,14 @@ public class ProjectileCollision : MonoBehaviour {
 	private Transform originalObject;
 	public int mirrorRate = 0;
 	public float totalSectorSize;
+    public Rigidbody thisrb;
 
 	void Start()
 	{
-		//GetComponent<Rigidbody>().velocity =transform.right.normalized*speed;
-		//GetComponent<Rigidbody>().AddForce(transform.right * speed*5);
-		
-		
+        //GetComponent<Rigidbody>().velocity =transform.right.normalized*speed;
+        //GetComponent<Rigidbody>().AddForce(transform.right * speed*5);
+
+        thisrb = this.GetComponent<Rigidbody>();
 		originalObject = GetComponent<Rigidbody> ().transform;
 
 
@@ -84,7 +85,14 @@ public class ProjectileCollision : MonoBehaviour {
     }
     void FixedUpdate()
 	{
-		if (mirrorRate >= 10) {
+        if (trail != null&&thisrb.velocity.magnitude < .5) {
+             trail.SetActive(false); 
+        }
+        if (trail != null&&thisrb.velocity.magnitude >= .5)
+        {
+            trail.SetActive(true); 
+        }
+        if (mirrorRate >= 10) {
 			mirrorRate = 0;
 
 			this.gameObject.SetActive(false);

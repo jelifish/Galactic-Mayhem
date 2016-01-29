@@ -61,10 +61,10 @@ public class SpawnPool : MonoBehaviour {
 	}
     IEnumerator reinitSpawn(GameObject spawn, float coolDown) {
         yield return new WaitForSeconds(coolDown);
+        if (spawn != null) { placeSpawn(spawn); spawn.SetActive(true); spawn.GetComponent<SpawnedWeapon>().touchEvent.SetActive(true); }
+       
         
-        placeSpawn(spawn);
-        spawn.SetActive(true);
-        spawn.GetComponent<SpawnedWeapon>().touchEvent.SetActive(true);
+        
     }
 	//public void reinitSpawn(GameObject spawn){
 	//	spawn.SetActive (true);
