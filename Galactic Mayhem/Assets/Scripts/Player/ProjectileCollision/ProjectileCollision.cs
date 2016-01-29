@@ -9,6 +9,7 @@ public class ProjectileCollision : MonoBehaviour {
 
 	public bool killed;
 	public GameObject deathParticles;
+    public GameObject trail;
 
 	public void takeDamage(float damage){
 		//Debug.Log (damage);
@@ -95,16 +96,23 @@ public class ProjectileCollision : MonoBehaviour {
 			
 			//port object into other side of screen (horizontal)
 			if (Mathf.Abs (GetComponent<Rigidbody> ().position.x) >= totalSectorSize) {
+                if(trail != null) { trail.SetActive(false); }
+                
 				mirrorRate += 1;
 				GetComponent<Rigidbody> ().position = Vector3.Reflect (originalObject.position, Vector3.right);
 				originalObject = GetComponent<Rigidbody> ().transform;
-			}
+                if (trail != null)
+                { trail.SetActive(true); }
+            }
 			//port object into other side of screen (vertical)
 			if (Mathf.Abs (GetComponent<Rigidbody> ().position.y) >= totalSectorSize) {
-				mirrorRate += 1;
+                if (trail != null) { trail.SetActive(false); }
+                mirrorRate += 1;
 				GetComponent<Rigidbody> ().position = Vector3.Reflect (originalObject.position, Vector3.up);
 				originalObject = GetComponent<Rigidbody> ().transform;
-			}
+                if (trail != null)
+                { trail.SetActive(true); }
+            }
 		}
 		
 		

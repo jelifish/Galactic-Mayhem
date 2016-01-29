@@ -77,15 +77,18 @@ void Start()
         yield return new WaitForSeconds(.03f);
         while (true) {
             float v = GetVolume(2500f, 4500f);
-            if (Mathf.Abs(lastv - v) > (lastv/5))
+            if (Mathf.Abs(lastv - v) > (lastv/4))
             {
-               // Debug.Log(1000 * v);
-                this.transform.localScale = new Vector3(1.5f + (1000 * v) , 1.5f + (1000 * v) , this.transform.localScale.z);
+                //Debug.Log(1000 * v);
+                if ((1000 * v) > 1f) {
+                    v = (1f / 500);
+                }
+                this.transform.localScale = new Vector3(2f + (500 * v) , 2f + (500 * v) , this.transform.localScale.z);
                 lastv = v;
 
             }
 
-            yield return new WaitForSeconds(.05f);
+            yield return new WaitForSeconds(.016f);
         }
         
     }

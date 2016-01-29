@@ -168,7 +168,7 @@ public class SkillMenuController : MonoBehaviour {
         foreach (Text skillslotname in skillSlots)
         {
             if (skillslotname.GetComponent<SkillData>().skill == null) { }
-            else if (skillslotname.GetComponent<SkillData>().skill.skillType.Equals(subtype)) return true;
+            else if (skillslotname.GetComponent<SkillData>().skill.subType == subtype) return true;
         }
         return false;
     }

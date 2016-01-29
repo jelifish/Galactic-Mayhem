@@ -84,6 +84,9 @@ public class BoxColSetSectorSize : MonoBehaviour {
 
 
 		minimap.orthographicSize = totalSectorSize * 0.80f;
+        if (Screen.height > Screen.width) {
+            minimap.orthographicSize *= 2;
+        }
 	}
 
 

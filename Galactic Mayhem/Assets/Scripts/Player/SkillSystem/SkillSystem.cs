@@ -176,7 +176,7 @@ public class Skill003Attr : Interactable
             {
                 GameObject temp = ObjectPool.pool.GetPooledObject();
                 temp.transform.position = spawnPosition;
-                temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, 0.0f);
+                temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-0.5f, 0.5f));
                 Skillf.f.AddForce(temp, Skillf.highForce * 1.3f);
                 yield return new WaitForSeconds(.05f);
             }
@@ -519,7 +519,7 @@ public class Skill012 : Skill
     public override void init()
     {
         skillName = "Collapse";
-        skillName = "Warps space to pull in all nearby stars at a location. Fast executing skill.";
+        skillDesc = "Warps space to pull in all nearby stars at a location. Fast executing skill.";
         skillType = SkillType.ControlType;
         subType = SubType.Force;
         skillNum = 12;
@@ -1044,14 +1044,12 @@ public class Skill : MonoBehaviour
 
     public GameObject spawn;//do not mess with this
     public bool isSpecialOn = false;
-
+    
     public void initInteractable()
     { //spawner instatiation at the correct random coords
       //genXY ();
       //spawn = new GameObject();
         spawn = (GameObject)Instantiate(interactable);
-
-
 
         if (isSpecialOn)
         {
@@ -1061,6 +1059,91 @@ public class Skill : MonoBehaviour
         else {
             attachAttributes();
         }
+
+
+        //set the spawn texture shape
+        if (this.subType == SubType.Blaster)
+        {
+            //spawn.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(152 / 255.0F, 203 / 255.0F, 74 / 255.0F, 255f));
+            sprite = Resources.Load<Sprite>("Skills/Blaster");
+            
+        }
+        else if (this.subType == SubType.Repeater)
+        {
+            sprite = Resources.Load<Sprite>("Skills/Repeater");
+        }
+        else if (this.subType == SubType.Cannon)
+        {
+            sprite = Resources.Load<Sprite>("Skills/Cannon");
+        }
+        else if (this.subType == SubType.Force)
+        {
+            sprite = Resources.Load<Sprite>("Skills/Force");
+            // spawn.GetComponent<Renderer>().material.SetColor("_TintColor", new Color(250 / 255.0F, 130 / 255.0F, 40 / 255.0F, 255f));
+        }
+        else if (this.subType == SubType.Flow)
+        {
+            sprite = Resources.Load<Sprite>("Skills/Flow");
+        }
+        else if (this.subType == SubType.Control)
+        {
+           sprite = Resources.Load<Sprite>("Skills/Control");
+        }
+        else if (this.subType == SubType.Bulwark)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/Bulwark");
+        }
+        else if (this.subType == SubType.Melee)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/");
+        }
+
+        else if (this.subType == SubType.Siege)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/");
+        }
+
+        else if (this.subType == SubType.Missile)
+        {
+            sprite = Resources.Load<Sprite>("Skills/Missile");
+        }
+
+        else if (this.subType == SubType.Beam)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/");
+        }
+
+        else if (this.subType == SubType.Elemental)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/");
+        }
+
+        else if (this.subType == SubType.Buff)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/");
+        }
+
+        else if (this.subType == SubType.Debuff)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/");
+        }
+
+        else if (this.subType == SubType.Misc)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/");
+        }
+
+        else if (this.subType == SubType.Turret)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/");
+        }
+
+        else if (this.subType == SubType.Auto)
+        {
+            // sprite = Resources.Load<Sprite>("Skills/");
+        }
+
+        spawn.GetComponent<Renderer>().material.SetTexture("_MainTex", sprite.texture);
 
 
         //initialize all known variables
@@ -1373,7 +1456,9 @@ public class SkillSystem : MonoBehaviour
 
     void createSlots()
     {
-
+        //removeSlots();
+        slots.ForEach(child => Destroy(child));
+        slots.Clear();
         for (int i = 0; i < slotAmount; i++)
         {
 
@@ -1404,15 +1489,18 @@ public class SkillSystem : MonoBehaviour
 
         //skillMenu.SetActive(false);
     }
+
     public void clearPanels()
     {
         var children = new List<GameObject>();
         foreach (RectTransform singleSlot in materialSlots.GetComponent<RectTransform>())
         {
-
+            //if (singleSlot.name.Equals("Slot(Clone)")) { children.Add(singleSlot.gameObject); }
+            
             foreach (RectTransform singleSkill in singleSlot.GetComponent<RectTransform>())
             {
 
+               // Debug.Log(singleSkill.name);
                 children.Add(singleSkill.gameObject);
 
             }
@@ -1424,6 +1512,7 @@ public class SkillSystem : MonoBehaviour
     public void refreshPanel()
     {
         clearPanels();
+        createSlots();
         List<GameObject> currentBackpack = new List<GameObject>();
         foreach (GameObject obj in backpack)
         {
@@ -1631,7 +1720,7 @@ public class SkillSystem : MonoBehaviour
         }
         if (id < 10)
         {
-            skillid = "00" + skillid;
+            skillid = "0" + skillid;
         }
 
         return makeSkill(skillid);
@@ -1667,13 +1756,23 @@ public class SkillSystem : MonoBehaviour
 
 
 
-        makeSkill("003");
-        makeSkill("005");
+        makeSkill(1);
+        makeSkill(2);
+        makeSkill(3);
+        makeSkill(4);
+        makeSkill(5);
+        makeSkill(6);
+        //makeSkill(7);
+        
+        makeSkill("011");
+        makeSkill("012");
+        makeSkill("013");
+        makeSkill("014");
         //equipSkill(makeSkill(1));
 
-        makeSkill(11);
+        
 
-        makeSkill("031");
+        makeSkill(31);
 
     }
 }
