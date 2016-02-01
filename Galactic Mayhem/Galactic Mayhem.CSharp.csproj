@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\HPBars.cs" />
-    <Compile Include="Assets\MusicSizePulsate.cs" />
     <Compile Include="Assets\Scripts\Enemy Generation\BlockCollision.cs" />
     <Compile Include="Assets\Scripts\Enemy Generation\CoreBlockCollision.cs" />
     <Compile Include="Assets\Scripts\Enemy Generation\CoreScript.cs" />
@@ -104,10 +103,12 @@
     <Compile Include="Assets\Scripts\Parents\CollisionObject.cs" />
     <Compile Include="Assets\Scripts\Parents\RotateTowards.cs" />
     <Compile Include="Assets\Scripts\Player\BlasterWeapon.cs" />
+    <Compile Include="Assets\Scripts\Player\MusicSizePulsate.cs" />
     <Compile Include="Assets\Scripts\Player\OverlapFollow.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerDrag.cs" />
     <Compile Include="Assets\Scripts\Player\ProjectileCollision\ProjectileCollision.cs" />
+    <Compile Include="Assets\Scripts\Player\SkillSystem\SkillMenuController.cs" />
     <Compile Include="Assets\Scripts\Player\SkillSystem\SkillSystem.cs" />
     <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialStrike.cs" />
     <Compile Include="Assets\Scripts\Player\SpecialWeapons\SpecialWeapon.cs" />
@@ -122,7 +123,6 @@
     <Compile Include="Assets\Scripts\misc\ShieldScript.cs" />
     <Compile Include="Assets\Scripts\misc\SpawnedWeapon.cs" />
     <Compile Include="Assets\ShieldEffect.cs" />
-    <Compile Include="Assets\SkillMenuController.cs" />
     <Compile Include="Assets\Textures.cs" />
     <Compile Include="Assets\UI\Game Jam Menu Template\Scripts\DontDestroy.cs" />
     <Compile Include="Assets\UI\Game Jam Menu Template\Scripts\EventSystemChecker.cs" />
