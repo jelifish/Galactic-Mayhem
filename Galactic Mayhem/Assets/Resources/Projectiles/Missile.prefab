@@ -143,8 +143,10 @@ MonoBehaviour:
   maxHull: 0
   killed: 0
   deathParticles: {fileID: 104386, guid: f108801a581eb9843983eeb0db6997b1, type: 2}
+  trail: {fileID: 177120}
   mirrorRate: 0
   totalSectorSize: 0
+  thisrb: {fileID: 0}
   sizeSet: 0
 --- !u!136 &13657252
 CapsuleCollider:
@@ -214,6 +216,10 @@ Prefab:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: trail
+      value: 
+      objectReference: {fileID: 177120}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 177120}

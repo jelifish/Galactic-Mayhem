@@ -115,8 +115,8 @@ public class Skill002Attr : Interactable
                 //GameObject temp = (GameObject)Instantiate (projectile, this.transform.position, this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f)));
                 GameObject temp = ObjectPool.pool.GetPooledObject();
                 temp.transform.position = this.transform.position;
-                temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-10.0f, 10.0f));
-                Skillf.f.AddForce(temp, Skillf.highForce);
+                temp.transform.rotation = this.transform.rotation * Quaternion.Euler(0f, 0.0f, Random.Range(-15.0f, 15.0f));
+                Skillf.f.AddForce(temp, Skillf.medForce);
                 yield return new WaitForSeconds(.03f);
             }
             break;
@@ -172,7 +172,7 @@ public class Skill003Attr : Interactable
         initialSpeed = 5;
         while (true)
         {
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < 30; i++)
             {
                 GameObject temp = ObjectPool.pool.GetPooledObject();
                 temp.transform.position = spawnPosition;

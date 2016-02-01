@@ -14,9 +14,10 @@ public class SpawnPool : MonoBehaviour {
     {//add a spawn into the list
      //		Debug.Log("reached");
         objs.Add(spawn);
-        placeSpawn(spawn);
-        spawnChecker(spawn);
-        spawn.SetActive(true);
+        StartCoroutine(reinitSpawn(spawn, spawn.GetComponent<Interactable>().coolDown));
+        //spawnChecker(spawn);
+        spawn.SetActive(false);
+        spawn.GetComponent<SpawnedWeapon>().touchEvent.SetActive(false);
     }
 
     protected void placeSpawn(GameObject spawn)

@@ -23,8 +23,10 @@ public class GameController : MonoBehaviour {
 	}
 	public int xSector = 5;
 	public int ySector = 10;
-	  
-	//HUD references
+
+    //HUD references
+    public Image shieldImage;
+    public Image hullImage;
 	public Text hullText;
 	public Text pixText;
 	public Text sectorText;
@@ -268,10 +270,12 @@ public class GameController : MonoBehaviour {
 		}
 	}
 	public void setHealth (float curHP, float hpMax){
-		hullText.text = "Hull: " + (int)curHP + "/" + (int)hpMax;
+		hullText.text = (int)curHP + "/" + (int)hpMax;
+        hullImage.fillAmount = (curHP / hpMax);
 	}
 	public void setShield (float curShield, float shieldMax){
-		shieldText.text = "Shield: " + (int)curShield + "/" + (int)shieldMax;
+        shieldImage.fillAmount = curShield/ shieldMax;
+		//shieldText.text = "Shield: " + (int)curShield + "/" + (int)shieldMax;
 	}
 	public void setBoost (float curBoost){
 		if (curBoost <= 0) {
