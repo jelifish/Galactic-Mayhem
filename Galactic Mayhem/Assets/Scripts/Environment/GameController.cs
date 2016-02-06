@@ -154,7 +154,7 @@ public class GameController : MonoBehaviour {
 
 	public void openBorders(){
 		sectorBounds.GetComponent<BoxColSetSectorSize> ().liftBorder ();
-		player.GetComponent<PlayerController> ().sectorClear = true;
+		player.GetComponent<Reflect> ().sectorClear = true;
 
 	}
 	private bool moving = false;
@@ -211,7 +211,7 @@ public class GameController : MonoBehaviour {
 
 				visitedSector = true;
 				sectorBounds.GetComponent<BoxColSetSectorSize> ().liftBorder ();
-				player.GetComponent<PlayerController>().sectorClear = true;
+				player.GetComponent<Reflect>().sectorClear = true;
 				waveLimit = 0;
 
 			}
@@ -220,7 +220,7 @@ public class GameController : MonoBehaviour {
 
 		if (!visitedSector) {
 
-			player.GetComponent<PlayerController> ().sectorClear = false;
+			player.GetComponent<Reflect> ().sectorClear = false;
 			sectorBounds.GetComponent<BoxColSetSectorSize> ().setBorder ();
 			calcHazardCount ();
 			spawnWait = Random.Range (5, 10);

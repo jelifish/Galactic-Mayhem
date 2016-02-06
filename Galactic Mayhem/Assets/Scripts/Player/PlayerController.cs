@@ -150,7 +150,7 @@ public class PlayerController : CollisionObject
 
 		
 		//setBoundary (); /////////////////sets bounds for player movement.
-		sectorClear = false;
+		
 		
 //		for (int i=0; i<numOfWeaponSlots; i++) {
 //			GameObject tempSlot = (GameObject)Instantiate (weaponSlot, this.GetComponent<Rigidbody>().position, GetComponent<Rigidbody>().rotation);
@@ -180,66 +180,12 @@ public class PlayerController : CollisionObject
 
 	
 	//public Boundary boundary;
-	public bool sectorClear = false;
 	public void setMoveDirection(Vector3 move){
 		this.GetComponent<Rigidbody>().velocity += move * movementSpeedCap*5;
 		this.GetComponent<Rigidbody>().velocity = this.GetComponent<Rigidbody>().velocity.normalized * movementSpeedCap;
 	}
     
-	void FixedUpdate ()
-	{
-                //Debug.Log(GetComponent<Rigidbody>().velocity.magnitude);
-
-        if (!sectorClear) {
-        	this.GetComponent<Rigidbody> ().position = new Vector3 
-        		(
-        			Mathf.Clamp (this.GetComponent<Rigidbody> ().position.x, gc.GetComponent<GameController>().boundary.xMin, gc.GetComponent<GameController>().boundary.xMax), 
-        			Mathf.Clamp (this.GetComponent<Rigidbody> ().position.y, gc.GetComponent<GameController>().boundary.yMin, gc.GetComponent<GameController>().boundary.yMax), 
-        			0.0f
-        	);
-        }
-
-        if (!sectorClear) {
-
-            // this.GetComponent<Rigidbody>().position = new Vector3
-            //if(this.riigid)
-            if (rb.position.y >= gc.boundary.yMax) {
-                rb.velocity = new Vector3(rb.velocity.x, -rb.velocity.y, rb.velocity.z);
-            }
-            else if (rb.position.y <= gc.boundary.yMin) {
-                rb.velocity = new Vector3(rb.velocity.x, -rb.velocity.y, rb.velocity.z);
-            }
-            else if (rb.position.x >= gc.boundary.xMax)
-            {
-                rb.velocity = new Vector3(-rb.velocity.x, rb.velocity.y, rb.velocity.z);
-            }
-            else if (rb.position.x <= gc.boundary.xMin)
-            {
-                rb.velocity = new Vector3(-rb.velocity.x, rb.velocity.y, rb.velocity.z);
-            }
-        }
-
-		if (sectorClear) {
-			if(this.GetComponent<Rigidbody> ().position.x > gc.GetComponent<GameController>().boundary.xMax+5)
-			{
-				gc.moveEast();
-			}
-			if(this.GetComponent<Rigidbody> ().position.x < gc.GetComponent<GameController>().boundary.xMin-5)
-			{
-				gc.moveWest();
-			}
-			if(this.GetComponent<Rigidbody> ().position.y > gc.GetComponent<GameController>().boundary.yMax+5)
-			{
-				gc.moveNorth();
-			}
-			if(this.GetComponent<Rigidbody> ().position.y < gc.GetComponent<GameController>().boundary.xMin-5)
-			{
-				gc.moveSouth();
-			}
-		}
-
-
-		}
+	
 
 	public override void onDeath(){
 		updateHUD ();

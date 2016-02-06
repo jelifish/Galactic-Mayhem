@@ -4793,6 +4793,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalSectorSize: 50
   age: 10
+  sectorClear: 0
+  gc: {fileID: 0}
 --- !u!65 &866423773
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11095,6 +11097,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 1716910070}
+--- !u!114 &1642921043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1642921041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4662453e065b59549afedcb35315cd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalSectorSize: 0
+  age: 0
+  sectorClear: 0
+  gc: {fileID: 0}
 --- !u!4 &1642921048 stripped
 Transform:
   m_PrefabParentObject: {fileID: 458422, guid: f34b5d6e50a0d0e408e51d27876918e9, type: 2}
