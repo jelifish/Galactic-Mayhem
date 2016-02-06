@@ -22,6 +22,7 @@ public class CollisionObject : MonoBehaviour {
 	public GameObject deathParticles;
 
 	public GameController gc;
+    protected Rigidbody rb;
 	public bool shieldRegenEnabled = true;
 	
 	void Start(){
@@ -31,6 +32,8 @@ public class CollisionObject : MonoBehaviour {
 		maxHull = hull;
 		maxArmor = armor;
 		maxMitigation = mitigation;
+        rb = this.GetComponent<Rigidbody>();
+
 		//get gamecontroller
 		if (GameObject.FindWithTag ("GameController") != null) {
 			gc = GameObject.FindWithTag ("GameController").GetComponent<GameController> ();
